@@ -38,7 +38,10 @@ public class PlayerNav : MonoBehaviour
         }
         if (checkBtn)
         {
-            playerModel.transform.rotation = playerobj.transform.rotation;
+            Vector3 dir = agent.steeringTarget - playerobj.transform.position; 
+            dir.y = 0;
+
+            playerModel.transform.rotation = Quaternion.LookRotation(dir.normalized);
         }
     }
     
@@ -51,16 +54,17 @@ public class PlayerNav : MonoBehaviour
         agent.enabled = true;
         rigidBody.isKinematic = true;
         animator.SetBool("Run", true);
-        playerModel.GetComponent<PlayerController>().playerState = PlayerState.nav;
+        //playerModel.GetComponent<PlayerController>().playerState = PlayerState.nav;
 
         //targetObj = _targetObj;
         action = _action;
-        playerobj.transform.rotation = playerModel.transform.rotation;
+        //playerobj.transform.rotation = playerModel.transform.rotation;
         agent.SetDestination(_targetObj.transform.position);
-
-        playerobj.transform.Find("CameraObj").transform.rotation = Quaternion.Euler(playerobj.transform.rotation.eulerAngles+ new Vector3(15, 0, 0));
         
-        GameObject.Find("DragPanel").GetComponent<CameraRotateController>().Init();
+
+        //playerobj.transform.Find("CameraObj").transform.rotation = Quaternion.Euler(playerobj.transform.rotation.eulerAngles+ new Vector3(15, 0, 0));
+        
+        //GameObject.Find("DragPanel").GetComponent<CameraRotateController>().Init();
 
     }
 
@@ -75,11 +79,11 @@ public class PlayerNav : MonoBehaviour
         animator.SetBool("Run", false);
 
         
-        Quaternion playerRot = playerobj.transform.rotation;
+        /*Quaternion playerRot = playerobj.transform.rotation;
         playerobj.transform.rotation = Quaternion.Euler( new Vector3(0, 0, 0));
         playerModel.transform.rotation = playerRot;
         playerobj.transform.Find("CameraObj").transform.rotation = Quaternion.Euler(playerRot.eulerAngles + new Vector3(15, 0, 0));
-        GameObject.Find("DragPanel").GetComponent<CameraRotateController>().Init();
+        GameObject.Find("DragPanel").GetComponent<CameraRotateController>().Init();*/
 
     }
 }

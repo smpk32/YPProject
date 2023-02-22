@@ -84,10 +84,11 @@ public class CameraRotateController : MonoBehaviour, IBeginDragHandler, IDragHan
     //드래깅 
     public void OnDrag(PointerEventData draggingPoint)
     {
-        if(pc.playerState == PlayerState.nav)
+        // 자동이동중에도 카메라 회전 가능하게 하위 코드 임시 주석처리
+        /*if(pc.playerState == PlayerState.nav)
         {
             return;
-        }
+        }*/
 
         draggingPos = draggingPoint.position;
 

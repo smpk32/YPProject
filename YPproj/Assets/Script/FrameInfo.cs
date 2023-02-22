@@ -18,13 +18,16 @@ public class FrameInfo : MonoBehaviour
         }
     }
 
-
+    public enum PopupStyle
+    {
+        Fade,
+        Scale
+    }
     public GameObject frameDtlPanel;
 
     public FrameDtlInfo frameDtlInfo = new FrameDtlInfo(null,null);
 
-    float time = 0f;
-
+    public PopupStyle popupStyle = PopupStyle.Fade;
     
 
     void Start()
@@ -39,14 +42,21 @@ public class FrameInfo : MonoBehaviour
             frameDtlPanel.transform.Find("TitleText").GetComponent<TextMeshProUGUI>().text = frameDtlInfo.frameNm;
             frameDtlPanel.transform.Find("InfoText").GetComponent<TextMeshProUGUI>().text = frameDtlInfo.frameInfo;
             frameDtlPanel.SetActive(true);
-            //StartCoroutine(FadeFramePanel(isOn));
-            //GameObject.Find("Player").GetComponent<PlayerController>().playerState = PlayerState.normal;
+            if(popupStyle == 0)
+            {
+                StartCoroutine(FadeFramePanel(isOn));
+            }
+            else
+            {
+                StartCoroutine(FadeFramePanel2(isOn));
+            }
+            
         }
         else
         {
             frameDtlPanel.SetActive(false);
         }
-        GameObject.Find("Player").GetComponent<PlayerController>().playerState = PlayerState.normal;
+        //GameObject.Find("Player").GetComponent<PlayerController>().playerState = PlayerState.normal;
     }
 
     public void FrameClickEvent()
@@ -57,7 +67,7 @@ public class FrameInfo : MonoBehaviour
 
     public IEnumerator FadeFramePanel(bool isOn)
     {
-        time = 0;
+        float time = 0f;
         CanvasRenderer[] canvasList = frameDtlPanel.GetComponentsInChildren<CanvasRenderer>();
         while (time < 1f)
         {
@@ -69,7 +79,20 @@ public class FrameInfo : MonoBehaviour
             time += Time.deltaTime;
             yield return null;
         }
+ 
+    }
 
-        
+    public IEnumerator FadeFramePanel2(bool isOn)
+    {
+        float time = 0f;
+
+        while (time < 1f)
+        {
+            frameDtlPanel.transform.localScale = new Vector3(time, time, time);
+
+            time += Time.deltaTime;
+            yield return null;
+        }
+
     }
 }

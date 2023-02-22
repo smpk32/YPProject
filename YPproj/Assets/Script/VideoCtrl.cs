@@ -37,6 +37,24 @@ public class VideoCtrl : MonoBehaviour
 
     }
 
+    public void LoadVideo2()
+    {
+        videoRawImg.texture = videoRenderTexture;
+        vp.url = vp.url = System.IO.Path.Combine(Application.streamingAssetsPath, "yangpyeongAD.mp4");
+        vp.prepareCompleted += Prepared;
+        vp.Prepare();
+
+
+        var fitter = videoRawImg.gameObject.GetOrAddComponent<AspectRatioFitter>();
+        //fitter.aspectMode = AspectRatioFitter.AspectMode.FitInParent;
+
+        fitter.aspectMode = AspectRatioFitter.AspectMode.HeightControlsWidth;
+
+        fitter.aspectRatio = (float)videoRenderTexture.width / videoRenderTexture.height;
+
+
+    }
+
     void Prepared(VideoPlayer vp)
     {
         //vp.Pause();

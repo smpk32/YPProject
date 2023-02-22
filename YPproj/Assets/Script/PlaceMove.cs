@@ -48,7 +48,11 @@ public class PlaceMove : MonoBehaviour
             //string urlHead = "http://192.168.1.142:8060/resources/unity/StreamingAssets/";
             string urlHead = "http://192.168.1.142:8080/files/";
 
-            mapList[num].transform.Find("FrameGrp").GetComponent<VideoCtrl>().LoadVideo(urlHead + "yangpyeongAD.mp4");
+            // 파일서버에서 영상 불러와 재생
+            //mapList[num].transform.Find("FrameGrp").GetComponent<VideoCtrl>().LoadVideo(urlHead + "yangpyeongAD.mp4");
+
+            // 프로젝트 내부 영상 불러와 재생
+            mapList[num].transform.Find("FrameGrp").GetComponent<VideoCtrl>().LoadVideo2();
         }
         playerPos.position = spawnList[num].transform.position;
 
