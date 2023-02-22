@@ -42,6 +42,10 @@ public class PlayerNav : MonoBehaviour
             dir.y = 0;
 
             playerModel.transform.rotation = Quaternion.LookRotation(dir.normalized);
+
+
+
+
         }
     }
     
