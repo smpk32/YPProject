@@ -78,7 +78,7 @@ public class PlayerNav : MonoBehaviour
         rigidBody.isKinematic = false;
         animator.SetBool("Run", false);
 
-        
+        //자동이동 시 플레이어 카메라 위치를 플레이어 뒤로 설정하는 코드  *2023.02.22 주석처리
         /*Quaternion playerRot = playerobj.transform.rotation;
         playerobj.transform.rotation = Quaternion.Euler( new Vector3(0, 0, 0));
         playerModel.transform.rotation = playerRot;
