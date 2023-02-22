@@ -40,8 +40,10 @@ public class PlayerNav : MonoBehaviour
         {
             Vector3 dir = agent.steeringTarget - playerobj.transform.position; 
             dir.y = 0;
-
-            playerModel.transform.rotation = Quaternion.LookRotation(dir.normalized);
+            if(dir != Vector3.zero)
+            {
+                playerModel.transform.rotation = Quaternion.LookRotation(dir.normalized);
+            }
 
         }
     }
