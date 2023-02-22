@@ -46,6 +46,11 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+
+        if(playerState == PlayerState.sitting)
+        {
+            return;
+        }
         // move에 관한 입력 감지
         z = Input.GetAxis(Vertical);
         // rotate에 관한 입력 감지
