@@ -21,7 +21,16 @@ public class PlayerNav : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerobj = GameObject.Find("PlayerObj").transform.gameObject; //player obj
+        playerobj = gameObject; //player obj
+        playerModel = playerobj.transform.Find("Player").gameObject;
+        agent = playerobj.GetComponent<NavMeshAgent>(); //player nav mesh agent 
+        rigidBody = playerobj.GetComponent<Rigidbody>();// rigid body
+        animator = playerobj.transform.Find("Player").GetComponent<Animator>();
+    }
+
+    void Init()
+    {
+        playerobj = GameManager.instance.playerPrefab; //player obj
         playerModel = playerobj.transform.Find("Player").gameObject;
         agent = playerobj.GetComponent<NavMeshAgent>(); //player nav mesh agent 
         rigidBody = playerobj.GetComponent<Rigidbody>();// rigid body
@@ -31,13 +40,16 @@ public class PlayerNav : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (agent.velocity.sqrMagnitude >= 0.2f && agent.remainingDistance <= 0.3f)
-        {
-            StopMovingToTgarget();
-            action();
-        }
+        
         if (checkBtn)
         {
+
+            if (agent.velocity.sqrMagnitude >= 0.2f && agent.remainingDistance <= 0.3f)
+            {
+                StopMovingToTgarget();
+                action();
+            }
+
             Vector3 dir = agent.steeringTarget - playerobj.transform.position; 
             dir.y = 0;
             if(dir != Vector3.zero)
@@ -51,6 +63,7 @@ public class PlayerNav : MonoBehaviour
 
     public void MovingToTarget(GameObject _targetObj, Action _action)
     {
+        Init();
         agent.speed = 7f;
 
         checkBtn = true;

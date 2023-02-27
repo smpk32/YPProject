@@ -79,20 +79,25 @@ public class FrameInfo : MonoBehaviour
             time += Time.deltaTime;
             yield return null;
         }
- 
+        foreach (CanvasRenderer renderer in canvasList)
+        {
+            renderer.SetColor(new Color(1, 1, 1, 1));
+        }
+
     }
 
     public IEnumerator FadeFramePanel2(bool isOn)
     {
         float time = 0f;
 
-        while (time < 1f)
+        while (time < 0.5f)
         {
-            frameDtlPanel.transform.localScale = new Vector3(time, time, time);
+            frameDtlPanel.transform.localScale = new Vector3(time*2, time * 2, time * 2);
 
             time += Time.deltaTime;
             yield return null;
         }
+        frameDtlPanel.transform.localScale = new Vector3(1, 1, 1);
 
     }
 }

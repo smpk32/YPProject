@@ -67,6 +67,11 @@ public class Drag : MonoBehaviour, IBeginDragHandler, IDragHandler, IPointerUpHa
 
     }
 
+    public void SetPlayer()
+    {
+        player = GameObject.Find("Player").transform;
+    }
+
     public void OnBeginDrag(PointerEventData beginPoint)
     {
         beginPos = beginPoint.position;

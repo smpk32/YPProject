@@ -21,8 +21,8 @@ public class PlaceMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerPos = GameObject.Find("PlayerObj").GetComponent<Transform>();
-        placeMovePanel = GameObject.Find("MainCanvas").transform.Find("MenuPanelGrp").transform.Find("PlaceMovePanel").gameObject;
+        //playerPos = GameObject.Find("PlayerObj").GetComponent<Transform>();
+        //placeMovePanel = GameObject.Find("MainCanvas").transform.Find("MenuPanelGrp").transform.Find("PlaceMovePanel").gameObject;
     }
 
     public void MapChange(int num)
@@ -33,8 +33,17 @@ public class PlaceMove : MonoBehaviour
         {
             listCnt = 0;
         }*/
+
         GameObject.Find("PlayerObj").transform.parent = null;
-        GameObject.Find("Player").GetComponent<PlayerController>().Sit(false, new Vector3(0,0,0), new Vector3(0, 0, 0));
+        if (GameManager.instance.multiState == "Single")
+        {
+            GameObject.Find("Player").GetComponent<PlayerController>().Sit(false, new Vector3(0,0,0), new Vector3(0, 0, 0), null);
+        }
+        else
+        {
+            GameObject.Find("Player").GetComponent<PlayerController>().SitEvent(false, new Vector3(0, 0, 0), new Vector3(0, 0, 0), null);
+        }
+
         for (int i = 0; i<mapList.Count; i++)
         {
             mapList[i].SetActive(false);
@@ -54,6 +63,9 @@ public class PlaceMove : MonoBehaviour
             // 프로젝트 내부 영상 불러와 재생
             mapList[num].transform.Find("FrameGrp").GetComponent<VideoCtrl>().LoadVideo2();
         }
+
+        playerPos = GameObject.Find("PlayerObj").GetComponent<Transform>();
+
         playerPos.position = spawnList[num].transform.position;
 
         playerPos.rotation = spawnList[num].transform.rotation;
@@ -62,6 +74,9 @@ public class PlaceMove : MonoBehaviour
         GameObject.Find("DragPanel").GetComponent<CameraRotateController>().Init();
 
     }
+
+
+
 
     
 }

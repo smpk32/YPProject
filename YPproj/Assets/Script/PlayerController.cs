@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,7 +11,7 @@ public enum PlayerState
     sitting,
     nav
 }
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviourPun
 {
 
     private float moveSpeed = 5f; // 앞뒤 움직임의 속도
@@ -40,12 +41,19 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         playerAnimator = GetComponent<Animator>();
-        playerObj = GameObject.Find("PlayerObj");
+        playerObj = gameObject.transform.parent.gameObject;
         cameraObj = playerObj.transform.Find("CameraObj").transform.gameObject;
     }
 
     private void FixedUpdate()
     {
+        if(GameManager.instance.multiState == "Multi")
+        {
+            if (photonView!=null && !photonView.IsMine)
+            {
+                return;
+            }
+        }
 
         if(playerState == PlayerState.sitting)
         {
@@ -114,7 +122,7 @@ public class PlayerController : MonoBehaviour
         isJump = false;
     }
 
-    public void Sit(bool chk, Vector3 chairPos, Vector3 chairRot)
+    public void Sit(bool chk, Vector3 chairPos, Vector3 chairRot, string chairNm)
     {
         if (chk)
         {
@@ -135,6 +143,58 @@ public class PlayerController : MonoBehaviour
             playerAnimator.SetBool("Sit", false);
         }
         
+    }
+
+    [PunRPC]
+    public void Sit2(int viewID, bool chk, Vector3 chairPos, Vector3 chairRot, string chairNm)
+    {
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+
+        for (int i = 0; i < players.Length; i++)
+        {
+            if (players[i].GetComponent<PhotonView>().ViewID == viewID)
+            {
+                if (chk)
+                {
+                    //playerState = PlayerState.sitting;
+                    players[i].transform.parent.transform.position = chairPos;
+                    Debug.Log(players[i].transform.parent.name);
+                    players[i].transform.parent.position = chairPos;
+                    //gameObject.transform.rotation = Quaternion.Euler(chairRot);
+                    players[i].transform.rotation = Quaternion.Euler(chairRot);
+
+                    //cameraObj.transform.rotation = Quaternion.Euler(chairRot + new Vector3(15, 0, 0));
+                    //GameObject.Find("DragPanel").GetComponent<CameraRotateController>().Init();
+                    players[i].transform.parent.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+                    players[i].GetComponent<Animator>().SetBool("Sit", true);
+                    if(chairNm != null)
+                    {
+                        players[i].transform.parent.transform.Find("SitObj").parent = GameObject.Find(chairNm).transform;
+                        GameManager.instance.sitNm = chairNm;
+                    }
+                }
+                else
+                {
+                    //playerState = PlayerState.normal;
+                    players[i].transform.parent.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+                    players[i].transform.parent.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+                    //GameObject.Find("DragPanel").GetComponent<CameraRotateController>().Init();
+                    players[i].GetComponent<Animator>().SetBool("Sit", false);
+                    if(GameManager.instance.sitNm != null)
+                    {
+                        GameObject.Find(GameManager.instance.sitNm).transform.Find("SitObj").transform.parent = players[i].transform.parent;
+                    }
+                }
+            }
+        }
+
+        
+
+    }
+
+    public void SitEvent(bool chk, Vector3 chairPos, Vector3 chairRot, string chairNm)
+    {
+        photonView.RPC("Sit2", RpcTarget.AllBuffered, photonView.ViewID,chk,chairPos,chairRot, chairNm);
     }
 
 }

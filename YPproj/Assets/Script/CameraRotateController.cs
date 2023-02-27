@@ -38,8 +38,13 @@ public class CameraRotateController : MonoBehaviour, IBeginDragHandler, IDragHan
     Ray ray;
     private void Start()
     {
-        pc = player.transform.Find("Player").GetComponent<PlayerController>();
-        Init();
+        if(player != null)
+        {
+            Init();
+        }
+        //pc = gameObject.GetComponent<PlayerController>();
+
+        //Init();
         /*dir = new Vector3(0, camera_height, camera_width).normalized;
         camera_dist = Mathf.Sqrt(camera_width * camera_width + camera_height * camera_height);
 
@@ -53,6 +58,19 @@ public class CameraRotateController : MonoBehaviour, IBeginDragHandler, IDragHan
 
     }
 
+    void Update()
+    {
+        if(player == null)
+        {
+            player = GameManager.instance.playerPrefab.transform;
+
+            if(player!= null)
+            {
+                Init();
+            }
+        }
+    }
+
     public void Init()
     {
         dir = new Vector3(0, camera_height, camera_width).normalized;
@@ -62,7 +80,7 @@ public class CameraRotateController : MonoBehaviour, IBeginDragHandler, IDragHan
         yAngle = player.rotation.eulerAngles.y;
 
         // 카메라 세팅
-        playerCam = GameObject.Find("PlayerObj").transform.Find("CameraObj").transform;
+        playerCam = player.transform.Find("CameraObj").transform;
         camXAngle = playerCam.rotation.eulerAngles.x;
         camYAngle = playerCam.rotation.eulerAngles.y;
     }
