@@ -1286,7 +1286,7 @@ Light:
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1.5
-  m_Range: 15
+  m_Range: 20
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -2415,7 +2415,7 @@ Light:
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1.5
-  m_Range: 15
+  m_Range: 20
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -4025,7 +4025,7 @@ Light:
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1
-  m_Range: 15
+  m_Range: 40
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -7982,6 +7982,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 101af0ac5ddbcd140beb3d938caaaa81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sitState: 0
 --- !u!114 &504403339
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8720,6 +8721,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 101af0ac5ddbcd140beb3d938caaaa81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sitState: 0
 --- !u!114 &546334604
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11002,6 +11004,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 101af0ac5ddbcd140beb3d938caaaa81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sitState: 0
 --- !u!114 &719348880
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11148,6 +11151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 101af0ac5ddbcd140beb3d938caaaa81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sitState: 0
 --- !u!114 &723932902
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12238,6 +12242,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 101af0ac5ddbcd140beb3d938caaaa81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sitState: 0
 --- !u!114 &789235241
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14689,7 +14694,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 941042692}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.27, y: 8.38, z: -0.79}
+  m_LocalPosition: {x: 0, y: 8.38, z: -4.97}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -14708,7 +14713,7 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1.5
+  m_Intensity: 1
   m_Range: 20
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -16816,6 +16821,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 101af0ac5ddbcd140beb3d938caaaa81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sitState: 0
 --- !u!114 &1092814157
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18383,6 +18389,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1192160609}
+  - component: {fileID: 1192160610}
   m_Layer: 0
   m_Name: SpawnSpot
   m_TagString: Untagged
@@ -18402,12 +18409,24 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1411214693}
-  - {fileID: 1318551837}
   - {fileID: 1415660570}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1192160610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1192160608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d2d6add908849e4484bf9080b8ee766, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnList: []
+  mapList: []
 --- !u!1 &1193157900
 GameObject:
   m_ObjectHideFlags: 0
@@ -20684,8 +20703,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PlaceMove, Assembly-CSharp
+      - m_Target: {fileID: 1192160610}
+        m_TargetAssemblyTypeName: PlaceMove2, Assembly-CSharp
         m_MethodName: MapChange
         m_Mode: 3
         m_Arguments:
@@ -21071,37 +21090,6 @@ Transform:
   - {fileID: 1494163227}
   m_Father: {fileID: 8455311}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1318551836
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1318551837}
-  m_Layer: 0
-  m_Name: spawn2
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1318551837
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1318551836}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -75.67, y: -3.57, z: -25.11}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1192160609}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1323477024
 GameObject:
@@ -22051,14 +22039,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: MainSceneManager, Assembly-CSharp
-        m_MethodName: Enter
-        m_Mode: 1
+      - m_Target: {fileID: 1192160610}
+        m_TargetAssemblyTypeName: PlaceMove2, Assembly-CSharp
+        m_MethodName: MapChange
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 2
+          m_IntArgument: 3
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -22335,37 +22323,6 @@ Transform:
   m_Father: {fileID: 1574979090}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1411214692
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1411214693}
-  m_Layer: 0
-  m_Name: spawn1
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1411214693
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1411214692}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -13.037999, y: -4.2079997, z: -25.706001}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1192160609}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1412798876
 GameObject:
   m_ObjectHideFlags: 0
@@ -22439,7 +22396,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1415660570}
   m_Layer: 0
-  m_Name: spawn3
+  m_Name: spawn1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -22458,7 +22415,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1192160609}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -57.635, z: 0}
 --- !u!1 &1435647399
 GameObject:
@@ -23800,6 +23757,7 @@ MonoBehaviour:
   viewID: 0
   multiState: Single
   placeState: 0
+  sitNm: 
 --- !u!1 &1512133046
 GameObject:
   m_ObjectHideFlags: 0
@@ -24141,6 +24099,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 101af0ac5ddbcd140beb3d938caaaa81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sitState: 0
 --- !u!114 &1535756894
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26889,8 +26848,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PlaceMove, Assembly-CSharp
+      - m_Target: {fileID: 1192160610}
+        m_TargetAssemblyTypeName: PlaceMove2, Assembly-CSharp
         m_MethodName: MapChange
         m_Mode: 3
         m_Arguments:
@@ -27383,8 +27342,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PlaceMove, Assembly-CSharp
+      - m_Target: {fileID: 1192160610}
+        m_TargetAssemblyTypeName: PlaceMove2, Assembly-CSharp
         m_MethodName: MapChange
         m_Mode: 3
         m_Arguments:
@@ -27651,6 +27610,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 101af0ac5ddbcd140beb3d938caaaa81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sitState: 0
 --- !u!114 &1757095843
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33078,6 +33038,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 101af0ac5ddbcd140beb3d938caaaa81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sitState: 0
 --- !u!114 &2103487364
 MonoBehaviour:
   m_ObjectHideFlags: 0

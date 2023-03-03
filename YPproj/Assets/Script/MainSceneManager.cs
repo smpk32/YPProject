@@ -9,7 +9,7 @@ public class MainSceneManager : MonoBehaviourPunCallbacks
 
     private Dictionary<string, RoomInfo> cachedRoomList = new Dictionary<string, RoomInfo>();
 
-    string roomNum = "";
+    //string roomNum = "";
 
     // Start is called before the first frame update
     void Start()
@@ -50,7 +50,6 @@ public class MainSceneManager : MonoBehaviourPunCallbacks
         //connectionInfoText.text = "온라인: 마스터 서버와 연결됨";
         if (!PhotonNetwork.InLobby)
         {
-            Debug.Log("lobby");
             PhotonNetwork.JoinLobby();
         }
 
@@ -60,7 +59,6 @@ public class MainSceneManager : MonoBehaviourPunCallbacks
     {
         base.OnJoinedLobby();
         //PhotonNetwork.FindFriends(new string[] { inputName.text });
-        Debug.Log("룸갯수");
         //StartCoroutine(DBtest(inputName.text, InputCompany.text));
 
         Connect();
@@ -92,8 +90,8 @@ public class MainSceneManager : MonoBehaviourPunCallbacks
 
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
     {
-        Debug.Log(roomList.Count);
-        Debug.Log(PhotonNetwork.CountOfRooms);
+        /*Debug.Log(roomList.Count);
+        Debug.Log(PhotonNetwork.CountOfRooms);*/
         /*Debug.Log(roomList[0].MaxPlayers);
         Debug.Log(roomList[0].PlayerCount);
         Debug.Log(roomList[0].CustomProperties);*/
@@ -126,29 +124,34 @@ public class MainSceneManager : MonoBehaviourPunCallbacks
         connectionInfoText.text = "접속 재시도 중...";*/
 
         //마스터 서버로의 재접속 시도
-        PhotonNetwork.ConnectUsingSettings();
+        if(GameManager.instance.multiState == "Multi")
+        {
+            PhotonNetwork.ConnectUsingSettings();
+        }
     }
 
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
         
         //최대 4명을 수용 가능한 빈 방 생성
-        PhotonNetwork.CreateRoom("1001", new RoomOptions { MaxPlayers = 4, IsVisible = true, CustomRoomProperties = new ExitGames.Client.Photon.Hashtable() { { "val", "0" } } });
+        PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = 2, IsVisible = true, CustomRoomProperties = new ExitGames.Client.Photon.Hashtable() { { "val", "0" } } });
 
     }
 
     public void Connect()
     {
-        Debug.Log("Connect");
         if (PhotonNetwork.IsConnected)
         {
-            JoinRoom("1001");
+            //JoinRoom("1001");
+            JoinRoom();
         }
     }
 
-    public void JoinRoom(string roomNm)
+
+    // Argument string roomNm 제거
+    public void JoinRoom()
     {
-        roomNum = roomNm;
+        //roomNum = roomNm;
 
         if (PhotonNetwork.NetworkClientState != ClientState.ConnectedToMasterServer && PhotonNetwork.NetworkClientState != ClientState.JoinedLobby)
         {
@@ -157,12 +160,13 @@ public class MainSceneManager : MonoBehaviourPunCallbacks
         }
         else
         {
-            PhotonNetwork.JoinOrCreateRoom(roomNm, new RoomOptions { MaxPlayers = 2, IsVisible = true, CustomRoomProperties = new ExitGames.Client.Photon.Hashtable() { { "val", "0" } } }, new TypedLobby(roomNm, LobbyType.Default));
+            PhotonNetwork.JoinRandomRoom();
+            //PhotonNetwork.JoinOrCreateRoom(roomNm, new RoomOptions { MaxPlayers = 4, IsVisible = true, CustomRoomProperties = new ExitGames.Client.Photon.Hashtable() { { "val", "0" } } }, new TypedLobby(roomNm, LobbyType.Default));
 
         }
     }
     // Room에 연결 시도했는데 Master서버에 연결안됐을 때 호출
-    public void JoinRoom()
+    /*public void JoinRoom()
     {
         if (PhotonNetwork.NetworkClientState != ClientState.ConnectedToMasterServer && PhotonNetwork.NetworkClientState != ClientState.JoinedLobby)
         {
@@ -171,9 +175,9 @@ public class MainSceneManager : MonoBehaviourPunCallbacks
         else
         {
 
-            PhotonNetwork.JoinOrCreateRoom(roomNum, new RoomOptions { MaxPlayers = 2, IsVisible = true, CustomRoomProperties = new ExitGames.Client.Photon.Hashtable() { { "val", "0" } } }, new TypedLobby(roomNum, LobbyType.Default));
+            PhotonNetwork.JoinOrCreateRoom(roomNum, new RoomOptions { MaxPlayers = 4, IsVisible = true, CustomRoomProperties = new ExitGames.Client.Photon.Hashtable() { { "val", "0" } } }, new TypedLobby(roomNum, LobbyType.Default));
         }
-    }
+    }*/
 
     public override void OnJoinedRoom()
     {

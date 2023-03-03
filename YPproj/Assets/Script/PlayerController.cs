@@ -146,7 +146,7 @@ public class PlayerController : MonoBehaviourPun
     }
 
     [PunRPC]
-    public void Sit2(int viewID, bool chk, Vector3 chairPos, Vector3 chairRot, string chairNm)
+    public void Sit2(int viewID, bool chk, Vector3 chairPos, Vector3 chairRot)
     {
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
 
@@ -156,9 +156,7 @@ public class PlayerController : MonoBehaviourPun
             {
                 if (chk)
                 {
-                    //playerState = PlayerState.sitting;
                     players[i].transform.parent.transform.position = chairPos;
-                    Debug.Log(players[i].transform.parent.name);
                     players[i].transform.parent.position = chairPos;
                     //gameObject.transform.rotation = Quaternion.Euler(chairRot);
                     players[i].transform.rotation = Quaternion.Euler(chairRot);
@@ -167,11 +165,6 @@ public class PlayerController : MonoBehaviourPun
                     //GameObject.Find("DragPanel").GetComponent<CameraRotateController>().Init();
                     players[i].transform.parent.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
                     players[i].GetComponent<Animator>().SetBool("Sit", true);
-                    if(chairNm != null)
-                    {
-                        players[i].transform.parent.transform.Find("SitObj").parent = GameObject.Find(chairNm).transform;
-                        GameManager.instance.sitNm = chairNm;
-                    }
                 }
                 else
                 {
@@ -180,10 +173,7 @@ public class PlayerController : MonoBehaviourPun
                     players[i].transform.parent.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
                     //GameObject.Find("DragPanel").GetComponent<CameraRotateController>().Init();
                     players[i].GetComponent<Animator>().SetBool("Sit", false);
-                    if(GameManager.instance.sitNm != null)
-                    {
-                        GameObject.Find(GameManager.instance.sitNm).transform.Find("SitObj").transform.parent = players[i].transform.parent;
-                    }
+
                 }
             }
         }
@@ -192,9 +182,9 @@ public class PlayerController : MonoBehaviourPun
 
     }
 
-    public void SitEvent(bool chk, Vector3 chairPos, Vector3 chairRot, string chairNm)
+    public void SitEvent(bool chk, Vector3 chairPos, Vector3 chairRot)
     {
-        photonView.RPC("Sit2", RpcTarget.AllBuffered, photonView.ViewID,chk,chairPos,chairRot, chairNm);
+        photonView.RPC("Sit2", RpcTarget.AllBuffered, photonView.ViewID,chk,chairPos,chairRot);
     }
 
 }

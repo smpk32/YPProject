@@ -64,7 +64,7 @@ public class PlayerNav : MonoBehaviour
     public void MovingToTarget(GameObject _targetObj, Action _action)
     {
         Init();
-        agent.speed = 7f;
+        agent.speed = 5f;
 
         checkBtn = true;
         agent.enabled = true;

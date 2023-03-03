@@ -4822,13 +4822,13 @@ MonoBehaviour:
     SynchronizeType: 1
     Name: Y
   - Type: 9
-    SynchronizeType: 1
+    SynchronizeType: 2
     Name: Jump
   - Type: 4
-    SynchronizeType: 1
+    SynchronizeType: 2
     Name: Sit
   - Type: 4
-    SynchronizeType: 1
+    SynchronizeType: 2
     Name: Run
   m_SynchronizeLayers:
   - SynchronizeType: 0

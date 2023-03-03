@@ -2,6 +2,7 @@ using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
@@ -72,6 +73,8 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         Camera.main.transform.parent = player.transform.Find("CameraObj").transform;
 
+        GameObject.Find("SpawnSpot").GetComponent<PlaceMove2>().SetPlayerPos(GameManager.instance.placeState);
+
         //photonView.RPC("SetName", RpcTarget.AllBuffered, GameManager.instance.viewID, GameManager.instance.userId);
 
     }
@@ -82,6 +85,15 @@ public class GameManager : MonoBehaviourPunCallbacks
 
 
         GameObject.Find("DragPanel").GetComponent<Drag>().SetPlayer();
+    }
+
+    public void Disconnect()
+    {
+
+        PhotonNetwork.Disconnect();
+        //Destroy(this.gameObject);
+        SceneManager.LoadScene("MainScene");
+
     }
 
 }

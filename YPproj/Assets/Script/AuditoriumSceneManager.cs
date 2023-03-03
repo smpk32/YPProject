@@ -11,10 +11,13 @@ public class AuditoriumSceneManager : MonoBehaviour
         {
             GameManager.instance.CreatePlayer();
         }
-        GameManager.instance.multiState = "Multi";
-        GameManager.instance.playerPrefab.transform.position = GameObject.Find("spawn3").transform.position;
+        //string urlHead = "http://192.168.1.142:8080/files/";
 
-        //mapList[num].transform.Find("FrameGrp").GetComponent<VideoCtrl>().LoadVideo2();
+        // 파일서버에서 영상 불러와 재생
+        //mapList[num].transform.Find("FrameGrp").GetComponent<VideoCtrl>().LoadVideo(urlHead + "yangpyeongAD.mp4");
+
+        // 프로젝트 내부 영상 불러와 재생
+        GameObject.Find("FrameGrp").GetComponent<VideoCtrl>().LoadVideo2();
     }
 
     // Update is called once per frame

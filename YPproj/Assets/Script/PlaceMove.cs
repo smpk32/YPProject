@@ -12,7 +12,7 @@ public class PlaceMove : MonoBehaviour
     public List<GameObject> mapList;
 
     // 장소이동 패널
-    GameObject placeMovePanel;
+    //GameObject placeMovePanel;
 
     Transform playerPos;
 
@@ -35,14 +35,10 @@ public class PlaceMove : MonoBehaviour
         }*/
 
         GameObject.Find("PlayerObj").transform.parent = null;
-        if (GameManager.instance.multiState == "Single")
-        {
-            GameObject.Find("Player").GetComponent<PlayerController>().Sit(false, new Vector3(0,0,0), new Vector3(0, 0, 0), null);
-        }
-        else
-        {
-            GameObject.Find("Player").GetComponent<PlayerController>().SitEvent(false, new Vector3(0, 0, 0), new Vector3(0, 0, 0), null);
-        }
+
+        GameObject.Find("Player").GetComponent<PlayerController>().Sit(false, new Vector3(0,0,0), new Vector3(0, 0, 0), null);
+
+        
 
         for (int i = 0; i<mapList.Count; i++)
         {

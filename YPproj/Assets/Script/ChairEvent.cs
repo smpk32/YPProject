@@ -44,12 +44,13 @@ public class ChairEvent : MonoBehaviourPun
 
         if (target != null && pc.playerState == PlayerState.normal)
         {
-            if (!sitState)
+            if (!sitState && !sitBtn.activeSelf)
             {
                 sitBtn.SetActive(true);
             }
-            else
+            else if (sitState && !sitBtn.activeSelf)
             {
+                
                 // SitObj가 자식오브젝트에 없을 때 리턴을 null로 받기 위해 ? 사용    * ?를 사용하지 않으면 에러 출력
                 if (gameObject.transform.Find("SitObj")?.gameObject == null)
                 {
@@ -103,11 +104,7 @@ public class ChairEvent : MonoBehaviourPun
 
         situpBtn.SetActive(true);
         sitBtn.SetActive(false);
-        if (GameManager.instance.multiState == "Multi")
-        {
-            photonView.RPC("ChangeSitState", RpcTarget.AllBuffered, true);
 
-        }
         //GameManager.instance.playerPrefab.transform.parent = gameObject.transform;
 
         if (GameManager.instance.multiState == "Single")
@@ -119,7 +116,11 @@ public class ChairEvent : MonoBehaviourPun
         if(GameManager.instance.multiState == "Multi")
         {
             //pc.playerState = PlayerState.sitting;
-            GameManager.instance.playerPrefab.transform.Find("Player").GetComponent<PlayerController>().SitEvent(true, gameObject.transform.position, gameObject.transform.rotation.eulerAngles, gameObject.name);
+            //photonView.RPC("ChangeSitState", RpcTarget.AllBuffered, true);
+            GameManager.instance.sitNm = gameObject.name;
+            GameManager.instance.playerPrefab.transform.Find("Player").GetComponent<PlayerController>().SitEvent(true, gameObject.transform.position, gameObject.transform.rotation.eulerAngles);
+            GameManager.instance.playerPrefab.transform.Find("CameraObj").transform.rotation = Quaternion.Euler(gameObject.transform.rotation.eulerAngles + new Vector3(15, 0, 0));
+            GameObject.Find("DragPanel").GetComponent<CameraRotateController>().Init();
         }
 
         sitState = true;
@@ -132,11 +133,7 @@ public class ChairEvent : MonoBehaviourPun
         
 
         situpBtn.SetActive(false);
-        if (GameManager.instance.multiState == "Multi")
-        {
-            photonView.RPC("ChangeSitState", RpcTarget.AllBuffered, false);
-
-        }
+        
         //GameManager.instance.playerPrefab.transform.parent = null;
 
         if (GameManager.instance.multiState == "Single")
@@ -146,8 +143,9 @@ public class ChairEvent : MonoBehaviourPun
 
         if (GameManager.instance.multiState == "Multi")
         {
-            
-            GameManager.instance.playerPrefab.transform.Find("Player").GetComponent<PlayerController>().SitEvent(false, gameObject.transform.position, gameObject.transform.rotation.eulerAngles, gameObject.name);
+            photonView.RPC("ChangeSitState", RpcTarget.AllBuffered, GameManager.instance.playerPrefab.transform.Find("Player").GetComponent<PhotonView>().ViewID, false, GameManager.instance.sitNm);
+            GameManager.instance.playerPrefab.transform.Find("Player").GetComponent<PlayerController>().SitEvent(false, gameObject.transform.position, gameObject.transform.rotation.eulerAngles);
+            GameManager.instance.sitNm = null;
         }
 
         sitState = false;
@@ -159,17 +157,51 @@ public class ChairEvent : MonoBehaviourPun
     {
         Action _action = () => SitDown();
         GameManager.instance.playerPrefab.GetComponent<PlayerNav>().MovingToTarget(gameObject, _action);
+        GameManager.instance.sitNm = gameObject.name;
+        if (GameManager.instance.multiState == "Multi")
+        {
+            photonView.RPC("ChangeSitState", RpcTarget.AllBuffered, GameManager.instance.playerPrefab.transform.Find("Player").GetComponent<PhotonView>().ViewID, true, gameObject.name);
+        }
     }
 
 
 
     [PunRPC]
-    public void ChangeSitState(bool isSit)
+    public void ChangeSitState(int viewID,bool isSit, string chairNm)
     {
         sitState = isSit;
         sitBtn.SetActive(false);
 
-        Debug.Log(sitState);
+
+        // 앉기 클릭하자마자 다른 플레이어가 해당 자리에 못 앉게 하기 위해 ChangeSitState에서 아래 코드 실행
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+
+
+
+        for (int i = 0; i < players.Length; i++)
+        {
+            if (players[i].GetComponent<PhotonView>().ViewID == viewID)
+            {
+                if (isSit)
+                {
+                    if (chairNm != null)
+                    {
+                        players[i].transform.parent.transform.Find("SitObj").parent = GameObject.Find(chairNm).transform;
+                        //GameManager.instance.sitNm = chairNm;
+                    }
+                }
+                else
+                {
+                    if (chairNm != null)
+                    {
+                        GameObject.Find(chairNm).transform.Find("SitObj").transform.parent = players[i].transform.parent;
+                    }
+                }
+            }
+
+        }
+
+
     }
 
 }

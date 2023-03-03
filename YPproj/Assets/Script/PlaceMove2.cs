@@ -32,7 +32,6 @@ public class PlaceMove2 : MonoBehaviour
         {
             spawnList.Add(SpawnSpotGrp.transform.GetChild(i).gameObject);
         }
-        Debug.Log(GameManager.instance.placeState);
         MapChange(GameManager.instance.placeState);
     }
 
@@ -46,33 +45,35 @@ public class PlaceMove2 : MonoBehaviour
     {
         GameManager.instance.placeState = num;
         
-        if(GameManager.instance.multiState == "Multi" && num != 3)              // 강당에서 다른 장소로 이동할 때
+        if(GameManager.instance.multiState == "Multi" && num == 3)                  // 강당 외의 장소에서 강당으로 이동 후 placeState를 0으로 세팅해줘야 SpawnSpot위치가 맞게 설정됨
         {
-            Debug.Log("Multi : Multi  &  num : !3");
+            GameManager.instance.placeState = 0;
+            
+        }
+        else if(GameManager.instance.multiState == "Multi" && num != 3)              // 강당에서 다른 장소로 이동할 때
+        {
+            /*Debug.Log("강당에서 다른 장소로 이동할 때");
+            Debug.Log("Multi : Multi  &  num : !3");*/
             GameManager.instance.multiState = "Single";
+            GameManager.instance.Disconnect();
         }
         else if(GameManager.instance.multiState == "Single" && num == 3)       // 강당 외의 장소에서 강당으로 이동할 때
         {
-            Debug.Log("Multi : Single  &  num : 3");
+            /*Debug.Log("강당 외의 장소에서 강당으로 이동할 때");
+            Debug.Log("Multi : Single  &  num : 3");*/
+            GameManager.instance.multiState = "Multi";
             GameObject.Find("MainCanvas").gameObject.transform.Find("LoadingImage").gameObject.SetActive(true);
-            //GameManager.instance.multiState = "Multi";
             GameObject.Find("MainSceneManager").GetComponent<MainSceneManager>().Enter();
 
         }
         else if (GameManager.instance.multiState == "Single" && num != 3)      // 강당 외의 장소에서 강당 외의 장소로 이동할 때
         {
-            Debug.Log("Multi : Single  &  num : !3");
+            /*Debug.Log("강당 외의 장소에서 강당 외의 장소로 이동할 때");
+            Debug.Log("Multi : Single  &  num : !3");*/
+            GameManager.instance.playerPrefab = GameObject.Find("PlayerObj");
             GameManager.instance.playerPrefab.transform.parent = null;
-
-            if (GameManager.instance.multiState == "Single")
-            {
-                GameManager.instance.playerPrefab.transform.Find("Player").GetComponent<PlayerController>().Sit(false, new Vector3(0, 0, 0), new Vector3(0, 0, 0),null);
-
-            }
-            else
-            {
-                GameManager.instance.playerPrefab.transform.Find("Player").GetComponent<PlayerController>().SitEvent(false, new Vector3(0, 0, 0), new Vector3(0, 0, 0), null);
-            }
+            GameManager.instance.playerPrefab.transform.Find("Player").GetComponent<PlayerController>().Sit(false, new Vector3(0, 0, 0), new Vector3(0, 0, 0), null);
+            
 
             for (int i = 0; i < mapList.Count; i++)
             {
@@ -81,6 +82,7 @@ public class PlaceMove2 : MonoBehaviour
 
             GameObject.Find("MainCanvas").transform.Find("FrameDtlPanel").gameObject.SetActive(false);
             GameObject.Find("MenuImage").GetComponent<MenuEvent>().HideMenuPanel();
+            GameObject.Find("DragPanel").transform.Find("SitupBtn").gameObject.SetActive(false);
             mapList[num].SetActive(true);
 
             if (mapList[num].name == "AuditoriumGrp")
@@ -95,16 +97,24 @@ public class PlaceMove2 : MonoBehaviour
                 mapList[num].transform.Find("FrameGrp").GetComponent<VideoCtrl>().LoadVideo2();
             }
 
+            SetPlayerPos(num);
 
-            Transform playerPos = GameManager.instance.playerPrefab.transform;
-            playerPos = GameObject.Find("PlayerObj").GetComponent<Transform>();
-            playerPos.position = spawnList[num].transform.position;
+        }
 
-            playerPos.rotation = spawnList[num].transform.rotation;
-            playerPos.Find("Player").rotation = spawnList[num].transform.rotation;
-            playerPos.Find("CameraObj").transform.rotation = spawnList[num].transform.rotation;
+    }
+
+    public void SetPlayerPos(int num)
+    {
+        Transform playerPos = GameManager.instance.playerPrefab.transform;
+        //playerPos = GameObject.Find("PlayerObj").GetComponent<Transform>();
+        playerPos.position = spawnList[num].transform.position;
+
+        playerPos.rotation = spawnList[num].transform.rotation;
+        playerPos.Find("Player").rotation = spawnList[num].transform.rotation;
+        playerPos.Find("CameraObj").transform.rotation = spawnList[num].transform.rotation;
+        if(GameManager.instance.multiState == "Single")
+        {
             GameObject.Find("DragPanel").GetComponent<CameraRotateController>().Init();
-
         }
     }
 }
