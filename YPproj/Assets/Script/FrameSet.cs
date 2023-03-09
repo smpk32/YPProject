@@ -15,13 +15,13 @@ public class FrameSet : MonoBehaviour
 
 
     // 현재 페이지 번호
-    int pageNum = 0;
+    int pageNum = 10;
     
     // 액자 전체 수
     int pageMaxCnt = 16;
     
     // 마지막 페이지 번호 
-    int MaxPage = 3;
+    public int MaxPage = 2;
 
     // 다음페이지 버튼
     public GameObject nextBtn;
@@ -31,10 +31,13 @@ public class FrameSet : MonoBehaviour
 
     GameObject loadingPanel;
     GameObject topBarCanvas;
-    public GameObject PageCntTMP;
+    //public GameObject PageCntTMP;
+    public TextMeshProUGUI floorTMP;
     RawImage[] rawImgList;
 
-    public Button[] floorBtnImgList;
+    GameObject floorBtnList;
+
+    Button[] floorBtnImgList;
     public enum ImgPath
     {
         Server,
@@ -52,14 +55,20 @@ public class FrameSet : MonoBehaviour
         
         topBarCanvas = gameObject.transform.Find("FloorCanvas").gameObject;
 
-        floorBtnImgList = topBarCanvas.GetComponentsInChildren<Button>();
+        //floorBtnImgList = topBarCanvas.GetComponentsInChildren<Button>();
+
+        floorBtnList = topBarCanvas.transform.Find("FloorBtnList").gameObject;
+        
+        floorBtnImgList = floorBtnList.GetComponentsInChildren<Button>();
+
+        floorTMP = topBarCanvas.transform.Find("TopBarRighTitle").transform.Find("Text").GetComponent<TextMeshProUGUI>();
 
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        FloorBtnInit();
 
 
         //prevBtn.SetActive(false);
@@ -73,6 +82,23 @@ public class FrameSet : MonoBehaviour
         }*/
         //FloorChange(0);
 
+    }
+
+    void FloorBtnInit()
+    {
+        for (int i = 0; i < floorBtnImgList.Length; i++)
+        {
+            floorBtnImgList[i].gameObject.SetActive(false);
+        }
+
+        for (int i = 0; i < MaxPage; i++)
+        {
+            floorBtnImgList[i].gameObject.SetActive(true);
+            if(i == MaxPage - 1)
+            {
+                floorBtnImgList[i].GetComponent<Image>().sprite = Resources.Load<Sprite>("SourceImg/bg-topBar-right");
+            }
+        }
     }
 
     public void SetFrameLocalImg()
@@ -235,9 +261,19 @@ public class FrameSet : MonoBehaviour
 
     public void FloorChange(int floor)
     {
+        OpenFloorBtnList(false);
+
+        if (pageNum == floor)
+        {
+            return;
+        }
+
         pageNum = floor;
 
-        for(int i = 0; i< floorBtnImgList.Length; i++)
+        floorTMP.text = (pageNum + 1).ToString() + "F";
+
+
+        for (int i = 0; i< floorBtnImgList.Length; i++)
         {
             floorBtnImgList[i].gameObject.transform.Find("FloorImage").gameObject.SetActive(false);
         }
@@ -253,6 +289,11 @@ public class FrameSet : MonoBehaviour
             SetFrameLocalImg();
         }
 
+    }
+
+    public void OpenFloorBtnList(bool chk)
+    {
+        floorBtnList.SetActive(chk);
     }
 
 }
