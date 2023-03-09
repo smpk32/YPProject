@@ -42,6 +42,12 @@ public class CameraRotateController : MonoBehaviour, IBeginDragHandler, IDragHan
         {
             Init();
         }
+        else
+        {
+            InvokeRepeating("SetCameraRotPlayer", 0f, 0.25f);
+        }
+
+
         //pc = gameObject.GetComponent<PlayerController>();
 
         //Init();
@@ -56,6 +62,19 @@ public class CameraRotateController : MonoBehaviour, IBeginDragHandler, IDragHan
         camXAngle = playerCam.rotation.eulerAngles.x;
         camYAngle = playerCam.rotation.eulerAngles.y; */
 
+    }
+
+    void SetCameraRotPlayer()
+    {
+        if (player == null)
+        {
+            player = GameManager.instance.playerPrefab.transform;
+
+            if (player != null)
+            {
+                Init();
+            }
+        }
     }
 
     void Update()

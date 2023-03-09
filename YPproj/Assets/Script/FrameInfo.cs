@@ -34,9 +34,11 @@ public class FrameInfo : MonoBehaviour
     {
         frameDtlPanel = GameObject.Find("MainCanvas").transform.Find("FrameDtlPanel").gameObject;
     }
+
+    // 액자 상세정보 표출 패널 On/Off 함수
     public void ShowFramePanel(bool isOn)
     {
-        if (isOn && frameDtlInfo.frameNm != null)
+        if (isOn)
         {
             frameDtlPanel.transform.Find("DtlRawImage").GetComponent<RawImage>().texture = gameObject.GetComponent<RawImage>().texture;
             frameDtlPanel.transform.Find("TitleText").GetComponent<TextMeshProUGUI>().text = frameDtlInfo.frameNm;
@@ -59,12 +61,19 @@ public class FrameInfo : MonoBehaviour
         //GameObject.Find("Player").GetComponent<PlayerController>().playerState = PlayerState.normal;
     }
 
+    // 액자 클릭 시 이벤트 함수
     public void FrameClickEvent()
     {
-        Action _action = ()=>ShowFramePanel(true);
-        GameObject.Find("PlayerObj").GetComponent<PlayerNav>().MovingToTarget(gameObject, _action);
+        if (frameDtlInfo.frameNm != null)
+        {
+            Action _action = ()=>ShowFramePanel(true);
+            GameObject.Find("PlayerObj").GetComponent<PlayerNav>().MovingToTarget(gameObject, _action);
+
+        }
+
     }
 
+    // 패널 표출 Fade처리 함수
     public IEnumerator FadeFramePanel(bool isOn)
     {
         float time = 0f;
@@ -86,6 +95,7 @@ public class FrameInfo : MonoBehaviour
 
     }
 
+    // 패널 표출 Scale처리 함수
     public IEnumerator FadeFramePanel2(bool isOn)
     {
         float time = 0f;

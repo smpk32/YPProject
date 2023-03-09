@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class Drag : MonoBehaviour, IBeginDragHandler, IDragHandler, IPointerUpHandler, IPointerDownHandler
 {
-    Transform player;
+    public Transform player;
     RaycastHit hit;
     Ray ray;
 
@@ -38,6 +38,7 @@ public class Drag : MonoBehaviour, IBeginDragHandler, IDragHandler, IPointerUpHa
 
         camera_dist = Vector3.Distance(player.transform.position, cube.transform.position)/2;
         Debug.Log(camera_dist);
+        Debug.Log("111111111");
 
     }
 

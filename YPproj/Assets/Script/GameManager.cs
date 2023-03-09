@@ -12,8 +12,18 @@ public class GameManager : MonoBehaviourPunCallbacks
     public GameObject playerPrefab;
     public int viewID;
 
+    // 멀티플레이 체크 변수
     public string multiState = "Single";
-    public int placeState = 0;
+
+    /*현재 플레이어가 있는 장소
+     *  0 > 전시회 1
+     *  1 > 전시회 2
+     *  2 > 소통한마당
+     *  3 > 소통한마당(멀티)
+    */
+    public int placeState = 1;
+
+    // 플레이어가 앉은 자리이름담는 변수
     public string sitNm = "";
 
     public static GameManager Instance
@@ -59,6 +69,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         
     }
 
+    // 멀티플레이모드일 때 플레이어 오브젝스 생성하는 함수
     public void CreatePlayer()
     {
 
@@ -79,6 +90,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     }
 
+    // 플레이어 카메라 설정 함수
     public void SetPlayer()
     {
         Camera.main.transform.parent = playerPrefab.transform.Find("CameraObject").transform;
@@ -87,6 +99,8 @@ public class GameManager : MonoBehaviourPunCallbacks
         GameObject.Find("DragPanel").GetComponent<Drag>().SetPlayer();
     }
 
+
+    // 멀티 >> 싱글로 이동 시 Photon연결끊는 함수
     public void Disconnect()
     {
 

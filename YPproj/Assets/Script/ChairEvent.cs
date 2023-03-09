@@ -9,9 +9,13 @@ public class ChairEvent : MonoBehaviourPun
 
     Transform target;
 
+    // 의자에 앉기가능 체크 함수
     public bool sitState;
 
+    // 전체 의자 리스트
     ChairEvent[] chairList;
+
+
     GameObject sitBtn;
     GameObject situpBtn;
 
@@ -92,6 +96,7 @@ public class ChairEvent : MonoBehaviourPun
 
     }
 
+    // 앉기 함수
     public void SitDown()
     {
         
@@ -128,19 +133,20 @@ public class ChairEvent : MonoBehaviourPun
 
     }
 
+    // 일어나기 함수
     public void SitUp()
     {
         
 
         situpBtn.SetActive(false);
-        
-        //GameManager.instance.playerPrefab.transform.parent = null;
+
 
         if (GameManager.instance.multiState == "Single")
         {
             GameManager.instance.playerPrefab.transform.Find("Player").GetComponent<PlayerController>().Sit(false, gameObject.transform.position, gameObject.transform.rotation.eulerAngles, gameObject.name);
         }
 
+        // 멀티플레이일때 PUNRPC함수 실행
         if (GameManager.instance.multiState == "Multi")
         {
             photonView.RPC("ChangeSitState", RpcTarget.AllBuffered, GameManager.instance.playerPrefab.transform.Find("Player").GetComponent<PhotonView>().ViewID, false, GameManager.instance.sitNm);
@@ -150,9 +156,10 @@ public class ChairEvent : MonoBehaviourPun
 
         sitState = false;
         pc.playerState = PlayerState.normal;
-        //GameManager.instance.playerPrefab.transform.parent.GetComponent<ChairEvent>().SitPlayer();
+
     }
 
+    // 의자 앉기 클릭이벤트 함수
     public void SitClickEvent()
     {
         Action _action = () => SitDown();
@@ -165,7 +172,7 @@ public class ChairEvent : MonoBehaviourPun
     }
 
 
-
+    // 다른 플레이어에게 의자상태 변경 알리기 위한 함수
     [PunRPC]
     public void ChangeSitState(int viewID,bool isSit, string chairNm)
     {

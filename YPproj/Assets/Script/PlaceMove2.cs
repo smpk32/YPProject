@@ -17,6 +17,8 @@ public class PlaceMove2 : MonoBehaviour
         SetMapList();
     }
 
+
+    // 초기 맵 리스트 세팅 함수
     void SetMapList()
     {
         GameObject MapGrp = GameObject.Find("Map");
@@ -41,11 +43,18 @@ public class PlaceMove2 : MonoBehaviour
         
     }
 
+
+    /* 맵 이동 이벤트 함수
+     * 0 > 전시관 1
+     * 1 > 전시관 2
+     * 2 > 소통한마당 (싱글)
+     * 3 > 소통한마당 (멀티)
+     */
     public void MapChange(int num)
     {
         GameManager.instance.placeState = num;
         
-        if(GameManager.instance.multiState == "Multi" && num == 3)                  // 강당 외의 장소에서 강당으로 이동 후 placeState를 0으로 세팅해줘야 SpawnSpot위치가 맞게 설정됨
+        if (GameManager.instance.multiState == "Multi" && num == 3)                  // 강당 외의 장소에서 강당으로 이동 후 placeState를 0으로 세팅해줘야 SpawnSpot위치가 맞게 설정됨
         {
             GameManager.instance.placeState = 0;
             
@@ -96,6 +105,10 @@ public class PlaceMove2 : MonoBehaviour
                 // 프로젝트 내부 영상 불러와 재생
                 mapList[num].transform.Find("FrameGrp").GetComponent<VideoCtrl>().LoadVideo2();
             }
+            else
+            {
+                mapList[num].transform.Find("FrameGrp").GetComponent<FrameSet>().FloorChange(0);
+            }
 
             SetPlayerPos(num);
 
@@ -103,6 +116,7 @@ public class PlaceMove2 : MonoBehaviour
 
     }
 
+    // 플레이어 생성, 장소 이동 시 플레이어 캐릭터, 카메라 세팅
     public void SetPlayerPos(int num)
     {
         Transform playerPos = GameManager.instance.playerPrefab.transform;
