@@ -1,7 +1,5 @@
 fileFormatVersion: 2
-guid: 9096d56f6e5d9af479319bfe01e20600
-labels:
-- NuGetForUnity
+guid: 0999361cbffc95846b502860eede9dff
 PluginImporter:
   externalObjects: {}
   serializedVersion: 2
@@ -25,7 +23,7 @@ PluginImporter:
       settings:
         DefaultValueInitialized: true
   - first:
-      Windows Store Apps: WindowsStoreApps
+      WebGL: WebGL
     second:
       enabled: 1
       settings: {}

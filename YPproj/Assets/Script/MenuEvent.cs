@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,7 +12,18 @@ public class MenuEvent : MonoBehaviour
 
     public GameObject[] panelList;
 
-    
+#if UNITY_WEBGL && !UNITY_EDITOR
+    [DllImport("__Internal")]
+    private static extern int Hello();
+
+    [DllImport("__Internal")]
+    private static extern int HelloString(string str);
+
+#else
+
+#endif
+
+
     public void MenuClick()
     {
         bool chk = false;
@@ -19,6 +31,10 @@ public class MenuEvent : MonoBehaviour
         {
             chk = true;
         }
+
+#if UNITY_WEBGL && !UNITY_EDITOR
+        Hello();
+#endif
 
         StartCoroutine(FillMenuBar(chk));
     }
@@ -81,6 +97,11 @@ public class MenuEvent : MonoBehaviour
 
         GameObject.Find("MainCanvas").transform.Find("MenuPanelGrp").gameObject.SetActive(true);
         panelList.transform.GetChild(panelIdx).gameObject.SetActive(true);
+
+#if UNITY_WEBGL && !UNITY_EDITOR
+        HelloString("Open!!!");
+#endif
+
 
     }
 
