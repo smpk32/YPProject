@@ -1,0 +1,23 @@
+spring:
+  # PostgreSQL DB 설정
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://121.78.158.27:5432/unity
+    username: postgres
+    password: egis0700
+  mvc:
+    pathmatch:
+      matching-strategy: ANT_PATH_MATCHER
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+        
+        
+    
+    
+mybatis:
+  mapper-locations: mapper/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    

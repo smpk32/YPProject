@@ -1,0 +1,5 @@
+INDEX VERSION 1.132
+D:\2023Proj\StsprojSample\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3517256158.index
+\StsprojSample\src\main\java
+D:\2023Proj\StsprojSample\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2402453069.index
+\StsprojSample\src\main\java
