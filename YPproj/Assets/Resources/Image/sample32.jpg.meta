@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 17301dea1b7e56d489f6d3f7f4493c87
+guid: f47d71e801a8d494f80f52d6ee020ca3
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -114,14 +114,14 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: WebGL
-    maxTextureSize: 4096
+    maxTextureSize: 2048
     resizeAlgorithm: 0
-    textureFormat: 10
+    textureFormat: -1
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
-    overridden: 1
+    overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:

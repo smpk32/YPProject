@@ -1,10 +1,18 @@
 mergeInto(LibraryManager.library,{
 
     Hello: function () {
-        window.alert("Hello, world!");
+        //window.alert("Hello, world!");
+        console.log("Hello!");
     },
 
     HelloString: function (str) {
-        window.alert(UTF8ToString(str));
+        //window.alert(UTF8ToString(str));
+        console.log(UTF8ToString(str));
     },
+
+    QuitGame: function () {
+        move();
+    },
+
+
 })

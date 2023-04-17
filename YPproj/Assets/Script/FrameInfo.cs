@@ -25,14 +25,19 @@ public class FrameInfo : MonoBehaviour
     }
     public GameObject frameDtlPanel;
 
+    public GameObject bannerDtlPanel;
+
     public FrameDtlInfo frameDtlInfo = new FrameDtlInfo(null,null);
 
     public PopupStyle popupStyle = PopupStyle.Fade;
+
+    public bool bannerChk;
     
 
     void Start()
     {
         frameDtlPanel = GameObject.Find("MainCanvas").transform.Find("FrameDtlPanel").gameObject;
+        bannerDtlPanel = GameObject.Find("MainCanvas").transform.Find("BannerDtlPanel").gameObject;
     }
 
     // 액자 상세정보 표출 패널 On/Off 함수
@@ -44,9 +49,10 @@ public class FrameInfo : MonoBehaviour
             frameDtlPanel.transform.Find("TitleText").GetComponent<TextMeshProUGUI>().text = frameDtlInfo.frameNm;
             frameDtlPanel.transform.Find("InfoText").GetComponent<TextMeshProUGUI>().text = frameDtlInfo.frameInfo;
             frameDtlPanel.SetActive(true);
-            if(popupStyle == 0)
+            bannerDtlPanel.SetActive(false);
+            if (popupStyle == 0)
             {
-                StartCoroutine(FadeFramePanel(isOn));
+                StartCoroutine(FadeFramePanel(frameDtlPanel,isOn));
             }
             else
             {
@@ -61,6 +67,34 @@ public class FrameInfo : MonoBehaviour
         //GameObject.Find("Player").GetComponent<PlayerController>().playerState = PlayerState.normal;
     }
 
+    // 배너 상세정보 표출 패널 On/Off 함수
+    public void ShowBannerPanel(bool isOn)
+    {
+        if (isOn)
+        {
+            //bannerDtlPanel.transform.Find("DtlRawImage").GetComponent<RawImage>().texture = gameObject.GetComponent<RawImage>().texture;
+            //bannerDtlPanel.transform.Find("TitleText").GetComponent<TextMeshProUGUI>().text = frameDtlInfo.frameNm;
+            //bannerDtlPanel.transform.Find("InfoText").GetComponent<TextMeshProUGUI>().text = frameDtlInfo.frameInfo;
+
+            bannerDtlPanel.SetActive(true);
+            frameDtlPanel.SetActive(false);
+            if (popupStyle == 0)
+            {
+                StartCoroutine(FadeFramePanel(bannerDtlPanel, isOn));
+            }
+            else
+            {
+                StartCoroutine(FadeFramePanel2(isOn));
+            }
+
+        }
+        else
+        {
+            bannerDtlPanel.SetActive(false);
+        }
+        //GameObject.Find("Player").GetComponent<PlayerController>().playerState = PlayerState.normal;
+    }
+
     // 액자 클릭 시 이벤트 함수
     public void FrameClickEvent()
     {
@@ -71,13 +105,19 @@ public class FrameInfo : MonoBehaviour
 
         }
 
+        if (bannerChk)
+        {
+            Action _action = () => ShowBannerPanel(true);
+            GameObject.Find("PlayerObj").GetComponent<PlayerNav>().MovingToTarget(gameObject, _action);
+        }
+
     }
 
     // 패널 표출 Fade처리 함수
-    public IEnumerator FadeFramePanel(bool isOn)
+    public IEnumerator FadeFramePanel(GameObject panelNm, bool isOn)
     {
         float time = 0f;
-        CanvasRenderer[] canvasList = frameDtlPanel.GetComponentsInChildren<CanvasRenderer>();
+        CanvasRenderer[] canvasList = panelNm.GetComponentsInChildren<CanvasRenderer>();
         while (time < 1f)
         {
             foreach(CanvasRenderer renderer in canvasList)

@@ -46,7 +46,7 @@ public class ChairEvent : MonoBehaviourPun
             return;
         }
 
-        if (target != null && pc.playerState == PlayerState.normal)
+        if (target != null && GameManager.instance.playerState == PlayerState.normal)
         {
             if (!sitState && !sitBtn.activeSelf)
             {
@@ -129,7 +129,7 @@ public class ChairEvent : MonoBehaviourPun
         }
 
         sitState = true;
-        pc.playerState = PlayerState.sitting;
+        GameManager.instance.playerState = PlayerState.sitting;
 
     }
 
@@ -150,18 +150,29 @@ public class ChairEvent : MonoBehaviourPun
         if (GameManager.instance.multiState == "Multi")
         {
             photonView.RPC("ChangeSitState", RpcTarget.AllBuffered, GameManager.instance.playerPrefab.transform.Find("Player").GetComponent<PhotonView>().ViewID, false, GameManager.instance.sitNm);
-            GameManager.instance.playerPrefab.transform.Find("Player").GetComponent<PlayerController>().SitEvent(false, gameObject.transform.position, gameObject.transform.rotation.eulerAngles);
+
+
+            //GameManager.instance.playerPrefab.transform.Find("Player").GetComponent<PlayerController>().SitEvent(false, gameObject.transform.position, gameObject.transform.rotation.eulerAngles);
+
+            GameObject chair = GameObject.Find(GameManager.instance.sitNm);
+            GameManager.instance.playerPrefab.transform.Find("Player").GetComponent<PlayerController>().SitEvent(false, chair.transform.position, chair.transform.rotation.eulerAngles);
             GameManager.instance.sitNm = null;
         }
 
         sitState = false;
-        pc.playerState = PlayerState.normal;
+        GameManager.instance.playerState = PlayerState.normal;
 
     }
 
     // 의자 앉기 클릭이벤트 함수
     public void SitClickEvent()
     {
+
+        if(GameManager.instance.playerState == PlayerState.chat)
+        {
+            return;
+        }
+
         Action _action = () => SitDown();
         GameManager.instance.playerPrefab.GetComponent<PlayerNav>().MovingToTarget(gameObject, _action);
         GameManager.instance.sitNm = gameObject.name;

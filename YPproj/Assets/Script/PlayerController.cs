@@ -9,7 +9,9 @@ public enum PlayerState
 {
     normal,
     sitting,
-    nav
+    nav,
+    chat,
+    setting
 }
 public class PlayerController : MonoBehaviourPun
 {
@@ -36,13 +38,19 @@ public class PlayerController : MonoBehaviourPun
     public PlayerState playerState = PlayerState.normal;
     GameObject playerObj;
 
-    
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         playerAnimator = GetComponent<Animator>();
         playerObj = gameObject.transform.parent.gameObject;
         cameraObj = playerObj.transform.Find("CameraObj").transform.gameObject;
+    }
+    // Start is called before the first frame update
+    void Start()
+    {
+        /*playerAnimator = GetComponent<Animator>();
+        playerObj = gameObject.transform.parent.gameObject;
+        Debug.Log(playerObj);
+        cameraObj = playerObj.transform.Find("CameraObj").transform.gameObject;*/
     }
 
     private void FixedUpdate()
@@ -55,7 +63,12 @@ public class PlayerController : MonoBehaviourPun
             }
         }
 
-        if(playerState == PlayerState.sitting)
+        /*if (playerState == PlayerState.sitting || playerState == PlayerState.chat || playerState == PlayerState.setting)
+        {
+            return;
+        }*/
+
+        if(GameManager.instance.playerState != PlayerState.normal)
         {
             return;
         }
@@ -82,6 +95,14 @@ public class PlayerController : MonoBehaviourPun
             playerAnimator.SetFloat("X", z);
             MoveAndRoatate(moveDir);
             FreezeRotationXZ();
+        }
+        else
+        {
+            if(playerAnimator.GetFloat("Y") != 0 || playerAnimator.GetFloat("X") != 0)
+            {
+                playerAnimator.SetFloat("Y", 0);
+                playerAnimator.SetFloat("X", 0);
+            }
         }
 
     }
@@ -126,7 +147,7 @@ public class PlayerController : MonoBehaviourPun
     {
         if (chk)
         {
-            playerState = PlayerState.sitting;
+            GameManager.instance.playerState = PlayerState.sitting;
             playerObj.transform.position = chairPos;
             gameObject.transform.rotation = Quaternion.Euler(chairRot);
             cameraObj.transform.rotation = Quaternion.Euler(chairRot+ new Vector3(15,0,0));
@@ -136,7 +157,8 @@ public class PlayerController : MonoBehaviourPun
         }
         else
         {
-            playerState = PlayerState.normal;
+            GameManager.instance.playerState = PlayerState.normal;
+            playerObj.transform.position = new Vector3(chairPos.x, chairPos.y + 0.5f, chairPos.z);
             Rigidbody.constraints = RigidbodyConstraints.None;
             Rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
             GameObject.Find("DragPanel").GetComponent<CameraRotateController>().Init();
@@ -169,6 +191,7 @@ public class PlayerController : MonoBehaviourPun
                 else
                 {
                     //playerState = PlayerState.normal;
+                    players[i].transform.parent.position = new Vector3(chairPos.x, chairPos.y +0.5f, chairPos.z) ;
                     players[i].transform.parent.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
                     players[i].transform.parent.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
                     //GameObject.Find("DragPanel").GetComponent<CameraRotateController>().Init();

@@ -40,7 +40,14 @@ public class VideoCtrl : MonoBehaviour
     public void LoadVideo2()
     {
         videoRawImg.texture = videoRenderTexture;
-        vp.url = vp.url = System.IO.Path.Combine(Application.streamingAssetsPath, "yangpyeongAD.mp4");
+#if UNITY_WEBGL && !UNITY_EDITOR
+        //vp.url = "http://192.168.1.142:8080/metaverse/StreamingAssets/YP2023.mp4";
+        vp.url = "http://203.228.54.47/metabus/StreamingAssets/YP2023.mp4";
+#else
+        //vp.url = vp.url = System.IO.Path.Combine(Application.streamingAssetsPath, "YP2023.mp4");
+        vp.url = "http://203.228.54.47/metabus/StreamingAssets/YP2023.mp4";
+#endif
+        //vp.url = vp.url = System.IO.Path.Combine(Application.streamingAssetsPath, "yangpyeongAD.mp4");
         vp.prepareCompleted += Prepared;
         vp.Prepare();
 
@@ -48,7 +55,7 @@ public class VideoCtrl : MonoBehaviour
         var fitter = videoRawImg.gameObject.GetOrAddComponent<AspectRatioFitter>();
         //fitter.aspectMode = AspectRatioFitter.AspectMode.FitInParent;
 
-        fitter.aspectMode = AspectRatioFitter.AspectMode.HeightControlsWidth;
+        fitter.aspectMode = AspectRatioFitter.AspectMode.WidthControlsHeight;
 
         fitter.aspectRatio = (float)videoRenderTexture.width / videoRenderTexture.height;
 

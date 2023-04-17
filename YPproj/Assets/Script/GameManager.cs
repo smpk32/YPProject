@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
@@ -11,6 +12,8 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public GameObject playerPrefab;
     public int viewID;
+
+    public string nickNm = "";
 
     // 멀티플레이 체크 변수
     public string multiState = "Single";
@@ -21,7 +24,9 @@ public class GameManager : MonoBehaviourPunCallbacks
      *  2 > 소통한마당
      *  3 > 소통한마당(멀티)
     */
-    public int placeState = 1;
+    public int placeState = 0;
+
+    public PlayerState playerState = PlayerState.normal;
 
     // 플레이어가 앉은 자리이름담는 변수
     public string sitNm = "";
@@ -84,9 +89,9 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         Camera.main.transform.parent = player.transform.Find("CameraObj").transform;
 
-        GameObject.Find("SpawnSpot").GetComponent<PlaceMove2>().SetPlayerPos(GameManager.instance.placeState);
+        GameObject.Find("SpawnSpot").GetComponent<PlaceMove>().SetPlayerPos(GameManager.instance.placeState);
 
-        //photonView.RPC("SetName", RpcTarget.AllBuffered, GameManager.instance.viewID, GameManager.instance.userId);
+        player.GetComponent<SetPlayerNm>().SetNickNmPhotonAll();
 
     }
 
@@ -94,7 +99,6 @@ public class GameManager : MonoBehaviourPunCallbacks
     public void SetPlayer()
     {
         Camera.main.transform.parent = playerPrefab.transform.Find("CameraObject").transform;
-
 
         GameObject.Find("DragPanel").GetComponent<Drag>().SetPlayer();
     }
@@ -108,6 +112,11 @@ public class GameManager : MonoBehaviourPunCallbacks
         //Destroy(this.gameObject);
         SceneManager.LoadScene("MainScene");
 
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 
 }

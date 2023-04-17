@@ -116,8 +116,8 @@ public class FrameSet : MonoBehaviour
         //ImgCnt = list.Length;
 
         // 임시 정보 출력
-        string title = "군민과 함께하는 소통한마당";
-        string info = "'소통한마당'이란, 민선 8기 군정 계획을 공유하고 지역 현안에 대하여 주민과 소통·공감하는 자리입니다.";
+        string title = "양평 고로쇠 축제";
+        string info = "고로쇠란 단풍나무과인 고로쇠나무에서 나오는 수액입니다. 뼈에 이로운 물이라 하여 골리수라고 불립니다.\n고로쇠 수액은 남녀노소를 불문하고 누구나 드실 수 있습니다. 맛과 향이 진하거나 특별하지는 않지만, 나무에서 나오는 수액이기 때문에 신선한 향기와 약간의 당도가 있어서 드시는데 거부감이 없고 많은 양을 섭취해도 배탈이 나질 않아 기수 대용으로도 드실 수 있습니다.";
 
 
         int imgIdx = pageNum * pageMaxCnt;
@@ -293,7 +293,11 @@ public class FrameSet : MonoBehaviour
 
     public void OpenFloorBtnList(bool chk)
     {
-        floorBtnList.SetActive(chk);
+        // 플레이어 상태가 normal일때에만 실행
+        if( GameManager.instance.playerState == PlayerState.normal)
+        {
+            floorBtnList.SetActive(chk);
+        }
     }
 
 }

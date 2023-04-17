@@ -10,16 +10,12 @@ public class MenuEvent : MonoBehaviour
     public Image menuBar;
     public GameObject btnGrp;
 
-    public GameObject[] panelList;
+    //public GameObject[] panelList;
 
 #if UNITY_WEBGL && !UNITY_EDITOR
-    [DllImport("__Internal")]
-    private static extern int Hello();
 
     [DllImport("__Internal")]
-    private static extern int HelloString(string str);
-
-#else
+    private static extern int QuitGame();
 
 #endif
 
@@ -31,10 +27,6 @@ public class MenuEvent : MonoBehaviour
         {
             chk = true;
         }
-
-#if UNITY_WEBGL && !UNITY_EDITOR
-        Hello();
-#endif
 
         StartCoroutine(FillMenuBar(chk));
     }
@@ -98,10 +90,6 @@ public class MenuEvent : MonoBehaviour
         GameObject.Find("MainCanvas").transform.Find("MenuPanelGrp").gameObject.SetActive(true);
         panelList.transform.GetChild(panelIdx).gameObject.SetActive(true);
 
-#if UNITY_WEBGL && !UNITY_EDITOR
-        HelloString("Open!!!");
-#endif
-
 
     }
 
@@ -117,5 +105,14 @@ public class MenuEvent : MonoBehaviour
         }
 
         GameObject.Find("MainCanvas").transform.Find("MenuPanelGrp").gameObject.SetActive(false);
+    }
+
+    public void QuitGameClick()
+    {
+#if UNITY_WEBGL && !UNITY_EDITOR
+        QuitGame();
+#else
+        GameManager.instance.QuitGame();
+#endif
     }
 }
