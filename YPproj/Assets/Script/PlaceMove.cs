@@ -14,7 +14,7 @@ public class PlaceMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SetMapList();
+       // SetMapList();
     }
 
 

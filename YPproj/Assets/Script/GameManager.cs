@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     // 플레이어가 앉은 자리이름담는 변수
     public string sitNm = "";
-
+    public string selectCharacter = "";
     public static GameManager Instance
     {
         get
@@ -77,6 +77,25 @@ public class GameManager : MonoBehaviourPunCallbacks
         
     }
 
+    public void CreateSingleChacracter()
+    {
+
+        GameObject player = Instantiate(Resources.Load<GameObject>("SingleCharacter\\" + selectCharacter));
+        Debug.Log(player);
+
+        playerPrefab = player;
+        player.transform.position = GameObject.Find("SpawnSpot").transform.Find("spawn1").transform.position;
+
+
+        Camera.main.transform.parent = player.transform.Find("CameraObj").transform;
+
+
+        player.GetComponent<SetPlayerNm>().SetNickNm();
+
+        GameObject.Find("MainCanvas").transform.Find("DragPanel").transform.gameObject.SetActive(true);
+
+    }
+
     // 멀티플레이모드일 때 플레이어 오브젝스 생성하는 함수
     public void CreatePlayer()
     {
@@ -96,6 +115,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         player.GetComponent<SetPlayerNm>().SetNickNmPhotonAll();
 
+        
     }
 
     // 플레이어 카메라 설정 함수

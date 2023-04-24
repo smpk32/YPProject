@@ -21,11 +21,14 @@ public class SetPlayerNm : MonoBehaviourPunCallbacks
     public void SetNickNm()
     {
 
+        GameObject playerSetPanel = GameObject.Find("MainCanvas").transform.Find("PlayerSetPanel").gameObject;
+
+        GameObject nf = playerSetPanel.transform.Find("Canvas").transform.Find("Form").transform.Find("NickNmInputField").gameObject;
+
         if (GameManager.instance.nickNm == "")
         {
-            GameObject playerSetPanel = GameObject.Find("MainCanvas").transform.Find("PlayerSetPanel").gameObject;
-            GameManager.instance.nickNm = playerSetPanel.transform.Find("NickNmInputField").GetComponent<TMP_InputField>().text;
-            GameManager.instance.originNickNm = playerSetPanel.transform.Find("NickNmInputField").GetComponent<TMP_InputField>().text;
+            GameManager.instance.nickNm = nf.GetComponent<TMP_InputField>().text;
+            GameManager.instance.originNickNm = nf.GetComponent<TMP_InputField>().text;
 
 
             // 유저가 ID 입력 안했을 경우 체크하기위해 한번 더 체크
@@ -39,7 +42,7 @@ public class SetPlayerNm : MonoBehaviourPunCallbacks
         GameManager.instance.playerState = PlayerState.normal;
         GameManager.instance.playerPrefab.transform.Find("NickNm").transform.Find("NickNmText").GetComponent<TextMeshProUGUI>().text = GameManager.instance.originNickNm;
 
-
+         playerSetPanel.SetActive(false);
     }
 
     [PunRPC]
