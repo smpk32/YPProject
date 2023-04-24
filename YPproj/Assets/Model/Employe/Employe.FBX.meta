@@ -1,0 +1,230 @@
+fileFormatVersion: 2
+guid: 1a5533ec532d7af4bbdde3c5363ad66a
+ModelImporter:
+  serializedVersion: 21202
+  internalIDToNameTable: []
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Employe Cravate
+    second: {fileID: 2100000, guid: a63b7fa7e3f0dc146bedc68dfbe262ad, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Employe Eyes
+    second: {fileID: 2100000, guid: 5b2ee6376bfb9754e8ee6432c9f2945b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Employe Hair
+    second: {fileID: 2100000, guid: ba5896a05f831dd41a8002bf4dd6af1b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Employe Shoes
+    second: {fileID: 2100000, guid: f1171d5ca08cff346b032412ac8cd5bd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Employe skin
+    second: {fileID: 2100000, guid: 072deeb7012e0e1489e75be8eade6f96, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Employe teeth2
+    second: {fileID: 2100000, guid: 38001bec60e5e5842824b6cee6531c7e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Employe_Botton
+    second: {fileID: 2100000, guid: cff6f560c7301f84ca4532234dc12d07, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Employe_Shirt
+    second: {fileID: 2100000, guid: c2bff4a5b34a0e6428478c1b7a53af6e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Employe_Suit
+    second: {fileID: 2100000, guid: 4fad46e19eb14e647acf6ffa90b56037, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Employe_teeth1
+    second: {fileID: 2100000, guid: 78561c2b2edfaef4fa4556f7e3a0a155, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Emplye Glasses Frame
+    second: {fileID: 2100000, guid: 551864d69baf33f428f16873502086c1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Emplye Glasses Glass
+    second: {fileID: 2100000, guid: 6d1c8bc808615cf409fd1e82dc632990, type: 2}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 1
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 3
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 0.012
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    nodeNameCollisionStrategy: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton:
+    - name: Employe(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Employe_Hair
+      parentName: Employe(Clone)
+      position: {x: -0, y: 1.7891052, z: -0.080922015}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Employe_Face
+      parentName: Employe(Clone)
+      position: {x: -0, y: 1.6553599, z: 0.013817403}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Employe_Suit
+      parentName: Employe(Clone)
+      position: {x: -0, y: 0.8004624, z: -0.0380292}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Employe_Hand
+      parentName: Employe(Clone)
+      position: {x: -0, y: 1.2072253, z: -0.07921801}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Employe_Shoes
+      parentName: Employe(Clone)
+      position: {x: -0, y: 0.0825876, z: -0.019581597}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Employe_Glasses
+      parentName: Employe(Clone)
+      position: {x: -0, y: 1.7360388, z: 0.0431778}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Employe_Brow
+      parentName: Employe(Clone)
+      position: {x: -0, y: 1.8154644, z: 0.1082784}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Employe_Eye_L
+      parentName: Employe(Clone)
+      position: {x: -0.07179481, y: 1.7398248, z: 0.0749484}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Employe_Eye_R
+      parentName: Employe(Clone)
+      position: {x: 0.0717282, y: 1.7398502, z: 0.075117}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Employe_Teethup
+      parentName: Employe(Clone)
+      position: {x: -0.00019607233, y: 1.5988203, z: 0.08186458}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 85.81004, y: 91.603806, z: 91.603806}
+    - name: Employe_TeethDown
+      parentName: Employe(Clone)
+      position: {x: 0.0015454547, y: 1.5580525, z: 0.089667425}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 111.82284, y: 111.82284, z: 111.82284}
+    - name: Employe_tongue
+      parentName: Employe(Clone)
+      position: {x: -0.0013772468, y: 1.5663546, z: 0.076718815}
+      rotation: {x: -0.71983314, y: 0, z: 0, w: 0.6941472}
+      scale: {x: 86.71214, y: 86.71214, z: 86.71214}
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 0.012
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 1
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 1
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

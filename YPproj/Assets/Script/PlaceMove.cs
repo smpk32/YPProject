@@ -102,8 +102,8 @@ public class PlaceMove : MonoBehaviour
 
             if (mapList[num].name == "AuditoriumGrp")
             {
-                //string urlHead = "http://192.168.1.142:8060/resources/unity/StreamingAssets/";
-                string urlHead = "http://192.168.1.142:8080/files/";
+                //string urlHead = "http://192.168.1.113:8060/resources/unity/StreamingAssets/";
+                string urlHead = "http://192.168.1.113:8080/files/";
 
                 // 파일서버에서 영상 불러와 재생
                 //mapList[num].transform.Find("FrameGrp").GetComponent<VideoCtrl>().LoadVideo(urlHead + "yangpyeongAD.mp4");

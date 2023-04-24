@@ -14,6 +14,9 @@ public class GameManager : MonoBehaviourPunCallbacks
     public int viewID;
 
     public string nickNm = "";
+    public string originNickNm = "";
+
+    public string multiNickNm = "";
 
     // 멀티플레이 체크 변수
     public string multiState = "Single";

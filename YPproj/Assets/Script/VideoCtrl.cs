@@ -13,8 +13,8 @@ public class VideoCtrl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //string urlHead = "http://192.168.1.142:8060/resources/unity/StreamingAssets/";
-        //string urlHead = "http://192.168.1.142:8080/files/";
+        //string urlHead = "http://192.168.1.113:8060/resources/unity/StreamingAssets/";
+        //string urlHead = "http://192.168.1.113:8080/files/";
         //LoadVideo(urlHead + "yangpyeongAD.mp4");
     }
 
@@ -41,7 +41,7 @@ public class VideoCtrl : MonoBehaviour
     {
         videoRawImg.texture = videoRenderTexture;
 #if UNITY_WEBGL && !UNITY_EDITOR
-        //vp.url = "http://192.168.1.142:8080/metaverse/StreamingAssets/YP2023.mp4";
+        //vp.url = "http://192.168.1.113:8080/metaverse/StreamingAssets/YP2023.mp4";
         vp.url = "http://203.228.54.47/metabus/StreamingAssets/YP2023.mp4";
 #else
         //vp.url = vp.url = System.IO.Path.Combine(Application.streamingAssetsPath, "YP2023.mp4");

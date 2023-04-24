@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class CameraRotateController : MonoBehaviour, IBeginDragHandler, IDragHandler, IPointerUpHandler, IPointerDownHandler
 {
-    public Transform player;
+    public Transform player = null;
     public PlayerController pc;
     private Transform playerCam = null;
     private float rotationSpeed = 1f;
@@ -66,8 +66,9 @@ public class CameraRotateController : MonoBehaviour, IBeginDragHandler, IDragHan
 
     void SetCameraRotPlayer()
     {
-        if (player == null)
+        if (player == null && GameManager.instance.playerPrefab != null)
         {
+            //Debug.Log(GameManager.instance.playerPrefab.transform);
             player = GameManager.instance.playerPrefab.transform;
 
             if (player != null)
@@ -79,15 +80,9 @@ public class CameraRotateController : MonoBehaviour, IBeginDragHandler, IDragHan
 
     void Update()
     {
-        if(player == null)
-        {
-            player = GameManager.instance.playerPrefab.transform;
 
-            if(player!= null)
-            {
-                Init();
-            }
-        }
+        SetCameraRotPlayer();
+        
     }
 
     public void Init()

@@ -42,7 +42,7 @@ public class ChairEvent : MonoBehaviourPun
 
         if(pc == null)
         {
-            pc = GameObject.Find("Player").GetComponent<PlayerController>();
+            pc = GameObject.Find("Player")?.GetComponent<PlayerController>();
             return;
         }
 

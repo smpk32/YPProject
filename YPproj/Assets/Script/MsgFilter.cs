@@ -33,7 +33,7 @@ public class MsgFilter : MonoBehaviour
     // 서버에서 txt파일 읽어오는 함수
     IEnumerator ReadTxt()
     {
-        WWW wwww = new WWW("http://192.168.1.142:8080/badWords/badWordList.txt");
+        WWW wwww = new WWW("http://192.168.1.113:8080/badWords/badWordList.txt");
         yield return wwww;
 
         string[] lines = wwww.text.Split('\n');

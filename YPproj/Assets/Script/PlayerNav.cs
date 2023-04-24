@@ -43,6 +43,11 @@ public class PlayerNav : MonoBehaviour
         
         if (checkBtn)
         {
+            if (playerobj.transform.position == agent.destination)
+            {
+                StopMovingToTgarget();
+                action();
+            }
 
             if (agent.velocity.sqrMagnitude >= 0.2f && agent.remainingDistance <= 0.3f)
             {

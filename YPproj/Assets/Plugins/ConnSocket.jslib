@@ -2,11 +2,11 @@ mergeInto(LibraryManager.library,{
 
     Connect : function(){
 
-	this.ws = new WebSocket("ws://192.168.1.142:8080/socket");
+	this.ws = new WebSocket("ws://192.168.1.113:8080/socket");
 
 	this.ws.onopen = function(e){ 
 			console.log("info : connection opened.");
-			unityInstance.SendMessage("MainCanvas","MasterCheck",e.data);
+			//unityInstance.SendMessage("MainCanvas","MasterCheck",e.data);
 		}
 		
 		this.ws.onmessage = function(e){ 
@@ -15,6 +15,7 @@ mergeInto(LibraryManager.library,{
 		
 		this.ws.onclose = function(e){ 
 			console.log("info : connection closed");
+			//unityInstance.SendMessage("MainCanvas","QuitUserInfo",e.data);
 		};
 		
 		this.ws.onerror = function(e){

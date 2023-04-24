@@ -110,7 +110,7 @@ public class FrameSet : MonoBehaviour
 
         //PageCntTMP.GetComponent<TextMeshProUGUI>().text = (pageNum + 1).ToString();
 
-        //string urlHead = "http://192.168.1.142:8080/files/";
+        //string urlHead = "http://192.168.1.113:8080/files/";
 
         //RawImage[] list = gameObject.GetComponentsInChildren<RawImage>();
         //ImgCnt = list.Length;
@@ -160,7 +160,7 @@ public class FrameSet : MonoBehaviour
 
         //PageCntTMP.GetComponent<TextMeshProUGUI>().text = (pageNum + 1).ToString();
 
-        string urlHead = "http://192.168.1.142:8080/files/";
+        string urlHead = "http://192.168.1.113:8080/files/";
 
         //RawImage[] list = gameObject.GetComponentsInChildren<RawImage>();
 

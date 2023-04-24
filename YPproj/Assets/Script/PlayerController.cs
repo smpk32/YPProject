@@ -63,15 +63,7 @@ public class PlayerController : MonoBehaviourPun
             }
         }
 
-        /*if (playerState == PlayerState.sitting || playerState == PlayerState.chat || playerState == PlayerState.setting)
-        {
-            return;
-        }*/
-
-        if(GameManager.instance.playerState != PlayerState.normal)
-        {
-            return;
-        }
+        
         // move에 관한 입력 감지
         z = Input.GetAxis(Vertical);
         // rotate에 관한 입력 감지
@@ -81,7 +73,11 @@ public class PlayerController : MonoBehaviourPun
         Jump();
 
         if (x != 0 || z != 0)
-        {   
+        {
+            if (GameManager.instance.playerState != PlayerState.normal)
+            {
+                return;
+            }
             //
             Vector3 lookForward = new Vector3(cameraObj.transform.forward.x , 0f, cameraObj.transform.forward.z ).normalized;
             Vector3 lookRight = new Vector3(cameraObj.transform.right.x, 0f, cameraObj.transform.right.z).normalized;
