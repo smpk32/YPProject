@@ -88,6 +88,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
 
         Camera.main.transform.parent = player.transform.Find("CameraObj").transform;
+        player.transform.Find("CameraObj").transform.parent.name = "PlayerObj";
 
 
         player.GetComponent<SetPlayerNm>().SetNickNm();
