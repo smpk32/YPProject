@@ -64,7 +64,7 @@ public class CameraRotateController : MonoBehaviour, IBeginDragHandler, IDragHan
 
     }
 
-    void SetCameraRotPlayer()
+    public void SetCameraRotPlayer()
     {
         if (player == null && GameManager.instance.playerPrefab != null)
         {

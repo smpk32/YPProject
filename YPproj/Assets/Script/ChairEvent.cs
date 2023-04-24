@@ -125,7 +125,7 @@ public class ChairEvent : MonoBehaviourPun
             GameManager.instance.sitNm = gameObject.name;
             GameManager.instance.playerPrefab.transform.Find("Player").GetComponent<PlayerController>().SitEvent(true, gameObject.transform.position, gameObject.transform.rotation.eulerAngles);
             GameManager.instance.playerPrefab.transform.Find("CameraObj").transform.rotation = Quaternion.Euler(gameObject.transform.rotation.eulerAngles + new Vector3(15, 0, 0));
-            GameObject.Find("DragPanel").GetComponent<CameraRotateController>().Init();
+            GameObject.Find("DragPanel").GetComponent<CameraRotateController>().SetCameraRotPlayer();
         }
 
         sitState = true;

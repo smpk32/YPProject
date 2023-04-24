@@ -147,7 +147,7 @@ public class PlayerController : MonoBehaviourPun
             playerObj.transform.position = chairPos;
             gameObject.transform.rotation = Quaternion.Euler(chairRot);
             cameraObj.transform.rotation = Quaternion.Euler(chairRot+ new Vector3(15,0,0));
-            GameObject.Find("DragPanel").GetComponent<CameraRotateController>().Init();
+            GameObject.Find("DragPanel").GetComponent<CameraRotateController>().SetCameraRotPlayer();
             Rigidbody.constraints = RigidbodyConstraints.FreezeAll;
             playerAnimator.SetBool("Sit", true);
         }
@@ -157,7 +157,7 @@ public class PlayerController : MonoBehaviourPun
             playerObj.transform.position = new Vector3(chairPos.x, chairPos.y + 0.5f, chairPos.z);
             Rigidbody.constraints = RigidbodyConstraints.None;
             Rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
-            GameObject.Find("DragPanel").GetComponent<CameraRotateController>().Init();
+            GameObject.Find("DragPanel").GetComponent<CameraRotateController>().SetCameraRotPlayer();
             playerAnimator.SetBool("Sit", false);
         }
         

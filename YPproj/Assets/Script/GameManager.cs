@@ -8,7 +8,6 @@ using TMPro;
 public class GameManager : MonoBehaviourPunCallbacks
 {
     public static GameManager instance = null;
-    public string selectedCharacter = "MultiManPlayer";
 
     public GameObject playerPrefab;
     public int viewID;
@@ -93,6 +92,8 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         GameObject.Find("MainCanvas").transform.Find("DragPanel").transform.gameObject.SetActive(true);
 
+        GameObject.Find("SpawnSpot").GetComponent<PlaceMove>().MapChange(GameManager.instance.placeState);
+
     }
 
     // 멀티플레이모드일 때 플레이어 오브젝스 생성하는 함수
@@ -103,7 +104,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         //Quaternion rotate = Quaternion.Euler(0, -180, 0);
         // 네트워크 상의 모든 클라이언트들에서 생성 실행
         // 단, 해당 게임 오브젝트의 주도권은, 생성 메서드를 직접 실행한 클라이언트에게 있음
-        GameObject player = PhotonNetwork.Instantiate(selectedCharacter, new Vector3(0, 0, 0), Quaternion.Euler(0, 0, 0));
+        GameObject player = PhotonNetwork.Instantiate("MultiCharacter\\" + selectCharacter, new Vector3(0, 0, 0), Quaternion.Euler(0, 0, 0));
         //플레이어 프리팹 할당
         GameManager.instance.playerPrefab = player;
         GameManager.instance.viewID = player.GetComponent<PhotonView>().ViewID;

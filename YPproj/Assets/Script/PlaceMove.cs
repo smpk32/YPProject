@@ -87,7 +87,7 @@ public class PlaceMove : MonoBehaviour
         {
             /*Debug.Log("강당 외의 장소에서 강당 외의 장소로 이동할 때");
             Debug.Log("Multi : Single  &  num : !3");*/
-            GameManager.instance.playerPrefab = GameObject.Find("PlayerObj");
+            //GameManager.instance.playerPrefab = GameObject.Find("PlayerObj");
             GameManager.instance.playerPrefab.transform.parent = null;
             GameManager.instance.playerPrefab.transform.Find("Player").GetComponent<PlayerController>().Sit(false, new Vector3(0, 0, 0), new Vector3(0, 0, 0), null);
             
@@ -136,7 +136,7 @@ public class PlaceMove : MonoBehaviour
         playerPos.Find("CameraObj").transform.rotation = spawnList[num].transform.rotation;
         if(GameManager.instance.multiState == "Single")
         {
-            GameObject.Find("DragPanel").GetComponent<CameraRotateController>().Init();
+            GameObject.Find("DragPanel").GetComponent<CameraRotateController>().SetCameraRotPlayer();
         }
     }
 }
