@@ -14,7 +14,7 @@ public class PlaceMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       // SetMapList();
+       SetMapList();
     }
 
 
@@ -34,7 +34,7 @@ public class PlaceMove : MonoBehaviour
         {
             spawnList.Add(SpawnSpotGrp.transform.GetChild(i).gameObject);
         }
-        MapChange(GameManager.instance.placeState);
+        //MapChange(GameManager.instance.placeState);
     }
 
     // Update is called once per frame
@@ -56,7 +56,9 @@ public class PlaceMove : MonoBehaviour
         
         if (GameManager.instance.multiState == "Multi" && num == 3)                  // 강당 외의 장소에서 강당으로 이동 후 placeState를 0으로 세팅해줘야 SpawnSpot위치가 맞게 설정됨
         {
+            
             GameManager.instance.placeState = 0;
+            SetPlayerPos(GameManager.instance.placeState);
 
         }
         else if(GameManager.instance.multiState == "Multi" && num != 3)              // 강당에서 다른 장소로 이동할 때

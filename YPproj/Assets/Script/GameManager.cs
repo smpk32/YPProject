@@ -81,14 +81,12 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
 
         GameObject player = Instantiate(Resources.Load<GameObject>("SingleCharacter\\" + selectCharacter));
-        Debug.Log(player);
 
         playerPrefab = player;
         player.transform.position = GameObject.Find("SpawnSpot").transform.Find("spawn1").transform.position;
 
 
         Camera.main.transform.parent = player.transform.Find("CameraObj").transform;
-        player.transform.Find("CameraObj").transform.parent.name = "PlayerObj";
 
 
         player.GetComponent<SetPlayerNm>().SetNickNm();
@@ -112,8 +110,8 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         Camera.main.transform.parent = player.transform.Find("CameraObj").transform;
 
-        GameObject.Find("SpawnSpot").GetComponent<PlaceMove>().SetPlayerPos(GameManager.instance.placeState);
-
+        //GameObject.Find("SpawnSpot").GetComponent<PlaceMove>().SetPlayerPos(GameManager.instance.placeState);
+        GameObject.Find("SpawnSpot").GetComponent<PlaceMove>().MapChange(GameManager.instance.placeState);
         player.GetComponent<SetPlayerNm>().SetNickNmPhotonAll();
 
         
