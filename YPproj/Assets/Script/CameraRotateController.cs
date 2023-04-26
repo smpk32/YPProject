@@ -166,7 +166,11 @@ public class CameraRotateController : MonoBehaviour, IBeginDragHandler, IDragHan
         {
             if (hit.collider.tag == "EvtBtn")
             {
-                hit.transform.GetComponent<Button>().onClick.Invoke();
+                if (GameManager.instance.playerState != PlayerState.setting)
+                {
+
+                    hit.transform.GetComponent<Button>().onClick.Invoke();
+                }
             }
         }
     }
