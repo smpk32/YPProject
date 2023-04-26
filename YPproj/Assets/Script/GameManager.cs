@@ -120,7 +120,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         Camera.main.transform.parent = player.transform.Find("CameraObj").transform;
 
-        GameObject.Find("SpawnSpot").GetComponent<PlaceMove>().SetPlayerPos(GameManager.instance.placeState);
+        GameObject.Find("SpawnSpot").GetComponent<PlaceMove>().MapChange(GameManager.instance.placeState);
 
         GameManager.instance.viewID = player.GetComponent<PhotonView>().ViewID;
         player.GetComponent<SetPlayerNm>().SetNickNmPhotonAll();
