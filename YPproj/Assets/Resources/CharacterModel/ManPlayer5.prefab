@@ -1156,140 +1156,7 @@ Animator:
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
-  m_WarningMessage: '
-
-    Transform ''head.x'' has been deleted
-
-    Transform ''neck.x''
-    has been deleted
-
-    Transform ''c_index3.l'' has been deleted
-
-    Transform
-    ''c_index2.l'' has been deleted
-
-    Transform ''c_index1.l'' has been deleted
-
-    Transform
-    ''c_middle3.l'' has been deleted
-
-    Transform ''c_middle2.l'' has been deleted
-
-    Transform
-    ''c_middle1.l'' has been deleted
-
-    Transform ''c_pinky3.l'' has been deleted
-
-    Transform
-    ''c_pinky2.l'' has been deleted
-
-    Transform ''c_pinky1.l'' has been deleted
-
-    Transform
-    ''c_ring3.l'' has been deleted
-
-    Transform ''c_ring2.l'' has been deleted
-
-    Transform
-    ''c_ring1.l'' has been deleted
-
-    Transform ''c_thumb3.l'' has been deleted
-
-    Transform
-    ''c_thumb2.l'' has been deleted
-
-    Transform ''c_thumb1.l'' has been deleted
-
-    Transform
-    ''hand.l'' has been deleted
-
-    Transform ''forearm_stretch.l'' has been deleted
-
-    Transform
-    ''arm_stretch.l'' has been deleted
-
-    Transform ''shoulder.l'' has been deleted
-
-    Transform
-    ''c_index3.r'' has been deleted
-
-    Transform ''c_index2.r'' has been deleted
-
-    Transform
-    ''c_index1.r'' has been deleted
-
-    Transform ''c_middle3.r'' has been deleted
-
-    Transform
-    ''c_middle2.r'' has been deleted
-
-    Transform ''c_middle1.r'' has been deleted
-
-    Transform
-    ''c_pinky3.r'' has been deleted
-
-    Transform ''c_pinky2.r'' has been deleted
-
-    Transform
-    ''c_pinky1.r'' has been deleted
-
-    Transform ''c_ring3.r'' has been deleted
-
-    Transform
-    ''c_ring2.r'' has been deleted
-
-    Transform ''c_ring1.r'' has been deleted
-
-    Transform
-    ''c_thumb3.r'' has been deleted
-
-    Transform ''c_thumb2.r'' has been deleted
-
-    Transform
-    ''c_thumb1.r'' has been deleted
-
-    Transform ''hand.r'' has been deleted
-
-    Transform
-    ''forearm_stretch.r'' has been deleted
-
-    Transform ''arm_stretch.r'' has been
-    deleted
-
-    Transform ''shoulder.r'' has been deleted
-
-    Transform ''spine_03.x''
-    has been deleted
-
-    Transform ''spine_02.x'' has been deleted
-
-    Transform
-    ''spine_01.x'' has been deleted
-
-    Transform ''toes_01.l'' has been deleted
-
-    Transform
-    ''foot.l'' has been deleted
-
-    Transform ''leg_stretch.l'' has been deleted
-
-    Transform
-    ''thigh_stretch.l'' has been deleted
-
-    Transform ''toes_01.r'' has been deleted
-
-    Transform
-    ''foot.r'' has been deleted
-
-    Transform ''leg_stretch.r'' has been deleted
-
-    Transform
-    ''thigh_stretch.r'' has been deleted
-
-    Transform ''root.x'' has been deleted
-
-    Transform
-    ''root'' has been deleted'
+  m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
@@ -2084,7 +1951,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5832676838676566005}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: 77.558, y: 3.991, z: 26.837}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2642,7 +2509,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8885193567667134495}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 77.558, y: 3.991, z: 26.837}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
