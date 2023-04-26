@@ -41,6 +41,8 @@ public class CameraRotateController : MonoBehaviour, IBeginDragHandler, IDragHan
         if(player != null)
         {
             Init();
+
+            CancelInvoke("SetCameraRotPlayer");
         }
         else
         {
@@ -74,6 +76,7 @@ public class CameraRotateController : MonoBehaviour, IBeginDragHandler, IDragHan
             if (player != null)
             {
                 Init();
+                CancelInvoke("SetCameraRotPlayer");
             }
         }
     }
@@ -81,7 +84,7 @@ public class CameraRotateController : MonoBehaviour, IBeginDragHandler, IDragHan
     void Update()
     {
 
-        SetCameraRotPlayer();
+        //SetCameraRotPlayer();
         
     }
 
@@ -97,6 +100,8 @@ public class CameraRotateController : MonoBehaviour, IBeginDragHandler, IDragHan
         playerCam = player.transform.Find("CameraObj").transform;
         camXAngle = playerCam.rotation.eulerAngles.x;
         camYAngle = playerCam.rotation.eulerAngles.y;
+
+
     }
 
     //드래그 시작전
