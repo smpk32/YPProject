@@ -1,0 +1,10 @@
+diff a/YPproj/Assets/Script/GameManager.cs b/YPproj/Assets/Script/GameManager.cs	(rejected hunks)
+@@ -104,7 +104,7 @@
+         //Quaternion rotate = Quaternion.Euler(0, -180, 0);
+         // ��Ʈ��ũ ���� ��� Ŭ���̾�Ʈ�鿡�� ���� ����
+         // ��, �ش� ���� ������Ʈ�� �ֵ�����, ���� �޼��带 ���� ������ Ŭ���̾�Ʈ���� ����
+-        GameObject player = PhotonNetwork.Instantiate(selectedCharacter, new Vector3(0, 0, 0), Quaternion.Euler(0, 0, 0));
++        GameObject player = PhotonNetwork.Instantiate("MultiCharacter\\" + selectCharacter, new Vector3(0, 0, 0), Quaternion.Euler(0, 0, 0));
+         //�÷��̾� ������ �Ҵ�
+         GameManager.instance.playerPrefab = player;
+         GameManager.instance.viewID = player.GetComponent<PhotonView>().ViewID;

@@ -16,7 +16,7 @@ public class MainSceneManager : MonoBehaviourPunCallbacks
     void Start()
     {
 
-/*
+    /*
 
         if(GameManager.instance.nickNm == "")
         {

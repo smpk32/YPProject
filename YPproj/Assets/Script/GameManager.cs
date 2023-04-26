@@ -8,6 +8,7 @@ using TMPro;
 public class GameManager : MonoBehaviourPunCallbacks
 {
     public static GameManager instance = null;
+    public string selectedCharacter = "MultiManPlayer";
 
     public GameObject playerPrefab;
     public int viewID;
@@ -19,6 +20,8 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     // 멀티플레이 체크 변수
     public string multiState = "Single";
+    //캐릭터 선택 체크
+    public bool firstCheck;
 
     /*현재 플레이어가 있는 장소
      *  0 > 전시회 1
@@ -28,11 +31,15 @@ public class GameManager : MonoBehaviourPunCallbacks
     */
     public int placeState = 0;
 
-    public PlayerState playerState = PlayerState.normal;
+    public PlayerState playerState = PlayerState.setting;
 
     // 플레이어가 앉은 자리이름담는 변수
     public string sitNm = "";
-    public string selectCharacter = "";
+
+    // 
+    public string selectCharacter = "ManPlayer1";
+
+
     public static GameManager Instance
     {
         get
@@ -53,8 +60,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         if (null == instance)
         { // 씬 시작될때 인스턴스 초기화, 씬을 넘어갈때도 유지되기위한 처리
-            instance = this;
-            playerPrefab = GameObject.Find("PlayerObj");
+            instance = this;         
+
             DontDestroyOnLoad(this.gameObject);
         }
         else
@@ -79,20 +86,22 @@ public class GameManager : MonoBehaviourPunCallbacks
     public void CreateSingleChacracter()
     {
 
-        GameObject player = Instantiate(Resources.Load<GameObject>("SingleCharacter\\" + selectCharacter));
-
+        GameObject player = Instantiate(Resources.Load<GameObject>("CharacterModel\\" + selectCharacter));
+        
         playerPrefab = player;
         player.transform.position = GameObject.Find("SpawnSpot").transform.Find("spawn1").transform.position;
 
 
         Camera.main.transform.parent = player.transform.Find("CameraObj").transform;
-
+        player.transform.Find("CameraObj").transform.parent.name = "PlayerObj";
 
         player.GetComponent<SetPlayerNm>().SetNickNm();
 
         GameObject.Find("MainCanvas").transform.Find("DragPanel").transform.gameObject.SetActive(true);
 
         GameObject.Find("SpawnSpot").GetComponent<PlaceMove>().MapChange(GameManager.instance.placeState);
+
+        playerState = PlayerState.normal;
 
     }
 
@@ -104,15 +113,16 @@ public class GameManager : MonoBehaviourPunCallbacks
         //Quaternion rotate = Quaternion.Euler(0, -180, 0);
         // 네트워크 상의 모든 클라이언트들에서 생성 실행
         // 단, 해당 게임 오브젝트의 주도권은, 생성 메서드를 직접 실행한 클라이언트에게 있음
-        GameObject player = PhotonNetwork.Instantiate("MultiCharacter\\" + selectCharacter, new Vector3(0, 0, 0), Quaternion.Euler(0, 0, 0));
+        GameObject player = PhotonNetwork.Instantiate("CharacterModel\\" + selectCharacter, new Vector3(0, 0, 0), Quaternion.Euler(0, 0, 0));
         //플레이어 프리팹 할당
         GameManager.instance.playerPrefab = player;
-        GameManager.instance.viewID = player.GetComponent<PhotonView>().ViewID;
+
 
         Camera.main.transform.parent = player.transform.Find("CameraObj").transform;
 
-        //GameObject.Find("SpawnSpot").GetComponent<PlaceMove>().SetPlayerPos(GameManager.instance.placeState);
-        GameObject.Find("SpawnSpot").GetComponent<PlaceMove>().MapChange(GameManager.instance.placeState);
+        GameObject.Find("SpawnSpot").GetComponent<PlaceMove>().SetPlayerPos(GameManager.instance.placeState);
+
+        GameManager.instance.viewID = player.GetComponent<PhotonView>().ViewID;
         player.GetComponent<SetPlayerNm>().SetNickNmPhotonAll();
 
         
@@ -136,7 +146,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         SceneManager.LoadScene("MainScene");
 
     }
-
+    //게임종료
     public void QuitGame()
     {
         Application.Quit();

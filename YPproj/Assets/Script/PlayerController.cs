@@ -55,6 +55,7 @@ public class PlayerController : MonoBehaviourPun
 
     private void FixedUpdate()
     {
+        
         if(GameManager.instance.multiState == "Multi")
         {
             if (photonView!=null && !photonView.IsMine)
