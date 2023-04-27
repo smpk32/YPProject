@@ -14,7 +14,8 @@ public class PlayerSetPanelEvent : MonoBehaviour
         {
             if (gameObject.activeSelf)
             {
-                GameManager.instance.playerPrefab.GetComponent<SetPlayerNm>().SetNickNm();
+                //GameManager.instance.playerPrefab.GetComponent<SetPlayerNm>().SetNickNm();
+                GameObject.Find("MainCanvas").GetComponent<Enter>().EnterRoom();
             }
         }
     }
