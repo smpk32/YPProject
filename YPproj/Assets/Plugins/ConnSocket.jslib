@@ -38,7 +38,13 @@ mergeInto(LibraryManager.library,{
 
     ImgFileSubmit : function(){
         clickImgSubmitBtn();
-},
+	},
 
+	// id 필터링
+	BadWordCheck : function(usrId){
+		console.log(UTF8ToString(usrId));
+		console.log(BadWordFilter.Check(UTF8ToString(usrId),'ko'));
+        return BadWordFilter.Check(UTF8ToString(usrId),'ko');
+	},
 
 })
