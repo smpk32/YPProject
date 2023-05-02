@@ -72,7 +72,7 @@ public class Enter : MonoBehaviour
             Check = "";
             return;
         }
-#if UNITY_WEBGL && !UNITY_EDITOR
+/*#if UNITY_WEBGL && !UNITY_EDITOR
         else if (BadWordCheck(nmText))
         {
             ModalManager.Show("알림", "사용할 수 없는 이름입니다. \n 다시입력하세요.",
@@ -87,7 +87,7 @@ public class Enter : MonoBehaviour
             Check = "";
             return;
         }
-#endif
+#endif*/
         else
         {
             GameManager.instance.CreateSingleChacracter();

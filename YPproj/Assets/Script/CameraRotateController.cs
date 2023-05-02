@@ -171,6 +171,12 @@ public class CameraRotateController : MonoBehaviour, IBeginDragHandler, IDragHan
 
                     hit.transform.GetComponent<Button>().onClick.Invoke();
                 }
+
+            }
+            if (hit.collider.tag == "NPC")
+            {
+                GameObject.Find("MainCanvas").transform.Find("NPCPanel").transform.gameObject.SetActive(true);
+
             }
         }
     }
