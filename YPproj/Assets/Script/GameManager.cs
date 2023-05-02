@@ -87,7 +87,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
 
         GameObject player = Instantiate(Resources.Load<GameObject>("CharacterModel\\" + selectCharacter));
-        
+
         playerPrefab = player;
         player.transform.position = GameObject.Find("SpawnSpot").transform.Find("spawn1").transform.position;
 
@@ -115,7 +115,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         // 단, 해당 게임 오브젝트의 주도권은, 생성 메서드를 직접 실행한 클라이언트에게 있음
         GameObject player = PhotonNetwork.Instantiate("CharacterModel\\" + selectCharacter, new Vector3(0, 0, 0), Quaternion.Euler(0, 0, 0));
         //플레이어 프리팹 할당
-        GameManager.instance.playerPrefab = player;
+        playerPrefab = player;
 
 
         Camera.main.transform.parent = player.transform.Find("CameraObj").transform;

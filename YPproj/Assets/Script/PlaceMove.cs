@@ -74,13 +74,16 @@ public class PlaceMove : MonoBehaviour
             Debug.Log("Multi : Single  &  num : 3");*/
             GameManager.instance.multiState = "Multi";
             GameObject.Find("MainCanvas").gameObject.transform.Find("LoadingImage").gameObject.SetActive(true);
-            GameObject.Find("MainSceneManager").GetComponent<MainSceneManager>().Enter();
-            
+
             // 상단 탑캔버스 SetActive False처리
             if (mapList.Count != 0)
             {
-                mapList[0].transform.Find("FrameGrp").transform.Find("FloorCanvas").gameObject.SetActive(false);
+                mapList[1].transform.Find("FrameGrp").transform.Find("FloorCanvas").gameObject.SetActive(false);
             }
+
+            GameObject.Find("MainSceneManager").GetComponent<MainSceneManager>().Enter();
+            
+            
 
         }
         else if (GameManager.instance.multiState == "Single" && num != 3)      // 강당 외의 장소에서 강당 외의 장소로 이동할 때
