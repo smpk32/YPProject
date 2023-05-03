@@ -36,7 +36,7 @@ public class SocketHandler extends TextWebSocketHandler{
 			ObjectMapper mapper = new ObjectMapper();
 	        Map<String, String> map = mapper.readValue(msg, Map.class);
 	        
-	        if(map.get("type").toString().equals("sendUsrInfo")) {
+	        if(map.get("type").toString().equals("createUsr")) {
 	        	String nickNm =  NickNmCheck(map.get("sender").toString());
 	        	map.put("sender", nickNm);
 	        	
@@ -98,24 +98,33 @@ public class SocketHandler extends TextWebSocketHandler{
 		sessionList.remove(session.getId());
 		
 		
-		/*
-		 * if(sessionList.size()>0) { HashMap<String,String> useInfo = new HashMap<>();
-		 * 
-		 * useInfo.put("type", "quitUserInfo"); useInfo.put("sender",
-		 * userList.get(session.getId()));
-		 * 
-		 * JSONObject jsonObject = new JSONObject(useInfo); for(String key :
-		 * sessionList.keySet()) { WebSocketSession wss = sessionList.get(key); try {
-		 * wss.sendMessage(new TextMessage(jsonObject.toString())); }catch(Exception e)
-		 * { e.printStackTrace(); } } }
-		 */
 		
 		
-		
-		
+		 if(sessionList.size()>0) { 
+			 HashMap<String,String> useInfo = new HashMap<>();
+		  
+			 useInfo.put("type", "quitUserInfo");
+			 useInfo.put("sender",userList.get(session.getId()));
+		  
+			 JSONObject jsonObject = new JSONObject(useInfo); 
+			 
+			 for(String key :sessionList.keySet()) {
+				 WebSocketSession wss = sessionList.get(key); 
+				 try {
+					 wss.sendMessage(new TextMessage(jsonObject.toString())); 
+				 }catch(Exception e){
+					 e.printStackTrace(); 
+				 } 
+			
+			 } 
+		 
+		 }
+		 
+	
 		userList.remove(session.getId());
-		
+	
 		super.afterConnectionClosed(session, status);
+		
 	}
 	
 	
@@ -136,7 +145,7 @@ public class SocketHandler extends TextWebSocketHandler{
 			System.out.println(i);
 			System.out.println(userList.get(keyList.get(i)));
 			if(resultNick.equals(userList.get(keyList.get(i)))) {
-				//System.out.println(resultNick);
+				
 				resultNick = nickNm + "_"+idx;
 				System.out.println("바뀐 닉네임 : "+resultNick);
 				idx++;

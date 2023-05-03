@@ -220,6 +220,29 @@ public class Chat : MonoBehaviour
             }
             
         }
+        else if (chatData.type == "createUsr")
+        {
+
+            if (chatData.sender == "±º¼ö´Ô")
+            {
+                Debug.Log("±º¼ö´ÔÀÌ º¸³¿");
+                return;
+            }
+
+            if (GameManager.instance.nickNm != "±º¼ö´Ô")
+            {
+                GameManager.instance.nickNm = chatData.sender;
+
+                if (GameManager.instance.playerPrefab == null)
+                {
+                    GameManager.instance.CreatePlayer();
+                }
+
+                SendChatData("sendUsrInfo");
+            }
+
+            
+        }
         else if(chatData.type == "sendUsrInfo")
         {
             if(chatData.sender == "±º¼ö´Ô")
@@ -237,14 +260,18 @@ public class Chat : MonoBehaviour
                 chatObj.transform.SetParent(userListContent.transform);
                 chatObj.transform.localScale = new Vector3(1, 1, 1);
             }
-            else
+            /*else
             {
                 GameManager.instance.nickNm = chatData.sender;
+
                 if (GameManager.instance.playerPrefab == null)
                 {
                     GameManager.instance.CreatePlayer();
                 }
-            }
+
+            }*/
+
+            
         }
         else if(chatData.type == "muteUser")
         {
@@ -273,7 +300,6 @@ public class Chat : MonoBehaviour
                 userListContent = userListView.transform.Find("Scroll View").Find("Viewport").Find("Content").gameObject;
                 
                 TextMeshProUGUI[] childList = userListContent.GetComponentsInChildren<TextMeshProUGUI>();
-                Debug.Log(childList.Length);
 
                 if (childList.Length > 0)
                 {
@@ -282,6 +308,7 @@ public class Chat : MonoBehaviour
                         if (childList[i].text == chatData.sender)
                         {
                             Destroy(childList[i].gameObject);
+                            return;
                         }
                     }
                 }
@@ -328,6 +355,29 @@ public class Chat : MonoBehaviour
         {
             SendChatData("sendUsrInfo");
         }
+        else if (chatData.type == "createUsr")
+        {
+
+            if (chatData.sender == "±º¼ö´Ô")
+            {
+                Debug.Log("±º¼ö´ÔÀÌ º¸³¿");
+                return;
+            }
+
+            if (GameManager.instance.nickNm != "±º¼ö´Ô")
+            {
+                GameManager.instance.nickNm = chatData.sender;
+
+                if (GameManager.instance.playerPrefab == null)
+                {
+                    GameManager.instance.CreatePlayer();
+                }
+
+                SendChatData("sendUsrInfo");
+            }
+
+            
+        }
         else if(chatData.type == "sendUsrInfo")
         {
             if(chatData.sender == "±º¼ö´Ô")
@@ -345,14 +395,18 @@ public class Chat : MonoBehaviour
                 chatObj.transform.SetParent(userListContent.transform);
                 chatObj.transform.localScale = new Vector3(1, 1, 1);
             }
-            else
+            /*else
             {
                 GameManager.instance.nickNm = chatData.sender;
+
                 if (GameManager.instance.playerPrefab == null)
                 {
                     GameManager.instance.CreatePlayer();
                 }
-            }
+
+            }*/
+
+            
         }
         else if(chatData.type == "muteUser")
         {
@@ -383,11 +437,12 @@ public class Chat : MonoBehaviour
 
                 if (childList != null)
                 {
-                    for (int i = 1; i < childList.Length; i++)
+                    for (int i = 0; i < childList.Length; i++)
                     {
                         if(childList[i].text == chatData.sender)
                         {
                             Destroy(childList[i].gameObject);
+                            return;
                         }
                     }
                 }
@@ -447,12 +502,23 @@ public class Chat : MonoBehaviour
         {
             Debug.Log("master!!");
 
+            if (GameManager.instance.playerPrefab == null)
+            {
+                GameManager.instance.CreatePlayer();
+            }
+
+        }
+        else if (type == "createUsr")
+        {
+            Debug.Log("createUsr!!");
+            chatData.sessionId = sessionId;
+            chatData.sender = GameManager.instance.originNickNm;
         }
         else if (type == "sendUsrInfo")
         {
             Debug.Log("sendUsrInfo!!");
-            chatData.sessionId = sessionId;
-            chatData.sender = GameManager.instance.originNickNm;
+            //chatData.sessionId = sessionId;
+            //chatData.sender = GameManager.instance.nickNm;
         }
         else if ( type == "quitUserInfo")
         {
@@ -551,7 +617,7 @@ public class Chat : MonoBehaviour
         }
         else
         {
-            SendChatData("sendUsrInfo");
+            SendChatData("createUsr");
         }
     }
 
