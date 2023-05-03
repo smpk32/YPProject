@@ -103,6 +103,8 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         playerState = PlayerState.normal;
 
+        GameObject.Find("MainCanvas").transform.Find("DragPanel").GetComponent<CameraRotateController>().pc = playerPrefab.transform.Find("Player").GetComponent<PlayerController>();
+
     }
 
     // 멀티플레이모드일 때 플레이어 오브젝스 생성하는 함수
@@ -125,7 +127,9 @@ public class GameManager : MonoBehaviourPunCallbacks
         GameManager.instance.viewID = player.GetComponent<PhotonView>().ViewID;
         player.GetComponent<SetPlayerNm>().SetNickNmPhotonAll();
 
-        
+        GameObject.Find("MainCanvas").transform.Find("DragPanel").GetComponent<CameraRotateController>().pc = playerPrefab.transform.Find("Player").GetComponent<PlayerController>();
+
+
     }
 
     // 플레이어 카메라 설정 함수
