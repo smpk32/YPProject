@@ -22,6 +22,9 @@ public class GameManager : MonoBehaviourPunCallbacks
     public string multiState = "Single";
     //캐릭터 선택 체크
     public bool firstCheck;
+    // 장소 이름
+    public string bdnm = "Main";
+    public int floor = 1;
 
     /*현재 플레이어가 있는 장소
      *  0 > 전시회 1

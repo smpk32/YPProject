@@ -19,9 +19,11 @@ public class NPC : MonoBehaviour
         //ClickNPC();
     }
 
+
+    //CameraRotateController.OnPointerUp() ·Î ¿Å±è
     public void ClickNPC()
     {
-      
+
 
         if (Input.GetMouseButtonDown(0))
         {

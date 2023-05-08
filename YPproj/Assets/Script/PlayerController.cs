@@ -7,11 +7,11 @@ using UnityEngine.EventSystems;
 
 public enum PlayerState
 {
-    normal,
-    sitting,
-    nav,
-    chat,
-    setting
+    normal,     //  기본
+    sitting,    //  앉기o 이동 x   로테이트 o
+    nav,        //  현재 사용 x
+    chat,       //  채팅o 이동 x   로테이트  o  
+    setting     //  이동x 로테이트 x
 }
 public class PlayerController : MonoBehaviourPun
 {
