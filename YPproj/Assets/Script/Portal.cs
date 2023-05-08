@@ -44,10 +44,21 @@ public class Portal : MonoBehaviour
             }
             else
             {
+                GameObject.Find("MainCanvas").transform.Find("PortalPanel").transform.gameObject.SetActive(true);
+                GameManager.instance.playerState = PlayerState.setting;
 
-            GameObject.Find("MainCanvas").transform.Find("PortalPanel").transform.gameObject.SetActive(true);
+                if (GameManager.Instance.bdnm == "Main")
+                {
+                    GameObject.Find("MainCanvas").transform.Find("PortalPanel").transform.Find("TabBox1").transform.gameObject.SetActive(true);
+                    GameObject.Find("MainCanvas").transform.Find("PortalPanel").transform.Find("TabBox2").transform.gameObject.SetActive(false);
+                }
+                else
+                {
+                    GameObject.Find("MainCanvas").transform.Find("PortalPanel").transform.Find("TabBox1").transform.gameObject.SetActive(false);
+                    GameObject.Find("MainCanvas").transform.Find("PortalPanel").transform.Find("TabBox2").transform.gameObject.SetActive(true);
+                }
 
-            GameManager.instance.playerState = PlayerState.setting;
+
             }
 
 

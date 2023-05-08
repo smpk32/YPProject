@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PotalPanel : MonoBehaviour
+public class PortalPanel : MonoBehaviour
 {
+   
     // Start is called before the first frame update
     void Start()
     {
@@ -18,15 +19,28 @@ public class PotalPanel : MonoBehaviour
 
 
 
-    public void SelectFloor(string selectVal)
+    public void SelectFloor(int selectVal)
     {
         GameObject panel = GameObject.Find("MainCanvas").transform.Find("PortalPanel").transform.gameObject;
         panel.SetActive(false);
-/*
-        if()
-        GameManager.instance.playerPrefab.transform = GameObject.Find("MoveSpot").t
-*/
+        if (GameManager.Instance.bdnm == "Main")
+        {
+            GameManager.instance.playerPrefab.transform.position = GameObject.Find("Portal").transform.Find("ElePortal").transform.Find("MainMoveSpot").Find(selectVal.ToString()).transform.position;
+
+        }
+        else
+        {
+            GameManager.instance.playerPrefab.transform.position = GameObject.Find("Portal").transform.Find("ElePortal").transform.Find("SubMoveSpot").Find(selectVal.ToString()).transform.position;
+        }
+       
         GameManager.instance.playerState = PlayerState.normal;
 
+    }
+
+    public void ClosePortalPanel()
+    {
+        gameObject.SetActive(false);
+
+        GameManager.instance.playerState = PlayerState.normal;
     }
 }
