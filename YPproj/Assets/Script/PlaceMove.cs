@@ -139,7 +139,8 @@ public class PlaceMove : MonoBehaviour
         playerPos.Find("CameraObj").transform.rotation = spawnList[num].transform.rotation;
         if(GameManager.instance.multiState == "Single")
         {
-            GameObject.Find("DragPanel").GetComponent<CameraRotateController>().SetCameraRotPlayer();
+            GameObject.Find("DragPanel").GetComponent<CameraRotateController>().Init();
         }
+
     }
 }
