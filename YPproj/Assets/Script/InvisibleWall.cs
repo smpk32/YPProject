@@ -17,7 +17,7 @@ public class InvisibleWall : MonoBehaviour
     {
         
     }
-
+    // 본관 / 별관 구분자
     private void OnTriggerExit(Collider other)
     {
         if (other.tag == "Player")

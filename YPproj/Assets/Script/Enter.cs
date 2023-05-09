@@ -40,6 +40,7 @@ public class Enter : MonoBehaviour
         
     }
 
+    //캐릭터 생성 / 아이디 체크
     public void EnterRoom()
     {
 
