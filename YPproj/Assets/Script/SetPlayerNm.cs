@@ -52,7 +52,7 @@ public class SetPlayerNm : MonoBehaviourPunCallbacks
         }*/
 
         GameManager.instance.playerState = PlayerState.normal;
-        Debug.Log(GameManager.instance.playerPrefab);
+        
 
         GameManager.instance.playerPrefab.transform.Find("NickNm").transform.Find("NickNmText").GetComponent<TextMeshProUGUI>().text = GameManager.instance.originNickNm;
 
