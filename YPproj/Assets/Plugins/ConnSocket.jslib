@@ -1,26 +1,8 @@
 mergeInto(LibraryManager.library,{
 
-    Connect : function(){
-
-	this.ws = new WebSocket("ws://192.168.1.113:8080/socket");
-
-	this.ws.onopen = function(e){ 
-			console.log("info : connection opened.");
-			//unityInstance.SendMessage("MainCanvas","MasterCheck",e.data);
-		}
-		
-		this.ws.onmessage = function(e){ 
-			unityInstance.SendMessage("MainCanvas","ChatCheck",e.data);
-		}
-		
-		this.ws.onclose = function(e){ 
-			console.log("info : connection closed");
-			//unityInstance.SendMessage("MainCanvas","QuitUserInfo",e.data);
-		};
-		
-		this.ws.onerror = function(e){
-			console.log("error")
-		};
+    ConnectStart : function(){
+		Connect();
+	
     },
     // 메세지 전송
     SendMsg : function(msg){

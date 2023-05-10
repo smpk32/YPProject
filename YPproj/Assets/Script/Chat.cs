@@ -56,7 +56,7 @@ public class Chat : MonoBehaviour
 #if UNITY_WEBGL && !UNITY_EDITOR
 
     [DllImport("__Internal")]
-    private static extern void Connect();
+    private static extern void ConnectStart();
 
     [DllImport("__Internal")]
     private static extern void SendMsg(string msg);
@@ -89,7 +89,7 @@ public class Chat : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Connect();
+        ConnectStart();
         InitChat();
     }
 
@@ -129,7 +129,7 @@ public class Chat : MonoBehaviour
 
 
     // 웹소켓 연결
-    void Connect()
+    void ConnectStart()
     {
 
         ws = new WebSocket("ws://192.168.1.113:8080/socket");
