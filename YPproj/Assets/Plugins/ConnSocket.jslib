@@ -29,4 +29,9 @@ mergeInto(LibraryManager.library,{
         return BadWordFilter.Check(UTF8ToString(usrId),'ko');
 	},
 
+  ShowSeatPanel : function(panelId){
+		console.log(UTF8ToString(panelId));
+		InitSeatPanel(UTF8ToString(panelId));
+	},
+
 })

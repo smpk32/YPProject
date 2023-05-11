@@ -34,9 +34,9 @@ public class NPC : MonoBehaviour
     //CameraRotateController.OnPointerUp() ·Î ¿Å±è
     public void ClickNPC()
     {
+        GameObject.Find("MainCanvas").transform.Find("NPCPanel").transform.gameObject.SetActive(true);
 
-
-        if (Input.GetMouseButtonDown(0))
+        /*if (Input.GetMouseButtonDown(0))
         {
             ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
@@ -44,11 +44,11 @@ public class NPC : MonoBehaviour
             {
                 if (hit.collider.tag == "NPC")
                 {
-                    GameObject.Find("MainCanvas").transform.Find("NPCPanel").transform.gameObject.SetActive(true);
+                    
 
                 }
             }
-        }
+        }*/
     }
 
     public void CloseNPC()

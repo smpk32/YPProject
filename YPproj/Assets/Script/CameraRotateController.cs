@@ -122,7 +122,7 @@ public class CameraRotateController : MonoBehaviour, IBeginDragHandler, IDragHan
     public void OnDrag(PointerEventData draggingPoint)
     {
         // 자동이동중에도 카메라 회전 가능하게 하위 코드 임시 주석처리
-        if(pc.playerState == PlayerState.setting)
+        if(GameManager.instance.playerState == PlayerState.setting)
         {
             return;
         }
@@ -161,7 +161,7 @@ public class CameraRotateController : MonoBehaviour, IBeginDragHandler, IDragHan
             return;
         }
         ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
+        
         if (Physics.Raycast(ray, out hit))
         {
             if (hit.collider.tag == "EvtBtn")
@@ -171,11 +171,6 @@ public class CameraRotateController : MonoBehaviour, IBeginDragHandler, IDragHan
 
                     hit.transform.GetComponent<Button>().onClick.Invoke();
                 }
-
-            }
-            if (hit.collider.tag == "NPC")
-            {
-                GameObject.Find("MainCanvas").transform.Find("NPCPanel").transform.gameObject.SetActive(true);
 
             }
         }

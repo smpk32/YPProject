@@ -143,6 +143,28 @@ public class GameManager : MonoBehaviourPunCallbacks
         GameObject.Find("DragPanel").GetComponent<Drag>().SetPlayer();
     }
 
+    public void SetState(string state)
+    {
+        switch (state)
+        {
+            case "setting":
+                playerState = PlayerState.setting;
+                break;
+            case "normal":
+                playerState = PlayerState.normal;
+                break;
+            case "sitting":
+                playerState = PlayerState.sitting;
+                break;
+            case "nav":
+                playerState = PlayerState.nav;
+                break;
+            case "chat":
+                playerState = PlayerState.chat;
+                break;
+        }
+    }
+
 
     // 멀티 >> 싱글로 이동 시 Photon연결끊는 함수
     public void Disconnect()
