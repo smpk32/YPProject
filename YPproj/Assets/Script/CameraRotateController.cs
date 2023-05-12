@@ -101,6 +101,11 @@ public class CameraRotateController : MonoBehaviour, IBeginDragHandler, IDragHan
         camXAngle = playerCam.rotation.eulerAngles.x;
         camYAngle = playerCam.rotation.eulerAngles.y;
 
+        if (GameManager.instance.multiState.Equals("Multi"))
+        {
+            GameObject.Find("MainCanvas").gameObject.transform.Find("LoadingImage").gameObject.SetActive(false);
+        }
+
 
     }
 
