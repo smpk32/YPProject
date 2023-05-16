@@ -159,6 +159,10 @@ public class Chat : MonoBehaviour
     {
         Debug.Log("close"); //디버그 콘솔에 "close"이라고 찍는다.
 
+        // 재연결 시도
+        ConnectStart();
+        InitChat();
+
         //QuitUserInfo();
 
 
