@@ -27,6 +27,7 @@ public class Chat : MonoBehaviour
     string imgFilePath;
 
     public GameObject chatListObj;
+    public GameObject chatNmObj;
     public GameObject imgChatListObj;
 
     public GameObject userListObj;
@@ -76,6 +77,7 @@ public class Chat : MonoBehaviour
 
         chatListObj = Resources.Load<GameObject>("Chat\\ChatList");
         imgChatListObj = Resources.Load<GameObject>("Chat\\ImgChat");
+        chatNmObj = Resources.Load<GameObject>("Chat\\ChatNm");
 
         userListView = gameObject.transform.Find("UserListView").gameObject;
         userListContent = userListView.transform.Find("Scroll View").Find("Viewport").Find("Content").gameObject;
@@ -195,8 +197,13 @@ public class Chat : MonoBehaviour
         Debug.Log("unity : " + e.Data);
         if (chatData.type == "msg")
         {
+            GameObject chaNmTxtObj = Instantiate(chatNmObj);
+            chaNmTxtObj.GetComponent<TextMeshProUGUI>().text = "\n" + chatData.sender + " 님 ";
+            chaNmTxtObj.transform.SetParent(chatContent.transform);
+            chaNmTxtObj.transform.localScale = new Vector3(1, 1, 1);
+
             GameObject chatObj = Instantiate(chatListObj);
-            chatObj.GetComponent<TextMeshProUGUI>().text = chatData.sender + " : " + chatData.message;
+            chatObj.transform.Find("Text").GetComponent<TextMeshProUGUI>().text =  chatData.message;
             chatObj.transform.SetParent(chatContent.transform);
             chatObj.transform.localScale = new Vector3(1, 1, 1);
 
@@ -206,10 +213,10 @@ public class Chat : MonoBehaviour
             Debug.Log("타입 : " + chatData.type + "  보낸사람 : " + chatData.sender + "  msg : " + chatData.filePath);
 
             // 보낸 사람명 채팅창에 출력
-            GameObject chatObj = Instantiate(chatListObj);
-            chatObj.GetComponent<TextMeshProUGUI>().text = chatData.sender + " : ";
-            chatObj.transform.SetParent(chatContent.transform);
-            chatObj.transform.localScale = new Vector3(1, 1, 1);
+            GameObject chaNmTxtObj = Instantiate(chatNmObj);
+            chaNmTxtObj.GetComponent<TextMeshProUGUI>().text = "\n" + chatData.sender + " 님 ";
+            chaNmTxtObj.transform.SetParent(chatContent.transform);
+            chaNmTxtObj.transform.localScale = new Vector3(1, 1, 1);
 
             // 보낸 이미지 채팅창에 출력
             GameObject imgChatObj = Instantiate(imgChatListObj);
@@ -286,12 +293,16 @@ public class Chat : MonoBehaviour
                 {
                     sendBtn.interactable = true;
                     sendImgBtn.interactable = true;
+                    chatField.interactable = true;
+                    chatField.placeholder.GetComponent<TextMeshProUGUI>().text = "메세지를 입력하세요.";
                     
                 }
                 else
                 {
                     sendBtn.interactable = false;
                     sendImgBtn.interactable = false;
+                    chatField.interactable = false;
+                    chatField.placeholder.GetComponent<TextMeshProUGUI>().text = "채팅금지상태입니다.";
                 }
             }
         }
@@ -335,20 +346,24 @@ public class Chat : MonoBehaviour
         ChatData chatData = JsonUtility.FromJson<ChatData>(msg);
 
         if(chatData.type == "msg"){
+            GameObject chaNmTxtObj = Instantiate(chatNmObj);
+            chaNmTxtObj.GetComponent<TextMeshProUGUI>().text = "\n" + chatData.sender + " 님 ";
+            chaNmTxtObj.transform.SetParent(chatContent.transform);
+            chaNmTxtObj.transform.localScale = new Vector3(1, 1, 1);
+
             GameObject chatObj = Instantiate(chatListObj);
-            chatObj.GetComponent<TextMeshProUGUI>().text = chatData.sender + " : "+ chatData.message;
+            chatObj.transform.Find("Text").GetComponent<TextMeshProUGUI>().text =  chatData.message;
             chatObj.transform.SetParent(chatContent.transform);
             chatObj.transform.localScale = new Vector3(1, 1, 1);
-            Debug.Log("unity web : "+msg);
         
         }else if(chatData.type == "sendFile"){
             Debug.Log("타입 : "+chatData.type + "  보낸사람 : " + chatData.sender + "  msg : " + chatData.filePath);
 
             // 보낸 사람명 채팅창에 출력
-            GameObject chatObj = Instantiate(chatListObj);
-            chatObj.GetComponent<TextMeshProUGUI>().text = chatData.sender + " : ";
-            chatObj.transform.SetParent(chatContent.transform);
-            chatObj.transform.localScale = new Vector3(1, 1, 1);
+            GameObject chaNmTxtObj = Instantiate(chatNmObj);
+            chaNmTxtObj.GetComponent<TextMeshProUGUI>().text = "\n" + chatData.sender + " 님 ";
+            chaNmTxtObj.transform.SetParent(chatContent.transform);
+            chaNmTxtObj.transform.localScale = new Vector3(1, 1, 1);
 
             // 보낸 이미지 채팅창에 출력
             GameObject imgChatObj = Instantiate(imgChatListObj);
@@ -648,14 +663,11 @@ public class Chat : MonoBehaviour
             {
                 //imgChatObj.GetComponent<ChatImgEvent>().imgUrl = url;
                 Texture2D urlImg = DownloadHandlerTexture.GetContent(www);
-                Debug.Log("width : " + urlImg.width + "  height : " + urlImg.height);
                 Rect rect = new Rect(0, 0, urlImg.width, urlImg.height);
 
-                Debug.Log("SetChatImg :" + www);
                 GameObject imgObj = imgChatObj.transform.Find("Img").gameObject;
                 imgObj.GetComponent<Image>().sprite = Sprite.Create(urlImg, rect, new Vector2(0f, 0f));
                 //imgObj.GetComponent<Image>().preserveAspect = true;
-                Debug.Log("preserveAspect : " + imgObj.GetComponent<Image>().preserveAspect);
                 imgChatObj.transform.localScale = new Vector3(1, 1, 1);
             }
         }
@@ -674,5 +686,10 @@ public class Chat : MonoBehaviour
             }
         }
 
+    }
+
+    public void CloseFramDtlPanel()
+    {
+        gameObject.transform.Find("FrameDtlPanel").gameObject.SetActive(false);
     }
 }

@@ -33,7 +33,10 @@ public class FormController : MonoBehaviour
         img.name = "Img" + i;
         gameObject.transform.Find("Mask").transform.Find("HorizontalScrollSnap").GetComponent<HorizontalScrollSnap>().AddChild(img);
         Debug.Log("CharacterImg\\" + toggle.name + (i + 1));
-        img.transform.Find("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("CharacterImg\\" + toggle.name + (i + 1));
+
+        
+        //img.transform.Find("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("CharacterImg\\" + toggle.name + (i + 1));
+        img.transform.Find("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("CharacterImg\\" + toggle.name + (i + 1)+ "_top");
 
     }
 

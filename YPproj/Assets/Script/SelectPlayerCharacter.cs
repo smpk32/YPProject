@@ -28,7 +28,7 @@ public class SelectPlayerCharacter : MonoBehaviour
     {
         GameObject con = GameObject.Find("MainCanvas").transform.Find("PlayerSetPanel").transform.Find("Canvas").transform.Find("Mask").transform.Find("HorizontalScrollSnap").transform.Find("Content").transform.gameObject;
         int size = con.transform.childCount;
-        Debug.Log(size);
+        
         for(int i =0; i< size; i++)
         {
             con.transform.GetChild(i).transform.Find("Image").GetComponent<Outline>().enabled = false ;
@@ -36,12 +36,14 @@ public class SelectPlayerCharacter : MonoBehaviour
 
         //프리뷰 선택시 중앙 프레임에 올리기
         Image selectedImage = this.gameObject.transform.Find("Image").GetComponent<Image>();
-        imageBox.sprite = selectedImage.sprite;
+        
+        //imageBox.sprite = selectedImage.sprite;
+        imageBox.sprite = Resources.Load<Sprite>("CharacterImg\\" + selectedImage.sprite.name.Replace("_top",""));
         //선택시 아웃라인 그려주기
         this.gameObject.transform.Find("Image").GetComponent<Outline>().enabled = true;
 
         //캐릭터 이름 저장
-        GameManager.Instance.selectCharacter = selectedImage.sprite.name;
+        GameManager.Instance.selectCharacter = selectedImage.sprite.name.Replace("_top", "");
 
 
     }
