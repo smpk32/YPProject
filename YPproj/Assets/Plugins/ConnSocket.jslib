@@ -4,6 +4,11 @@ mergeInto(LibraryManager.library,{
 		Connect();
 	
     },
+	ConnectClose : function(){
+		Connect();
+	
+    },
+
     // 메세지 전송
     SendMsg : function(msg){
 
