@@ -38,6 +38,9 @@ public class FrameSet : MonoBehaviour
     GameObject floorBtnList;
 
     Button[] floorBtnImgList;
+
+    public Texture defaultTexture;
+
     public enum ImgPath
     {
         Server,

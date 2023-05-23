@@ -64,6 +64,9 @@ public class Chat : MonoBehaviour
 
     [DllImport("__Internal")]
     private static extern void ImgFileOpen();
+
+    [DllImport("__Internal")]
+    private static extern void ConnectClose();
 #endif
     [DllImport("__Internal")]
     private static extern void ImgFileSubmit();
@@ -148,6 +151,13 @@ public class Chat : MonoBehaviour
 
 
     }
+#if PLATFORM_STANDALONE_WIN || UNITY_EDITOR
+    public void ConnectClose()
+    {
+        ws.Close();
+    
+    }
+#endif
 
     // 웹소켓 연결됐을 때 실행되는 함수
     void ws_OnOpen(object sender, System.EventArgs e)
@@ -291,6 +301,7 @@ public class Chat : MonoBehaviour
             {
                 if (chatData.isMute)
                 {
+                    chatField.text = "";
                     sendBtn.interactable = true;
                     sendImgBtn.interactable = true;
                     chatField.interactable = true;
@@ -299,6 +310,7 @@ public class Chat : MonoBehaviour
                 }
                 else
                 {
+                    chatField.text = "채팅금지상태입니다.";
                     sendBtn.interactable = false;
                     sendImgBtn.interactable = false;
                     chatField.interactable = false;
@@ -478,8 +490,8 @@ public class Chat : MonoBehaviour
 
 #endif
 
-    //웹소켓을 통한 메세지 전송 함수
-    public void SendChatData(string type)
+        //웹소켓을 통한 메세지 전송 함수
+        public void SendChatData(string type)
     {
         ChatData chatData = new ChatData();
         chatData.sender = GameManager.instance.nickNm;
@@ -586,7 +598,7 @@ public class Chat : MonoBehaviour
     public void OnOffChatView()
     {
 
-        if (!userListView.activeSelf)
+        /*if (!userListView.activeSelf)
         {
             if (chatView.activeSelf)
             {
@@ -598,14 +610,14 @@ public class Chat : MonoBehaviour
                 GameManager.instance.playerState = PlayerState.chat;
 
             }
-        }
+        }*/
         chatView.SetActive(!chatView.activeSelf);
     }
 
     // 유저리스트창 오픈 이벤트
     public void OnOffUserListView()
     {
-        if (!chatView.activeSelf)
+        /*if (!chatView.activeSelf)
         {
             if (userListView.activeSelf)
             {
@@ -618,7 +630,7 @@ public class Chat : MonoBehaviour
                 state = GameManager.instance.playerState;
                 GameManager.instance.playerState = PlayerState.chat;
             }
-        }
+        }*/
         
         userListView.SetActive(!userListView.activeSelf);
     }
