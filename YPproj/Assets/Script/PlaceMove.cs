@@ -64,7 +64,7 @@ public class PlaceMove : MonoBehaviour
         else if(GameManager.instance.multiState == "Multi" && num != 3)              // 강당에서 다른 장소로 이동할 때
         {
             GameObject.Find("MainCanvas").gameObject.transform.Find("LoadingImage").gameObject.SetActive(true);
-            GameObject.Find("MainCanvas").GetComponent<Chat>().ConnectClose();
+            GameObject.Find("MainCanvas").GetComponent<Chat>().CloseSocket();
             /*Debug.Log("강당에서 다른 장소로 이동할 때");
             Debug.Log("Multi : Multi  &  num : !3");*/
             GameManager.instance.multiState = "Single";

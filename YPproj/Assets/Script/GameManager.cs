@@ -42,6 +42,9 @@ public class GameManager : MonoBehaviourPunCallbacks
     // 
     public string selectCharacter = "ManPlayer1";
 
+    // 관리자 체크
+    public bool isMaster = false;
+
 
     public static GameManager Instance
     {
@@ -163,6 +166,12 @@ public class GameManager : MonoBehaviourPunCallbacks
                 playerState = PlayerState.chat;
                 break;
         }
+    }
+
+    public void InitMaster()
+    {
+        isMaster = true;
+        Debug.Log("MasterCheck");
     }
 
 

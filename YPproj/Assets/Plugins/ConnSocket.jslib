@@ -5,7 +5,7 @@ mergeInto(LibraryManager.library,{
 	
     },
 	ConnectClose : function(){
-		Connect();
+		CloseConnect();
 	
     },
 

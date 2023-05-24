@@ -67,9 +67,13 @@ public class Chat : MonoBehaviour
 
     [DllImport("__Internal")]
     private static extern void ConnectClose();
+
+    
 #endif
     [DllImport("__Internal")]
     private static extern void ImgFileSubmit();
+
+    
 
 
     private void Awake()
@@ -151,13 +155,8 @@ public class Chat : MonoBehaviour
 
 
     }
-#if PLATFORM_STANDALONE_WIN || UNITY_EDITOR
-    public void ConnectClose()
-    {
-        ws.Close();
+
     
-    }
-#endif
 
     // À¥¼ÒÄÏ ¿¬°áµÆÀ» ¶§ ½ÇÇàµÇ´Â ÇÔ¼ö
     void ws_OnOpen(object sender, System.EventArgs e)
@@ -235,7 +234,7 @@ public class Chat : MonoBehaviour
         }
         else if (chatData.type == "master")
         {
-            if (GameManager.instance.nickNm != "±º¼ö´Ô")
+            if (!GameManager.instance.isMaster)
             {
                 SendChatData("sendUsrInfo");
             }
@@ -244,13 +243,13 @@ public class Chat : MonoBehaviour
         else if (chatData.type == "createUsr")
         {
 
-            if (chatData.sender == "±º¼ö´Ô")
+            /*if (chatData.sender == "±º¼ö´Ô")
             {
                 Debug.Log("±º¼ö´ÔÀÌ º¸³¿");
                 return;
-            }
+            }*/
 
-            if (GameManager.instance.nickNm != "±º¼ö´Ô")
+            if (!GameManager.instance.isMaster)
             {
                 GameManager.instance.nickNm = chatData.sender;
 
@@ -266,13 +265,13 @@ public class Chat : MonoBehaviour
         }
         else if(chatData.type == "sendUsrInfo")
         {
-            if(chatData.sender == "±º¼ö´Ô")
+            /*if(chatData.sender == "±º¼ö´Ô")
             {
                 Debug.Log("±º¼ö´ÔÀÌ º¸³¿");
                 return;
-            }
+            }*/
 
-            if(GameManager.instance.nickNm == "±º¼ö´Ô")
+            if(GameManager.instance.isMaster)
             {
                 Debug.Log("À¯Àú Á¢¼Ó");
                 Debug.Log(chatData.sender);
@@ -320,7 +319,7 @@ public class Chat : MonoBehaviour
         }
         else if(chatData.type == "quitUserInfo")
         {
-            if (GameManager.instance.nickNm == "±º¼ö´Ô")
+            if (GameManager.instance.isMaster)
             {
                 Debug.Log("À¯Àú ³ª°¨");
                 Debug.Log(chatData.sender);
@@ -389,13 +388,13 @@ public class Chat : MonoBehaviour
         else if (chatData.type == "createUsr")
         {
 
-            if (chatData.sender == "±º¼ö´Ô")
+            /*if (chatData.sender == "±º¼ö´Ô")
             {
                 Debug.Log("±º¼ö´ÔÀÌ º¸³¿");
                 return;
-            }
+            }*/
 
-            if (GameManager.instance.nickNm != "±º¼ö´Ô")
+            if (!GameManager.instance.isMaster)
             {
                 GameManager.instance.nickNm = chatData.sender;
 
@@ -411,13 +410,13 @@ public class Chat : MonoBehaviour
         }
         else if(chatData.type == "sendUsrInfo")
         {
-            if(chatData.sender == "±º¼ö´Ô")
+            /*if(chatData.sender == "±º¼ö´Ô")
             {
                 Debug.Log("±º¼ö´ÔÀÌ º¸³¿");
                 return;
-            }
+            }*/
 
-            if(GameManager.instance.nickNm == "±º¼ö´Ô")
+            if(GameManager.instance.isMaster)
             {
                 Debug.Log("À¯Àú Á¢¼Ó");
                 Debug.Log(chatData.sender);
@@ -459,7 +458,7 @@ public class Chat : MonoBehaviour
         }
         else if(chatData.type == "quitUserInfo")
         {
-            if (GameManager.instance.nickNm == "±º¼ö´Ô")
+            if (GameManager.instance.isMaster)
             {
                 Debug.Log("À¯Àú ³ª°¨");
                 Debug.Log(chatData.sender);
@@ -561,7 +560,14 @@ public class Chat : MonoBehaviour
         SendMsg(JsonUtility.ToJson(chatData));
 #endif
     }
-
+    public void CloseSocket()
+    {
+#if PLATFORM_STANDALONE_WIN || UNITY_EDITOR
+        ws.Close();
+#elif UNITY_WEBGL && !UNITY_EDITOR
+        ConnectClose();
+#endif
+    }
 
 
     public void MuteUser(string user, bool isMute)
@@ -641,7 +647,7 @@ public class Chat : MonoBehaviour
     // °ü¸®ÀÚ Ã¼Å© ÀÌº¥Æ®
     public void MasterCheck()
     {
-        if(GameManager.instance.nickNm == "±º¼ö´Ô")
+        if(GameManager.instance.isMaster)
         {
             SendChatData("master");
             gameObject.transform.Find("UsrListBtn").gameObject.SetActive(true);
