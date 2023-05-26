@@ -12,12 +12,12 @@ public class FormController : MonoBehaviour
 
     public TMP_Dropdown dropdown;
     public ToggleGroup toggleGroup;
-    
+    GameObject leftpanelImage;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        leftpanelImage = GameObject.Find("MainCanvas").transform.Find("PlayerSetPanel").transform.Find("Background").transform.Find("Box_left").transform.Find("CharacterBox").transform.gameObject;
     }
 
     // Update is called once per frame
@@ -30,106 +30,62 @@ public class FormController : MonoBehaviour
         
         GameObject img = Instantiate(Resources.Load<GameObject>("Prefabs\\CharacterImg"));
         //img.transform.SetParent(path.transform);
+
         img.name = "Img" + i;
         gameObject.transform.Find("Mask").transform.Find("HorizontalScrollSnap").GetComponent<HorizontalScrollSnap>().AddChild(img);
-        Debug.Log("CharacterImg\\" + toggle.name + (i + 1));
 
-        
+          
         //img.transform.Find("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("CharacterImg\\" + toggle.name + (i + 1));
         img.transform.Find("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("CharacterImg\\" + toggle.name + (i + 1)+ "_top");
 
     }
-
+    //남자, 여자 선택
     public void ChangeVar()
     {
+        //삭제
+       // int selVal = dropdown.value;
 
-        int selVal = dropdown.value;
-
+         
+       //선택된 토글값
         Toggle toggle = toggleGroup.ActiveToggles().FirstOrDefault();
 
         Component path = gameObject.transform.Find("Mask").transform.Find("HorizontalScrollSnap").transform.Find("Content");
         HorizontalScrollSnap scrollSnap = gameObject.transform.Find("Mask").transform.Find("HorizontalScrollSnap").GetComponent<HorizontalScrollSnap>();
 
         Image[] childList = path.GetComponentsInChildren<Image>();
-        Debug.Log(childList.Length);
+        //
         if (childList != null)
         {
             for (int i = 0; i < childList.Length; i++)
             {
-                Debug.Log(childList[i].gameObject);
+                
                 Destroy(childList[i].gameObject);
             }
 
         }
 
         scrollSnap.RemoveAllChildren(out scrollSnap.ChildObjects);
+        //상단이미지 변경
+        leftpanelImage.GetComponent<Image>().sprite = Resources.Load<Sprite>("CharacterImg\\" + toggle.name + "1");
 
+        //하단이미지 변경
         if (toggle.name == "ManPlayer")
         {
+           
 
-            if (selVal == 0)
+            for (int i = 0; i < 3; i++)
             {
-
-                for (int i=0; i<2; i++)
-                {
-                    CreateConImg(i, path, toggle);
-                }
+                CreateConImg(i, path, toggle);
             }
-            else if(selVal == 1)
-            {
-               
-                for (int i = 2; i < 4; i++)
-                {
-                    CreateConImg(i, path, toggle);
-                }
-            }
-            else if (selVal == 2)
-            {
-                for (int i = 4; i < 6; i++)
-                {
-                    CreateConImg(i, path, toggle);
-                }
-            }
-            else if (selVal == 3)
-            {
-                for (int i = 6; i < 8; i++)
-                {
-                    CreateConImg(i, path, toggle);
-                }
-            }
+        
         }
         else
         {
-            if (selVal == 0)
+            for (int i = 0; i < 3; i++)
             {
-
-                for (int i = 0; i < 2; i++)
-                {
-                    CreateConImg(i, path, toggle);
-                }
+                CreateConImg(i, path, toggle);
             }
-            else if (selVal == 1)
-            {
-
-                for (int i = 2; i < 4; i++)
-                {
-                    CreateConImg(i, path, toggle);
-                }
-            }
-            else if (selVal == 2)
-            {
-                for (int i = 4; i < 6; i++)
-                {
-                    CreateConImg(i, path, toggle);
-                }
-            }
-            else if (selVal == 3)
-            {
-                for (int i = 6; i < 8; i++)
-                {
-                    CreateConImg(i, path, toggle);
-                }
-            }
+      
         }
     }
 
