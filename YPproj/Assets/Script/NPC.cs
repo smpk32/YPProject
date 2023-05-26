@@ -34,26 +34,15 @@ public class NPC : MonoBehaviour
     //CameraRotateController.OnPointerUp() ·Î ¿Å±è
     public void ClickNPC()
     {
+
         GameObject.Find("MainCanvas").transform.Find("NPCPanel").transform.gameObject.SetActive(true);
-
-        /*if (Input.GetMouseButtonDown(0))
-        {
-            ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-            if (Physics.Raycast(ray, out hit))
-            {
-                if (hit.collider.tag == "NPC")
-                {
-                    
-
-                }
-            }
-        }*/
+        GameManager.instance.playerState = PlayerState.setting;
     }
 
     public void CloseNPC()
     {
         GameObject.Find("MainCanvas").transform.Find("NPCPanel").transform.gameObject.SetActive(false);
+        GameManager.instance.playerState = PlayerState.normal;
     }
 
     public void OpenURL(string url)

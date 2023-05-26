@@ -67,7 +67,6 @@ public class FormController : MonoBehaviour
         scrollSnap.RemoveAllChildren(out scrollSnap.ChildObjects);
         //상단이미지 변경
         leftpanelImage.GetComponent<Image>().sprite = Resources.Load<Sprite>("CharacterImg\\" + toggle.name + "1");
-
         //하단이미지 변경
         if (toggle.name == "ManPlayer")
         {
@@ -87,6 +86,9 @@ public class FormController : MonoBehaviour
             }
       
         }
+
+        GameObject con = GameObject.Find("MainCanvas").transform.Find("PlayerSetPanel").transform.Find("Canvas").transform.Find("Mask").transform.Find("HorizontalScrollSnap").transform.Find("Content").transform.gameObject; 
+        con.transform.GetChild(0).Find("Image").GetComponent<Outline>().enabled = true;
     }
 
 }
