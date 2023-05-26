@@ -8,7 +8,6 @@ using TMPro;
 public class GameManager : MonoBehaviourPunCallbacks
 {
     public static GameManager instance = null;
-    public string selectedCharacter = "MultiManPlayer";
 
     public GameObject playerPrefab;
     public int viewID;

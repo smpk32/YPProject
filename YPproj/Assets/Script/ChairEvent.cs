@@ -123,8 +123,12 @@ public class ChairEvent : MonoBehaviourPun
             //pc.playerState = PlayerState.sitting;
             //photonView.RPC("ChangeSitState", RpcTarget.AllBuffered, true);
             GameManager.instance.sitNm = gameObject.name;
-            GameManager.instance.playerPrefab.transform.Find("Player").GetComponent<PlayerController>().SitEvent(true, gameObject.transform.position, gameObject.transform.rotation.eulerAngles);
-            Debug.Log(GameManager.instance.playerPrefab.transform.Find("Player").GetComponent<PlayerController>());
+
+            Vector3 chairPos = gameObject.transform.position;
+
+            chairPos.y = chairPos.y - GameManager.instance.playerPrefab.GetComponent<PlayerModelInfo>().modelSitHeight;
+
+            GameManager.instance.playerPrefab.transform.Find("Player").GetComponent<PlayerController>().SitEvent(true, chairPos, gameObject.transform.rotation.eulerAngles);
             GameManager.instance.playerPrefab.transform.Find("CameraObj").transform.rotation = Quaternion.Euler(gameObject.transform.rotation.eulerAngles + new Vector3(15, 0, 0));
             GameObject.Find("DragPanel").GetComponent<CameraRotateController>().Init();
         }
