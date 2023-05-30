@@ -11,7 +11,7 @@ mergeInto(LibraryManager.library,{
     },
 
     QuitGame: function () {
-        MoveMain();
+        MoveBack();
     },
 
 
