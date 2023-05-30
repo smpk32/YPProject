@@ -40354,7 +40354,6 @@ GameObject:
   - component: {fileID: 8972661291319162842}
   - component: {fileID: 8972661291319162841}
   - component: {fileID: 8972661291319162840}
-  - component: {fileID: 8972661291319162791}
   m_Layer: 5
   m_Name: Img0
   m_TagString: Untagged
@@ -40383,18 +40382,6 @@ RectTransform:
   m_AnchoredPosition: {x: 50, y: 50}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 1, y: 1}
---- !u!114 &8972661291319162791
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8972661291319162789}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89c14c418d086d34fa027948c7f3a2fe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &8972661291319162840
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40565,7 +40552,6 @@ GameObject:
   - component: {fileID: 8972661291704821883}
   - component: {fileID: 8972661291704821882}
   - component: {fileID: 8972661291704821881}
-  - component: {fileID: 8972661291704821880}
   m_Layer: 5
   m_Name: Img1
   m_TagString: Untagged
@@ -40594,18 +40580,6 @@ RectTransform:
   m_AnchoredPosition: {x: 50, y: 50}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 1, y: 1}
---- !u!114 &8972661291704821880
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8972661291704821830}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89c14c418d086d34fa027948c7f3a2fe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &8972661291704821881
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40700,7 +40674,6 @@ GameObject:
   - component: {fileID: 8972661291760981703}
   - component: {fileID: 8972661291760981702}
   - component: {fileID: 8972661291760981701}
-  - component: {fileID: 8972661291760981700}
   m_Layer: 5
   m_Name: Img2
   m_TagString: Untagged
@@ -40729,18 +40702,6 @@ RectTransform:
   m_AnchoredPosition: {x: 50, y: 50}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 1, y: 1}
---- !u!114 &8972661291760981700
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8972661291760981698}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89c14c418d086d34fa027948c7f3a2fe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &8972661291760981701
 MonoBehaviour:
   m_ObjectHideFlags: 0
