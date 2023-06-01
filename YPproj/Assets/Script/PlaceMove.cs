@@ -81,6 +81,7 @@ public class PlaceMove : MonoBehaviour
      */
     public void MapChange(int num)
     {
+        GameManager.instance.SetState("normal");
         GameManager.instance.placeState = num;
         
         if (GameManager.instance.multiState == "Multi" && num == 3)                  // 강당 외의 장소에서 강당으로 이동 후 placeState를 0으로 세팅해줘야 SpawnSpot위치가 맞게 설정됨

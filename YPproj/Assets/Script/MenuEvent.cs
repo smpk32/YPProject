@@ -79,6 +79,9 @@ public class MenuEvent : MonoBehaviour
 
     public void ShowMenuPanel(int panelIdx)
     {
+
+        GameManager.instance.SetState("setting");
+
         GameObject panelList = GameObject.Find("MainCanvas").transform.Find("MenuPanelGrp").gameObject;
 
         for (int i = 0; i < panelList.transform.childCount; i++)
@@ -87,10 +90,7 @@ public class MenuEvent : MonoBehaviour
             //panelList[i].gameObject.SetActive(false);
 
         }
-        if (panelIdx == 1)
-        {
-            GameManager.instance.SetState("setting");
-        }
+       
         GameObject.Find("MainCanvas").transform.Find("MenuPanelGrp").gameObject.SetActive(true);
         panelList.transform.GetChild(panelIdx).gameObject.SetActive(true);
 
@@ -99,15 +99,13 @@ public class MenuEvent : MonoBehaviour
 
     public void HideMenuPanel()
     {
+        GameManager.instance.SetState("normal");
 
         GameObject panelList = GameObject.Find("MainCanvas").transform.Find("MenuPanelGrp").gameObject;
 
         for (int i = 0; i < panelList.transform.childCount; i++)
         {
-            if (panelList.transform.Find("ManualPanel").gameObject.activeSelf)
-            {
-                GameManager.instance.SetState("normal");
-            }
+            
             panelList.transform.GetChild(i).gameObject.SetActive(false);
             //panelList[i].gameObject.SetActive(false);
             
