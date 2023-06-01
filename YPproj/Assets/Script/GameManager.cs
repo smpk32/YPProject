@@ -7,6 +7,19 @@ using TMPro;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
+    public string localURL = "http://192.168.1.113:8080";
+    public string devURL = "http://203.228.54.47";
+    public string baseURL = "";
+
+    public enum Urltype
+    {
+        local,
+        dev
+    }
+
+    public Urltype urlType = Urltype.local;
+
+
     public static GameManager instance = null;
 
     public GameObject playerPrefab;
@@ -74,6 +87,15 @@ public class GameManager : MonoBehaviourPunCallbacks
             // instance가, GameManager가 존재한다면 GameObject 제거
             Destroy(this.gameObject);
         }
+
+        if(urlType == Urltype.local)
+        {
+            baseURL = localURL;
+        }
+        else
+        {
+            baseURL = devURL;
+        }
     }
 
     // Start is called before the first frame update
@@ -112,7 +134,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     }
 
-    // 멀티플레이모드일 때 플레이어 오브젝스 생성하는 함수
+    // 멀티플레이모드일 때 플레이어 오브젝트 생성하는 함수
     public void CreatePlayer()
     {
 

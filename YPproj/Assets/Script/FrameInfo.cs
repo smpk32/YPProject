@@ -45,7 +45,8 @@ public class FrameInfo : MonoBehaviour
     {
         if (isOn)
         {
-            frameDtlPanel.transform.Find("DtlRawImage").GetComponent<RawImage>().texture = gameObject.GetComponent<RawImage>().texture;
+            frameDtlPanel.transform.Find("DtlRawImage").GetComponent<Image>().sprite = gameObject.GetComponent<Image>().sprite;
+            frameDtlPanel.transform.Find("DtlRawImage").GetComponent<Image>().preserveAspect = true;
             frameDtlPanel.transform.Find("TitleText").GetComponent<TextMeshProUGUI>().text = frameDtlInfo.frameNm;
             frameDtlPanel.transform.Find("InfoText").GetComponent<TextMeshProUGUI>().text = frameDtlInfo.frameInfo;
             frameDtlPanel.SetActive(true);

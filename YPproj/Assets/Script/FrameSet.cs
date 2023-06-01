@@ -33,7 +33,7 @@ public class FrameSet : MonoBehaviour
     GameObject topBarCanvas;
     //public GameObject PageCntTMP;
     public TextMeshProUGUI floorTMP;
-    RawImage[] rawImgList;
+    Image[] rawImgList;
 
     GameObject floorBtnList;
 
@@ -54,7 +54,7 @@ public class FrameSet : MonoBehaviour
     {
         loadingPanel = GameObject.Find("MainCanvas").gameObject.transform.Find("LoadingImage").gameObject;
 
-        rawImgList = gameObject.GetComponentsInChildren<RawImage>();
+        rawImgList = gameObject.GetComponentsInChildren<Image>();
         
         topBarCanvas = gameObject.transform.Find("FloorCanvas").gameObject;
 
@@ -126,11 +126,13 @@ public class FrameSet : MonoBehaviour
         int imgIdx = pageNum * pageMaxCnt;
         for (int i = 0; i < pageMaxCnt; i++)
         {
-            Texture tx = Resources.Load<Texture>("Image/sample" + (i + imgIdx));
+            Texture2D tx = Resources.Load<Texture2D>("Image/sample" + (i + imgIdx));
 
             if(tx != null)
             {
-                rawImgList[i].texture = tx;
+                
+                rawImgList[i].sprite = Sprite.Create(tx, new Rect(0, 0, tx.width, tx.height), Vector2.zero);
+                rawImgList[i].preserveAspect = true;
                 if (rawImgList[i].GetComponent<FrameInfo>() != null)
                 {
                     rawImgList[i].transform.parent.transform.parent.gameObject.SetActive(true);
@@ -139,8 +141,8 @@ public class FrameSet : MonoBehaviour
             }
             else
             {
-                rawImgList[i].transform.parent.transform.parent.gameObject.SetActive(false);
-                rawImgList[i].texture = null;
+                //rawImgList[i].transform.parent.transform.parent.gameObject.SetActive(false);
+                //rawImgList[i].texture = null;
                 rawImgList[i].GetComponent<FrameInfo>().frameDtlInfo = new FrameInfo.FrameDtlInfo(null, null);
             }
             
@@ -163,7 +165,7 @@ public class FrameSet : MonoBehaviour
 
         //PageCntTMP.GetComponent<TextMeshProUGUI>().text = (pageNum + 1).ToString();
 
-        string urlHead = "http://192.168.1.113:8080/files/";
+        string urlHead = "http://192.168.1.113:8080/selectImg?file_nm=";
 
         //RawImage[] list = gameObject.GetComponentsInChildren<RawImage>();
 
@@ -181,7 +183,7 @@ public class FrameSet : MonoBehaviour
 
 
 
-    IEnumerator LoadImageTexture(RawImage rawImg,string url,string fileNm, string fileInfo)
+    IEnumerator LoadImageTexture(Image rawImg,string url,string fileNm, string fileInfo)
     {
         UnityWebRequest www = UnityWebRequestTexture.GetTexture(url);
         yield return www.SendWebRequest();
@@ -190,16 +192,21 @@ public class FrameSet : MonoBehaviour
         {
             Debug.Log(www.error);
             
-            rawImg.transform.parent.transform.parent.gameObject.SetActive(false);
-            rawImg.texture = null;
+            //rawImg.transform.parent.transform.parent.gameObject.SetActive(false);
+            //rawImg.texture = null;
             rawImg.GetComponent<FrameInfo>().frameDtlInfo = new FrameInfo.FrameDtlInfo(null, null);
-            
+            rawImg.preserveAspect = false;
+
         }
         else
         {
             rawImg.transform.parent.transform.parent.gameObject.SetActive(true);
-            rawImg.texture = ((DownloadHandlerTexture)www.downloadHandler).texture;
-            if(rawImg.GetComponent<FrameInfo>() != null)
+
+            Texture2D texture;
+            texture = ((DownloadHandlerTexture)www.downloadHandler).texture;
+            rawImg.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
+            rawImg.preserveAspect = true;
+            if (rawImg.GetComponent<FrameInfo>() != null)
             {
                 rawImg.GetComponent<FrameInfo>().frameDtlInfo = new FrameInfo.FrameDtlInfo(fileNm, fileInfo);
             }
