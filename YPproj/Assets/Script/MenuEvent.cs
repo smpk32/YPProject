@@ -85,8 +85,12 @@ public class MenuEvent : MonoBehaviour
         {
             panelList.transform.GetChild(i).gameObject.SetActive(false);
             //panelList[i].gameObject.SetActive(false);
-        }
 
+        }
+        if (panelIdx == 1)
+        {
+            GameManager.instance.SetState("setting");
+        }
         GameObject.Find("MainCanvas").transform.Find("MenuPanelGrp").gameObject.SetActive(true);
         panelList.transform.GetChild(panelIdx).gameObject.SetActive(true);
 
@@ -100,8 +104,13 @@ public class MenuEvent : MonoBehaviour
 
         for (int i = 0; i < panelList.transform.childCount; i++)
         {
+            if (panelList.transform.Find("ManualPanel").gameObject.activeSelf)
+            {
+                GameManager.instance.SetState("normal");
+            }
             panelList.transform.GetChild(i).gameObject.SetActive(false);
             //panelList[i].gameObject.SetActive(false);
+            
         }
 
         GameObject.Find("MainCanvas").transform.Find("MenuPanelGrp").gameObject.SetActive(false);
