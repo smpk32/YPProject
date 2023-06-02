@@ -26,16 +26,16 @@ public class PortalPanel : MonoBehaviour
         if (GameManager.Instance.bdnm == "Main")
         {
             GameManager.instance.playerPrefab.transform.position = GameObject.Find("Portal").transform.Find("ElePortal").transform.Find("MainMoveSpot").Find(selectVal.ToString()).transform.position;
-            GameManager.instance.playerPrefab.transform.Find("Player").rotation = Quaternion.Euler(0, 90, 0);
-            GameManager.instance.playerPrefab.transform.Find("CameraObj").rotation = Quaternion.Euler(0, 90, 0);
+            GameManager.instance.playerPrefab.transform.Find("Player").rotation = Quaternion.Euler(0, 0, 0);
+            GameManager.instance.playerPrefab.transform.Find("CameraObj").rotation = Quaternion.Euler(0,0, 0);
 
             GameObject.Find("MainCanvas").transform.Find("DragPanel").GetComponent<CameraRotateController>().Init();
         }
         else
         {
             GameManager.instance.playerPrefab.transform.position = GameObject.Find("Portal").transform.Find("ElePortal").transform.Find("SubMoveSpot").Find(selectVal.ToString()).transform.position;
-            GameManager.instance.playerPrefab.transform.Find("Player").rotation = Quaternion.Euler(0, 180, 0);
-            GameManager.instance.playerPrefab.transform.Find("CameraObj").rotation = Quaternion.Euler(0, 180, 0);
+            GameManager.instance.playerPrefab.transform.Find("Player").rotation = Quaternion.Euler(0, 90, 0);
+            GameManager.instance.playerPrefab.transform.Find("CameraObj").rotation = Quaternion.Euler(0, 90, 0);
 
             GameObject.Find("MainCanvas").transform.Find("DragPanel").GetComponent<CameraRotateController>().Init();
         }
