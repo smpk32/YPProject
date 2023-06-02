@@ -51,6 +51,9 @@ public class FrameInfo : MonoBehaviour
             frameDtlPanel.transform.Find("InfoText").GetComponent<TextMeshProUGUI>().text = frameDtlInfo.frameInfo;
             frameDtlPanel.SetActive(true);
             bannerDtlPanel.SetActive(false);
+
+            GameManager.instance.SetState("setting");
+
             if (popupStyle == 0)
             {
                 StartCoroutine(FadeFramePanel(frameDtlPanel,isOn));
@@ -64,6 +67,7 @@ public class FrameInfo : MonoBehaviour
         else
         {
             frameDtlPanel.SetActive(false);
+            GameManager.instance.SetState("normal");
         }
         //GameObject.Find("Player").GetComponent<PlayerController>().playerState = PlayerState.normal;
     }

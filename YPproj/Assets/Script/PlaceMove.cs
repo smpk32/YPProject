@@ -38,7 +38,7 @@ public class PlaceMove : MonoBehaviour
 
     void Awake()
     {
-        eventListObj = Instantiate(Resources.Load<GameObject>("EventList\\EventListObj"));
+        eventListObj = Resources.Load<GameObject>("EventList\\EventListObj");
     }
     // Start is called before the first frame update
     void Start()
@@ -188,7 +188,7 @@ public class PlaceMove : MonoBehaviour
         StartCoroutine(SelectEventList("",(data) =>
         {
             Debug.Log(data);
-            //var dataSet = JsonConvert.DeserializeObject<List<EventListData>>(data);
+            var dataSet = JsonConvert.DeserializeObject<List<EventListData>>(data);
 
             /*DataTable eventListTable = new DataTable();
             eventListTable.Columns.Add(new DataColumn("event_id", typeof(string)));
@@ -203,12 +203,12 @@ public class PlaceMove : MonoBehaviour
             GameObject.Find("MenuPanelGrp").transform.Find("PlaceMovePanel").gameObject.SetActive(false);
             GameObject.Find("MenuPanelGrp").transform.Find("EventListPanel").gameObject.SetActive(true);
 
-            /*HorizontalScrollSnap scrollSnap = GameObject.Find("MainCanvas").transform.Find("MenuPanelGrp").transform.Find("MenuPanelGrp").Find("Canvas").transform.Find("Mask").transform.Find("HorizontalScrollSnap").GetComponent<HorizontalScrollSnap>();
+            HorizontalScrollSnap scrollSnap = GameObject.Find("MenuPanelGrp").transform.Find("EventListPanel").transform.Find("Canvas").transform.Find("Mask").transform.Find("HorizontalScrollSnap").GetComponent<HorizontalScrollSnap>();
             scrollSnap.RemoveAllChildren(out scrollSnap.ChildObjects);
 
             for (int i = 0; i <dataSet.Count; i++)
             {
-                *//*DataRow row = eventListTable.NewRow();
+                /*DataRow row = eventListTable.NewRow();
 
                 row["event_id"] = dataSet[i].event_id;
                 row["event_nm"] = dataSet[i].event_nm;
@@ -219,15 +219,15 @@ public class PlaceMove : MonoBehaviour
                 row["event_place"] = dataSet[i].event_place;
                 row["event_hmpg_url"] = dataSet[i].event_hmpg_url;
 
-                eventListTable.Rows.Add(row);*//*
+                eventListTable.Rows.Add(row);*/
 
-                GameObject eventList = eventListObj;
+                GameObject eventList = Instantiate(eventListObj);
 
                 eventList.GetComponent<EventInfo>().eventDtlInfo = new EventInfo.EventDtlInfo(dataSet[i].event_id, dataSet[i].event_nm, dataSet[i].event_image_atfl_id, dataSet[i].event_dc, dataSet[i].event_bgng_dt, dataSet[i].event_end_dt, dataSet[i].event_place, dataSet[i].event_hmpg_url);
 
-
+                Debug.Log(dataSet[i].event_image_atfl_id);
                 // 패널 세팅
-                LoadImageTexture(eventList.transform.Find("Poster").GetComponent<Image>(), dataSet[i].event_image_atfl_id);
+                StartCoroutine(LoadImageTexture(eventList.transform.Find("Poster").GetComponent<Image>(), dataSet[i].event_image_atfl_id));
                 eventList.transform.Find("TitleText").GetComponent<TextMeshProUGUI>().text = dataSet[i].event_nm;
                 eventList.transform.Find("DcText").GetComponent<TextMeshProUGUI>().text = dataSet[i].event_dc;
                 eventList.transform.Find("DtText").GetComponent<TextMeshProUGUI>().text = dataSet[i].event_bgng_dt + " ~ " + dataSet[i].event_end_dt;
@@ -236,7 +236,7 @@ public class PlaceMove : MonoBehaviour
 
                 scrollSnap.AddChild(eventList);
 
-            }*/
+            }
 
 
         }));
@@ -282,7 +282,9 @@ public class PlaceMove : MonoBehaviour
 
     IEnumerator LoadImageTexture(Image rawImg, string fileId)
     {
-        UnityWebRequest www = UnityWebRequestTexture.GetTexture("http://192.168.1.113:8080/selectImg?file_nm="+ fileId);
+
+        //UnityWebRequest www = UnityWebRequestTexture.GetTexture("http://192.168.1.113:8080/selectImg?file_nm="+ fileId);
+        UnityWebRequest www = UnityWebRequestTexture.GetTexture("http://192.168.1.113:8080/selectImg?file_nm=new_img36b.jpg");
         yield return www.SendWebRequest();
         
         if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError)
