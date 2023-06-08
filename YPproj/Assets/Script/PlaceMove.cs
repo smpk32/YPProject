@@ -36,6 +36,8 @@ public class PlaceMove : MonoBehaviour
     // 행사정보 리스트 오브젝트
     GameObject eventListObj;
 
+    public Sprite postImg;
+
     void Awake()
     {
         eventListObj = Resources.Load<GameObject>("EventList\\EventListObj");
@@ -140,7 +142,7 @@ public class PlaceMove : MonoBehaviour
             if (mapList[num].name == "AuditoriumGrp")
             {
                 //string urlHead = "http://192.168.1.113:8060/resources/unity/StreamingAssets/";
-                string urlHead = "http://192.168.1.113:8080/files/";
+                //string urlHead = "http://192.168.1.113:8080/files/";
 
                 // 파일서버에서 영상 불러와 재생
                 //mapList[num].transform.Find("FrameGrp").GetComponent<VideoCtrl>().LoadVideo(urlHead + "yangpyeongAD.mp4");
@@ -227,7 +229,8 @@ public class PlaceMove : MonoBehaviour
 
                 Debug.Log(dataSet[i].event_image_atfl_id);
                 // 패널 세팅
-                StartCoroutine(LoadImageTexture(eventList.transform.Find("Poster").GetComponent<Image>(), dataSet[i].event_image_atfl_id));
+                //StartCoroutine(LoadImageTexture(eventList.transform.Find("Poster").GetComponent<Image>(), dataSet[i].event_image_atfl_id));
+                eventList.transform.Find("Poster").GetComponent<Image>().sprite = postImg;
                 eventList.transform.Find("TitleText").GetComponent<TextMeshProUGUI>().text = dataSet[i].event_nm;
                 eventList.transform.Find("DcText").GetComponent<TextMeshProUGUI>().text = dataSet[i].event_dc;
                 eventList.transform.Find("DtText").GetComponent<TextMeshProUGUI>().text = dataSet[i].event_bgng_dt + " ~ " + dataSet[i].event_end_dt;

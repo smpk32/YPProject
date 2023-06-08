@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using System;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
@@ -189,9 +190,9 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
     }
 
-    public void InitMaster()
+    public void InitMaster(string masterChk)
     {
-        isMaster = true;
+        isMaster = Convert.ToBoolean(masterChk);;
         Debug.Log("MasterCheck");
     }
 
