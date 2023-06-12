@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using TMPro;
 using UnityEngine;
 
@@ -13,6 +14,13 @@ public class NPC : MonoBehaviour
     string sampleText;
 
     private IEnumerator coroutine;
+
+#if UNITY_WEBGL && !UNITY_EDITOR
+
+    [DllImport("__Internal")]
+    private static extern void OpenUseURL(string idx);
+
+#endif
 
     // Start is called before the first frame update
     void Start()
@@ -45,10 +53,12 @@ public class NPC : MonoBehaviour
         GameManager.instance.playerState = PlayerState.normal;
     }
 
-    public void OpenURL(string url)
+    /*public void OpenURL(string url)
     {
+
         Application.OpenURL(url);
-    }
+    }*/
+   
 
     IEnumerator Typing(string text)
     {
@@ -65,4 +75,16 @@ public class NPC : MonoBehaviour
         yield return new WaitForSeconds(3f);
         StartCoroutine(Typing(sampleText));
     }
+
+    //npc  url ¿Ã∫•∆Æ
+    public void ClickOpenURL(string index) {
+
+        Debug.Log("index: " + index);
+#if UNITY_WEBGL && !UNITY_EDITOR
+        OpenUseURL(index);
+#endif
+        Debug.Log("index: " + index);
+
+    }
+
 }
