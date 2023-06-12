@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using Unity.VideoHelper;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,6 +11,16 @@ public class VideoCtrl : MonoBehaviour
     public Texture videoRenderTexture;
     public VideoPlayer vp;
     public RawImage videoRawImg;
+
+    public string videoUrl = "";
+
+    [DllImport("__Internal")]
+    private static extern string GetVideoRoot();
+
+    void Awake()
+    {
+        videoUrl = GetVideoRoot();
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -45,7 +56,7 @@ public class VideoCtrl : MonoBehaviour
         vp.url = "http://203.228.54.47/metabus/StreamingAssets/YP2023.mp4";
 #else
         //vp.url = vp.url = System.IO.Path.Combine(Application.streamingAssetsPath, "YP2023.mp4");
-        vp.url = "http://203.228.54.47/metabus/StreamingAssets/YP2023.mp4";
+        vp.url = videoUrl + "YP2023.mp4";
 #endif
         //vp.url = vp.url = System.IO.Path.Combine(Application.streamingAssetsPath, "yangpyeongAD.mp4");
         vp.prepareCompleted += Prepared;
