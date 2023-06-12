@@ -83,8 +83,30 @@ public class NPC : MonoBehaviour
 #if UNITY_WEBGL && !UNITY_EDITOR
         OpenUseURL(index);
 #endif
-        Debug.Log("index: " + index);
 
+        string url = "";
+        switch (index)
+        {
+
+            case "1":
+                url = "https://www.google.co.kr/";
+    
+                break;
+            case "2":
+                url = "https://www.naver.com/";
+    
+                break;
+            case "3":
+                url = "https://www.daum.net/";
+    
+                break;
+            case "4":
+                url = "https://baro.lx.or.kr/lgstrsurv/lgstrsurvInfo02.do";
+    
+                break;
+        }
+
+        Application.OpenURL(url);
     }
 
 }
