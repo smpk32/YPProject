@@ -10204,8 +10204,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 120}
-  m_SizeDelta: {x: 200, y: 30}
+  m_AnchoredPosition: {x: -10, y: 120}
+  m_SizeDelta: {x: 180, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &514412316
 MonoBehaviour:
@@ -15191,6 +15191,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d28df029767d9e54683934ee5421cfae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  userListView: {fileID: 0}
   chatListObj: {fileID: 0}
   chatNmObj: {fileID: 0}
   imgChatListObj: {fileID: 0}
@@ -15245,6 +15246,7 @@ MonoBehaviour:
   videoRenderTexture: {fileID: 8400000, guid: 6322966d56115dc4d975e7506af648ae, type: 2}
   vp: {fileID: 895579328}
   videoRawImg: {fileID: 470597568}
+  videoUrl: 
 --- !u!1 &779275267
 GameObject:
   m_ObjectHideFlags: 0

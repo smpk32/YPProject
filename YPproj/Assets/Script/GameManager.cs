@@ -192,8 +192,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public void InitMaster(string masterChk)
     {
-        isMaster = Convert.ToBoolean(masterChk);;
-        Debug.Log("MasterCheck");
+        isMaster = Convert.ToBoolean(masterChk);
     }
 
 
