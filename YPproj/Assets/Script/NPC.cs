@@ -79,7 +79,6 @@ public class NPC : MonoBehaviour
     //npc  url ¿Ã∫•∆Æ
     public void ClickOpenURL(string index) {
 
-        Debug.Log("index: " + index);
 #if UNITY_WEBGL && !UNITY_EDITOR
         OpenUseURL(index);
 #endif
