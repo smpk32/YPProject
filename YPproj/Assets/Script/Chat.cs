@@ -141,8 +141,8 @@ public class Chat : MonoBehaviour
     // 웹소켓 연결
     void ConnectStart()
     {
-
-        ws = new WebSocket("ws://192.168.1.113:8080/socket");
+        string socAddress = GameManager.instance.baseURL.Replace("http", "ws");
+        ws = new WebSocket(socAddress+"/socket");
         ws.OnMessage += InitChatCheck; //서버에서 유니티 쪽으로 메세지가 올 경우 실행할 함수를 등록한다.
         
         
@@ -647,7 +647,6 @@ public class Chat : MonoBehaviour
     // 유저리스트창 오픈 이벤트
     public void OnOffUserListView()
     {
- 
         userListView.SetActive(!userListView.activeSelf);
     }
 
