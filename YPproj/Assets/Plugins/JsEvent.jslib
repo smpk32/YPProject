@@ -7,7 +7,7 @@ mergeInto(LibraryManager.library,{
 
 	//군수 클릭후 url 버튼 클릭 이벤트
 	OpenUseURL: function (index){
-		OpenUrl(UTF8ToString(index));
+		openUrl(UTF8ToString(index));
 	}
 
 })

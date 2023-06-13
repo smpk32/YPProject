@@ -1,11 +1,11 @@
 mergeInto(LibraryManager.library,{
 
     ConnectStart : function(){
-		Connect();
+		connect();
 	
     },
 	ConnectClose : function(){
-		CloseConnect();
+		closeConnect();
 	
     },
 
