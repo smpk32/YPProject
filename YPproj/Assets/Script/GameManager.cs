@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     public int floor = 1;
 
     //강당씬 id
-    public string PresentationID = "";
+    public string inhbtntPranAtflId = "";
 
 
     /*현재 플레이어가 있는 장소

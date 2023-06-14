@@ -35,9 +35,10 @@ public class PlaceMove : MonoBehaviour
         public string inhbtnt_pran_dc;              // 주민설명회 설명
         public string inhbtnt_pran_bgng_dt;         // 주민설명회 시작일
         public string inhbtnt_pran_end_dt;          // 주민설명회 종료일
-        public string inhbtnt_pran_mvp_url;         // 주민설명회 영상 url
+        public string inhbtnt_pran_atfl_id;         // 주민설명회 영상 url
         public string use_yn;                       // 주민설명회 표출 유무
         public string progress;
+        public string stre_file_nm;
 
     }
 
@@ -172,7 +173,7 @@ public class PlaceMove : MonoBehaviour
                 //mapList[num].transform.Find("FrameGrp").GetComponent<VideoCtrl>().LoadVideo(urlHead + "yangpyeongAD.mp4");
 
                 // 프로젝트 내부 영상 불러와 재생
-                mapList[num].transform.Find("FrameGrp").GetComponent<VideoCtrl>().LoadVideo2();
+                mapList[num].transform.Find("FrameGrp").GetComponent<VideoCtrl>().LoadVideo();
             }
             else if(mapList[num].name == "GalleryGrp (1)")
             {
@@ -332,13 +333,14 @@ public class PlaceMove : MonoBehaviour
 
                 InhbtntList.GetComponent<InhbtntInfo>().inhbtntdtlData = new InhbtntInfo.InhbtntData(
                     dataSet[i].inhbtnt_pran_id,
-                    dataSet[i].inhbtnt_pran_nm, 
+                    dataSet[i].inhbtnt_pran_nm,
                     dataSet[i].inhbtnt_pran_dc,
-                    dataSet[i].inhbtnt_pran_bgng_dt, 
-                    dataSet[i].inhbtnt_pran_end_dt, 
-                    dataSet[i].inhbtnt_pran_mvp_url,
+                    dataSet[i].inhbtnt_pran_bgng_dt,
+                    dataSet[i].inhbtnt_pran_end_dt,
+                    dataSet[i].inhbtnt_pran_atfl_id,
                     dataSet[i].use_yn,
-                    dataSet[i].progress
+                    dataSet[i].progress,
+                    dataSet[i].stre_file_nm
                     );
 
                 Debug.Log(dataSet[i].inhbtnt_pran_id);

@@ -29,7 +29,7 @@ public class AuditoriumSceneManager : MonoBehaviour
 
 
         // 파일서버에서 영상 불러와 재생
-        GameObject.Find("FrameGrp").GetComponent<VideoCtrl>().LoadVideo2();
+        GameObject.Find("FrameGrp").GetComponent<VideoCtrl>().LoadVideo();
     }
 
     // Update is called once per frame

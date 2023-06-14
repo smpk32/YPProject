@@ -24,19 +24,14 @@ public class VideoCtrl : MonoBehaviour
     {
         GetVideoRoot();
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-        //string urlHead = "http://192.168.1.113:8060/resources/unity/StreamingAssets/";
-        //string urlHead = "http://192.168.1.113:8080/files/";
-        //LoadVideo(urlHead + "yangpyeongAD.mp4");
-    }
+
 
 #if PLATFORM_STANDALONE_WIN || UNITY_EDITOR
     public void GetVideoRoot()
     {
-        videoUrl = "http://203.228.54.47/metabus/StreamingAssets/";
+        //바꿔야됨
+        videoUrl = GameManager.instance.baseURL+ "/display?filename=";
+
     }
 #endif
 
@@ -46,7 +41,7 @@ public class VideoCtrl : MonoBehaviour
     }
 
 
-    public void LoadVideo(string url)
+    /*public void LoadVideo(string url)
     {
         videoRawImg.texture = videoRenderTexture;
         vp.url = url;
@@ -62,26 +57,19 @@ public class VideoCtrl : MonoBehaviour
         fitter.aspectRatio = (float)videoRenderTexture.width / videoRenderTexture.height;
         
 
-    }
+    }*/
 
-    public void LoadVideo2()
+    public void LoadVideo()
     {
         videoRawImg.texture = videoRenderTexture;
-#if UNITY_WEBGL && !UNITY_EDITOR
-        //vp.url = "http://192.168.1.113:8080/metaverse/StreamingAssets/YP2023.mp4";
-        //vp.url = "http://203.228.54.47/metabus/StreamingAssets/YP2023.mp4";
-        vp.url = videoUrl + "YP2023.mp4";
-#else
-        //vp.url = vp.url = System.IO.Path.Combine(Application.streamingAssetsPath, "YP2023.mp4");
-        vp.url = videoUrl + "YP2023.mp4";
-#endif
-        //vp.url = vp.url = System.IO.Path.Combine(Application.streamingAssetsPath, "yangpyeongAD.mp4");
+        //버튼 클릭했을때 파일 네임 받아오기
+        vp.url = videoUrl + GameManager.instance.inhbtntPranAtflId;
+     
         vp.prepareCompleted += Prepared;
         vp.Prepare();
 
-
         var fitter = videoRawImg.gameObject.GetOrAddComponent<AspectRatioFitter>();
-        //fitter.aspectMode = AspectRatioFitter.AspectMode.FitInParent;
+        
 
         fitter.aspectMode = AspectRatioFitter.AspectMode.WidthControlsHeight;
 
