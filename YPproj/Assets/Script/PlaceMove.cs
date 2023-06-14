@@ -8,6 +8,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 using UnityEngine.UI.Extensions;
+using static InhbtntInfo;
 
 public class PlaceMove : MonoBehaviour
 {
@@ -26,6 +27,20 @@ public class PlaceMove : MonoBehaviour
 
     }
 
+    //주민설명회 정보 리스트
+    class InhbtntListData
+    {
+        public string inhbtnt_pran_id;              // 주민설명회 id
+        public string inhbtnt_pran_nm;              // 주민설명회 명
+        public string inhbtnt_pran_dc;              // 주민설명회 설명
+        public string inhbtnt_pran_bgng_dt;         // 주민설명회 시작일
+        public string inhbtnt_pran_end_dt;          // 주민설명회 종료일
+        public string inhbtnt_pran_mvp_url;         // 주민설명회 영상 url
+        public string use_yn;                       // 주민설명회 표출 유무
+        public string progress;
+
+    }
+
 
     // 플레이어 생성장소 리스트
     public List<GameObject> spawnList;
@@ -35,12 +50,15 @@ public class PlaceMove : MonoBehaviour
 
     // 행사정보 리스트 오브젝트
     GameObject eventListObj;
+    // 주민설명회 리스트 오브젝트
+    GameObject InhbtntListObj;
 
     public Sprite postImg;
 
     void Awake()
     {
         eventListObj = Resources.Load<GameObject>("EventList\\EventListObj");
+        InhbtntListObj = Resources.Load<GameObject>("Prefabs\\InhbtntBnt");
     }
     // Start is called before the first frame update
     void Start()
@@ -106,7 +124,13 @@ public class PlaceMove : MonoBehaviour
         {
             /*Debug.Log("강당 외의 장소에서 강당으로 이동할 때");
             Debug.Log("Multi : Single  &  num : 3");*/
-            GameManager.instance.multiState = "Multi";
+
+            /*GameObject.Find("MainCanvas").transform.Find("MenuPanelGrp").transform.Find("PlaceMovePanel").transform.gameObject.SetActive(false);
+
+            GameObject.Find("MainCanvas").transform.Find("MenuPanelGrp").transform.Find("PresentationPanel").transform.gameObject.SetActive(true);
+            */
+            
+           GameManager.instance.multiState = "Multi";
             GameObject.Find("MainCanvas").gameObject.transform.Find("LoadingImage").gameObject.SetActive(true);
 
             // 상단 탑캔버스 SetActive False처리
@@ -250,6 +274,105 @@ public class PlaceMove : MonoBehaviour
         string GetDataUrl = GameManager.Instance.baseURL + "/event/list";
 
         using (UnityWebRequest www = UnityWebRequest.Post(GetDataUrl,""))
+        {
+            yield return www.SendWebRequest();
+            // yield return System.Text.Encoding.UTF8.GetString(www.downloadHandler.data);
+            if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError) //불러오기 실패 시
+            {
+                Debug.Log(www.error);
+                yield return "error";
+            }
+            else
+            {
+                if (www.isDone)
+                {
+                    Debug.Log(www.downloadHandler.data);
+
+                    if (www.downloadHandler.data == null)
+                    {
+
+                        yield return null;
+
+                    }
+                    else
+                    {
+                        callback(System.Text.Encoding.UTF8.GetString(www.downloadHandler.data));
+                        //yield return System.Text.Encoding.UTF8.GetString(www.downloadHandler.data);
+                    }
+
+                }
+            }
+        }
+
+    }
+
+    // 장소 이동 > 전시관으로 이동 이벤트
+    public void InitInhbtntList()
+    {
+        StartCoroutine(SelectinhbtntList("", (data) =>
+        {
+            Debug.Log(data);
+            var dataSet = JsonConvert.DeserializeObject<List<InhbtntListData>>(data);
+
+            GameObject.Find("MenuPanelGrp").transform.Find("PlaceMovePanel").gameObject.SetActive(false);
+            GameObject.Find("MenuPanelGrp").transform.Find("PresentationPanel").gameObject.SetActive(true);
+
+            Transform Content = GameObject.Find("MenuPanelGrp").transform.Find("PresentationPanel").transform.Find("Scroll View").transform.Find("Viewport").transform.Find("Content").transform;
+
+            //삭제
+            foreach (Transform child in Content)
+            {
+                Destroy(child.gameObject);
+            }
+
+            for (int i = 0; i < dataSet.Count; i++)
+            {
+        
+                GameObject InhbtntList = Instantiate(InhbtntListObj);
+
+                InhbtntList.GetComponent<InhbtntInfo>().inhbtntdtlData = new InhbtntInfo.InhbtntData(
+                    dataSet[i].inhbtnt_pran_id,
+                    dataSet[i].inhbtnt_pran_nm, 
+                    dataSet[i].inhbtnt_pran_dc,
+                    dataSet[i].inhbtnt_pran_bgng_dt, 
+                    dataSet[i].inhbtnt_pran_end_dt, 
+                    dataSet[i].inhbtnt_pran_mvp_url,
+                    dataSet[i].use_yn,
+                    dataSet[i].progress
+                    );
+
+                Debug.Log(dataSet[i].inhbtnt_pran_id);
+
+                /*string id = dataSet[i].inhbtnt_pran_id;
+                InhbtntList.GetComponent<Button>().onClick.AddListener(()=> InhbtntList.GetComponent<InhbtntInfo>().ClickInhbBtn(id));*/
+
+                var progress = dataSet[i].progress;
+                if (progress =="Y" )
+                {
+                    InhbtntList.transform.Find("TitleText").GetComponent<TextMeshProUGUI>().text = dataSet[i].inhbtnt_pran_nm + "   (진행중)";
+
+                }
+                else
+                {
+                    InhbtntList.transform.Find("TitleText").GetComponent<TextMeshProUGUI>().text = dataSet[i].inhbtnt_pran_nm + "   (종료)";
+                }
+
+                InhbtntList.transform.SetParent(Content);
+
+            }
+
+            
+
+
+        }));
+    }
+
+    
+    public IEnumerator SelectinhbtntList(string listType, Action<string> callback)
+    {
+        string GetDataUrl = GameManager.Instance.baseURL + "/inhbtnt/list";
+
+        using (UnityWebRequest www = UnityWebRequest.Get(GetDataUrl))
         {
             yield return www.SendWebRequest();
             // yield return System.Text.Encoding.UTF8.GetString(www.downloadHandler.data);

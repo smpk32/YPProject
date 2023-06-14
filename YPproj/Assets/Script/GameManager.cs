@@ -23,12 +23,13 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public static GameManager instance = null;
 
+    //플레이어 캐릭터 자신
     public GameObject playerPrefab;
+    //
     public int viewID;
 
     public string nickNm = "";
     public string originNickNm = "";
-
     public string multiNickNm = "";
 
     // 멀티플레이 체크 변수
@@ -37,7 +38,12 @@ public class GameManager : MonoBehaviourPunCallbacks
     public bool firstCheck;
     // 장소 이름
     public string bdnm = "Main";
+    //층
     public int floor = 1;
+
+    //강당씬 id
+    public string PresentationID = "";
+
 
     /*현재 플레이어가 있는 장소
      *  0 > 전시회 1
