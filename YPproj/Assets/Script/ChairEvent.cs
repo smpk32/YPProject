@@ -148,7 +148,8 @@ public class ChairEvent : MonoBehaviourPun
 
         if (GameManager.instance.multiState == "Single")
         {
-            GameManager.instance.playerPrefab.transform.Find("Player").GetComponent<PlayerController>().Sit(false, gameObject.transform.position, gameObject.transform.rotation.eulerAngles, gameObject.name);
+            GameObject chair = GameObject.Find(GameManager.instance.sitNm);
+            GameManager.instance.playerPrefab.transform.Find("Player").GetComponent<PlayerController>().Sit(false, chair.transform.position, chair.transform.rotation.eulerAngles, GameManager.instance.sitNm);
         }
 
         // 멀티플레이일때 PUNRPC함수 실행
