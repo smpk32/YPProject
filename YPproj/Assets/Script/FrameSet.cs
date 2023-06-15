@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,9 +7,27 @@ using UnityEngine.UI;
 using UnityEngine.Video;
 using Unity.VideoHelper;
 using TMPro;
+using System;
+using System.Data;
 
 public class FrameSet : MonoBehaviour
 {
+
+    // 행사정보상세리스트
+    [Serializable]
+    class EventDtlListData
+    {
+        public string event_cntnts_sn;                  // 컨텐츠 id
+        public string event_id;                         // 행사 id
+        public string cntnts_nm;                        // 컨텐츠 이름
+        public string cntnts_dc;                        // 컨텐츠 설명
+        public string atfl_id;                          // 파일 id
+
+    }
+
+    DataTable eventDtlListBaseTable;
+
+
 
     int ImgCnt = 0;
     int nowCnt = 0;
@@ -39,7 +58,7 @@ public class FrameSet : MonoBehaviour
 
     Button[] floorBtnImgList;
 
-    public Texture defaultTexture;
+    public Sprite defaultTexture;
 
     public enum ImgPath
     {
@@ -58,8 +77,6 @@ public class FrameSet : MonoBehaviour
         
         topBarCanvas = gameObject.transform.Find("FloorCanvas").gameObject;
 
-        //floorBtnImgList = topBarCanvas.GetComponentsInChildren<Button>();
-
         floorBtnList = topBarCanvas.transform.Find("FloorBtnList").gameObject;
         
         floorBtnImgList = floorBtnList.GetComponentsInChildren<Button>();
@@ -71,7 +88,7 @@ public class FrameSet : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        FloorBtnInit();
+        //FloorBtnInit();
 
 
         //prevBtn.SetActive(false);
@@ -85,23 +102,6 @@ public class FrameSet : MonoBehaviour
         }*/
         //FloorChange(0);
 
-    }
-
-    void FloorBtnInit()
-    {
-        for (int i = 0; i < floorBtnImgList.Length; i++)
-        {
-            floorBtnImgList[i].gameObject.SetActive(false);
-        }
-
-        for (int i = 0; i < MaxPage; i++)
-        {
-            floorBtnImgList[i].gameObject.SetActive(true);
-            if(i == MaxPage - 1)
-            {
-                floorBtnImgList[i].GetComponent<Image>().sprite = Resources.Load<Sprite>("SourceImg/bg-topBar-right");
-            }
-        }
     }
 
     public void SetFrameLocalImg()
@@ -151,7 +151,173 @@ public class FrameSet : MonoBehaviour
         }
     }
 
+    public void EnterGallery()
+    {
+        if (imgPath == ImgPath.Server)
+        {
+            //SetFrameImg();
+            StartCoroutine(SelectEventDtlList());
 
+        }
+        else
+        {
+            SetFrameLocalImg();
+        }
+    }
+
+    public IEnumerator SelectEventDtlList()
+    {
+        string GetDataUrl = GameManager.Instance.baseURL + "/event/select?eventId="+GameManager.instance.eventId;
+
+        using (UnityWebRequest www = UnityWebRequest.Get(GetDataUrl))
+        {
+            yield return www.SendWebRequest();
+            // yield return System.Text.Encoding.UTF8.GetString(www.downloadHandler.data);
+            if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError) //불러오기 실패 시
+            {
+                Debug.Log(www.error);
+                yield return "error";
+            }
+            else
+            {
+                if (www.isDone)
+                {
+
+                    if (www.downloadHandler.data == null)
+                    {
+
+                        yield return null;
+
+                    }
+                    else
+                    {
+                        //callback(System.Text.Encoding.UTF8.GetString(www.downloadHandler.data));
+                        //yield return System.Text.Encoding.UTF8.GetString(www.downloadHandler.data);
+
+                        var dataSet = JsonConvert.DeserializeObject<List<EventDtlListData>>(System.Text.Encoding.UTF8.GetString(www.downloadHandler.data));
+
+                        DataTable eventListTable = new DataTable();
+                        eventListTable.Columns.Add(new DataColumn("event_cntnts_sn", typeof(string)));
+                        eventListTable.Columns.Add(new DataColumn("event_id", typeof(string)));
+                        eventListTable.Columns.Add(new DataColumn("cntnts_nm", typeof(string)));
+                        eventListTable.Columns.Add(new DataColumn("cntnts_dc", typeof(string)));
+                        eventListTable.Columns.Add(new DataColumn("atfl_id", typeof(string)));
+
+                        //MaxPage = ((int)Math.Ceiling((float)(dataSet.Count / pageMaxCnt)) == 0) ? 1 : (int)Math.Ceiling((float)(dataSet.Count / pageMaxCnt));
+
+                        MaxPage = (int)Mathf.FloorToInt(dataSet.Count / pageMaxCnt);
+
+
+                        for (int i = 0; i < dataSet.Count; i++)
+                        {
+                            DataRow row = eventListTable.NewRow();
+
+                            row["event_cntnts_sn"] = dataSet[i].event_cntnts_sn;
+                            row["event_id"] = dataSet[i].event_id;
+                            row["cntnts_nm"] = dataSet[i].cntnts_nm;
+                            row["cntnts_dc"] = dataSet[i].cntnts_dc;
+                            row["atfl_id"] = dataSet[i].atfl_id;
+
+                            eventListTable.Rows.Add(row);
+                        }
+
+                        eventDtlListBaseTable = eventListTable;
+
+                        FloorBtnInit();
+
+                        
+
+                    }
+
+                }
+            }
+        }
+    }
+
+    void FloorBtnInit()
+    {
+        for (int i = 0; i < floorBtnImgList.Length; i++)
+        {
+            floorBtnImgList[i].gameObject.SetActive(false);
+        }
+
+        for (int i = 0; i < MaxPage+1; i++)
+        {
+            floorBtnImgList[i].gameObject.SetActive(true);
+            if(i == MaxPage)
+            {
+                floorBtnImgList[i].GetComponent<Image>().sprite = Resources.Load<Sprite>("SourceImg/bg-topBar-right");
+            }
+        }
+        FloorChange(0);
+    }
+
+    public void FloorChange(int floor)
+    {
+        OpenFloorBtnList(false);
+
+        /*if (pageNum == floor)
+        {
+            return;
+        }*/
+        loadingPanel.SetActive(true);
+
+        pageNum = floor;
+
+        floorTMP.text = (pageNum + 1).ToString() + "F";
+
+
+        for (int i = 0; i < floorBtnImgList.Length; i++)
+        {
+            floorBtnImgList[i].gameObject.transform.Find("FloorImage").gameObject.SetActive(false);
+        }
+
+        floorBtnImgList[floor].gameObject.transform.Find("FloorImage").gameObject.SetActive(true);
+
+        if (imgPath == ImgPath.Server)
+        {
+            SetServerImg();
+            //StartCoroutine(SelectEventDtlList());
+        }
+        else
+        {
+            SetFrameLocalImg();
+        }
+
+    }
+
+    public void SetServerImg()
+    {
+        int startCnt = (pageNum == 0) ? 0 : (pageMaxCnt * pageNum );
+
+        nowCnt = 0;
+
+        for (int i = startCnt; i < startCnt+(pageMaxCnt); i++)
+        {
+            if (i >= eventDtlListBaseTable.Rows.Count)
+            {
+                rawImgList[nowCnt].GetComponent<FrameInfo>().frameDtlInfo = new FrameInfo.FrameDtlInfo(null, null);
+                rawImgList[nowCnt].preserveAspect = false;
+                nowCnt++;
+                continue;
+            }
+
+
+            DataRow row = eventDtlListBaseTable.Rows[i];
+            // 임시 정보 출력
+            string eventId = row["event_id"].ToString();
+            string atflId = row["atfl_id"].ToString();
+            string cntntsNm = row["cntnts_nm"].ToString();
+            string cntntsDc = row["cntnts_dc"].ToString();
+
+            StartCoroutine(LoadImageTexture(rawImgList[nowCnt], atflId, cntntsNm, cntntsDc));
+
+            nowCnt++;
+
+        }
+        
+        loadingPanel.SetActive(false);
+    }
 
 
     // 페이징으로 액자 이미지 호출 함수
@@ -162,8 +328,6 @@ public class FrameSet : MonoBehaviour
         topBarCanvas.SetActive(false);
         Invoke("ShowLoadingImg", 2.0f);
         nowCnt = 0;
-
-        //PageCntTMP.GetComponent<TextMeshProUGUI>().text = (pageNum + 1).ToString();
 
         string urlHead = "http://192.168.1.113:8080/selectImg?file_nm=";
 
@@ -183,18 +347,24 @@ public class FrameSet : MonoBehaviour
 
 
 
-    IEnumerator LoadImageTexture(Image rawImg,string url,string fileNm, string fileInfo)
+    public IEnumerator LoadImageTexture(Image rawImg,string fileNm, string cntntsNm, string cntntsDc)
     {
-        UnityWebRequest www = UnityWebRequestTexture.GetTexture(url);
+        UnityWebRequest www = UnityWebRequestTexture.GetTexture(GameManager.instance.baseURL+ "/display?filename=" + fileNm);
         yield return www.SendWebRequest();
         nowCnt++;
         if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError)
         {
             Debug.Log(www.error);
-            
+
             //rawImg.transform.parent.transform.parent.gameObject.SetActive(false);
             //rawImg.texture = null;
-            rawImg.GetComponent<FrameInfo>().frameDtlInfo = new FrameInfo.FrameDtlInfo(null, null);
+            rawImg.sprite = defaultTexture;
+            //rawImg.GetComponent<FrameInfo>().frameDtlInfo = new FrameInfo.FrameDtlInfo(null, null);
+
+            if (cntntsNm != null)
+            {
+                rawImg.GetComponent<FrameInfo>().frameDtlInfo = new FrameInfo.FrameDtlInfo(cntntsNm, cntntsDc);
+            }
             rawImg.preserveAspect = false;
 
         }
@@ -208,53 +378,27 @@ public class FrameSet : MonoBehaviour
             rawImg.preserveAspect = true;
             if (rawImg.GetComponent<FrameInfo>() != null)
             {
-                rawImg.GetComponent<FrameInfo>().frameDtlInfo = new FrameInfo.FrameDtlInfo(fileNm, fileInfo);
+                rawImg.GetComponent<FrameInfo>().frameDtlInfo = new FrameInfo.FrameDtlInfo(cntntsNm, cntntsDc);
             }
             
 
         }
 
 
-        /*if (nowCnt == pageMaxCnt)
-        {
-            loadingPanel.SetActive(false);
-        }*/
+
     }
 
-    /* 
-     * nextChk가 true > 다음 페이지
-     *          false > 이전 페이지
-    */
-    public void NextPage(bool nextChk)
+    public void SetMainPoster(string fileId, string eventNm, string eventDc)
     {
-        pageNum = nextChk ? pageNum += 1 : pageNum -= 1;
+        Image posterImg = GameObject.Find("Map").transform.Find("GalleryGrp (1)").transform.Find("Wall").transform.Find("Poster").transform.Find("Image").GetComponent<Image>();
 
-        if(pageNum == 0)
-        {
-            prevBtn.SetActive(false);
-        }
-        else
-        {
-            prevBtn.SetActive(true);
-        }
+        StartCoroutine(LoadImageTexture(posterImg, fileId, eventNm, eventDc));
 
-        if(pageNum == MaxPage-1)
-        {
-            nextBtn.SetActive(false);
-        }
-        else
-        {
-            nextBtn.SetActive(true);
-        }
-        if (imgPath == ImgPath.Server)
-        {
-            SetFrameImg();
-        }
-        else
-        {
-            SetFrameLocalImg();
-        }
     }
+
+    
+
+
 
     public void ShowLoadingImg()
     {
@@ -269,37 +413,7 @@ public class FrameSet : MonoBehaviour
         }
     }
 
-    public void FloorChange(int floor)
-    {
-        OpenFloorBtnList(false);
-
-        if (pageNum == floor)
-        {
-            return;
-        }
-
-        pageNum = floor;
-
-        floorTMP.text = (pageNum + 1).ToString() + "F";
-
-
-        for (int i = 0; i< floorBtnImgList.Length; i++)
-        {
-            floorBtnImgList[i].gameObject.transform.Find("FloorImage").gameObject.SetActive(false);
-        }
-
-        floorBtnImgList[floor].gameObject.transform.Find("FloorImage").gameObject.SetActive(true);
-
-        if (imgPath == ImgPath.Server)
-        {
-            SetFrameImg();
-        }
-        else
-        {
-            SetFrameLocalImg();
-        }
-
-    }
+    
 
     public void OpenFloorBtnList(bool chk)
     {

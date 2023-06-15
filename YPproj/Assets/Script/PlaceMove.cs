@@ -24,6 +24,7 @@ public class PlaceMove : MonoBehaviour
         public string event_end_dt;             // 행사 종료 일자
         public string event_place;              // 행사 장소
         public string event_hmpg_url;           // 행사 페이지 url
+        public string progress;                 // 사용 유무
 
     }
 
@@ -177,7 +178,7 @@ public class PlaceMove : MonoBehaviour
             }
             else if(mapList[num].name == "GalleryGrp (1)")
             {
-                mapList[num].transform.Find("FrameGrp").GetComponent<FrameSet>().FloorChange(0);
+                mapList[num].transform.Find("FrameGrp").GetComponent<FrameSet>().EnterGallery();
             }
 
             SetPlayerPos(num);
@@ -214,7 +215,6 @@ public class PlaceMove : MonoBehaviour
     {
         StartCoroutine(SelectEventList("",(data) =>
         {
-            Debug.Log(data);
             var dataSet = JsonConvert.DeserializeObject<List<EventListData>>(data);
 
             /*DataTable eventListTable = new DataTable();
@@ -231,6 +231,14 @@ public class PlaceMove : MonoBehaviour
             GameObject.Find("MenuPanelGrp").transform.Find("EventListPanel").gameObject.SetActive(true);
 
             HorizontalScrollSnap scrollSnap = GameObject.Find("MenuPanelGrp").transform.Find("EventListPanel").transform.Find("Canvas").transform.Find("Mask").transform.Find("HorizontalScrollSnap").GetComponent<HorizontalScrollSnap>();
+
+            GameObject[] Content = scrollSnap.ChildObjects;
+            //삭제
+            foreach (GameObject child in Content)
+            {
+                Destroy(child.gameObject);
+            }
+
             scrollSnap.RemoveAllChildren(out scrollSnap.ChildObjects);
 
             for (int i = 0; i <dataSet.Count; i++)
@@ -250,12 +258,17 @@ public class PlaceMove : MonoBehaviour
 
                 GameObject eventList = Instantiate(eventListObj);
 
-                eventList.GetComponent<EventInfo>().eventDtlInfo = new EventInfo.EventDtlInfo(dataSet[i].event_id, dataSet[i].event_nm, dataSet[i].event_image_atfl_id, dataSet[i].event_dc, dataSet[i].event_bgng_dt, dataSet[i].event_end_dt, dataSet[i].event_place, dataSet[i].event_hmpg_url);
+                eventList.GetComponent<EventInfo>().eventDtlInfo = new EventInfo.EventDtlInfo(dataSet[i].event_id, dataSet[i].event_nm, dataSet[i].event_image_atfl_id, dataSet[i].event_dc, dataSet[i].event_bgng_dt, dataSet[i].event_end_dt, dataSet[i].event_place, dataSet[i].event_hmpg_url, dataSet[i].progress);
 
-                Debug.Log(dataSet[i].event_image_atfl_id);
+
+                if (dataSet[i].progress.Equals("N"))
+                {
+                    eventList.transform.Find("ProgressImg").GetComponent<Image>().color = new Color(1, 0.73f, 0);
+                    eventList.transform.Find("ProgressImg").transform.Find("ProgressText").GetComponent<TextMeshProUGUI>().text = "종료";
+
+                }
                 // 패널 세팅
-                //StartCoroutine(LoadImageTexture(eventList.transform.Find("Poster").GetComponent<Image>(), dataSet[i].event_image_atfl_id));
-                eventList.transform.Find("Poster").GetComponent<Image>().sprite = postImg;
+                StartCoroutine(LoadImageTexture(eventList.transform.Find("Poster").GetComponent<Image>(), dataSet[i].event_image_atfl_id));
                 eventList.transform.Find("TitleText").GetComponent<TextMeshProUGUI>().text = dataSet[i].event_nm;
                 eventList.transform.Find("DcText").GetComponent<TextMeshProUGUI>().text = dataSet[i].event_dc;
                 eventList.transform.Find("DtText").GetComponent<TextMeshProUGUI>().text = dataSet[i].event_bgng_dt + " ~ " + dataSet[i].event_end_dt;
@@ -412,12 +425,11 @@ public class PlaceMove : MonoBehaviour
     {
 
         //UnityWebRequest www = UnityWebRequestTexture.GetTexture("http://192.168.1.113:8080/selectImg?file_nm="+ fileId);
-        UnityWebRequest www = UnityWebRequestTexture.GetTexture("http://192.168.1.113:8080/selectImg?file_nm=new_img36b.jpg");
+        UnityWebRequest www = UnityWebRequestTexture.GetTexture(GameManager.instance.baseURL + "/display?filename=" + fileId);
         yield return www.SendWebRequest();
         
         if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError)
         {
-            Debug.Log(www.error);
             rawImg.preserveAspect = false;
 
         }

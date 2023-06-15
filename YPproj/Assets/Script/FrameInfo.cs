@@ -77,12 +77,11 @@ public class FrameInfo : MonoBehaviour
     {
         if (isOn)
         {
-            //bannerDtlPanel.transform.Find("DtlRawImage").GetComponent<RawImage>().texture = gameObject.GetComponent<RawImage>().texture;
-            //bannerDtlPanel.transform.Find("TitleText").GetComponent<TextMeshProUGUI>().text = frameDtlInfo.frameNm;
-            //bannerDtlPanel.transform.Find("InfoText").GetComponent<TextMeshProUGUI>().text = frameDtlInfo.frameInfo;
 
             bannerDtlPanel.SetActive(true);
             frameDtlPanel.SetActive(false);
+
+            bannerDtlPanel.transform.Find("DtlImage").GetComponent<Image>().sprite = gameObject.GetComponent<Image>().sprite;
             if (popupStyle == 0)
             {
                 StartCoroutine(FadeFramePanel(bannerDtlPanel, isOn));

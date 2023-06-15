@@ -5,11 +5,12 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 using System;
+using System.Runtime.InteropServices;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
     public string localURL = "http://192.168.1.113:8080";
-    public string devURL = "http://203.228.54.47";
+    //public string devURL = "http://203.228.54.47";
     public string baseURL = "";
 
     public enum Urltype
@@ -43,6 +44,9 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     //강당씬 id
     public string inhbtntPranAtflId = "";
+
+    // 선택된 행사장 제목
+    public string eventId = "";
 
 
     /*현재 플레이어가 있는 장소
@@ -81,6 +85,11 @@ public class GameManager : MonoBehaviourPunCallbacks
     }
     private static GameManager m_instance; // 싱글톤이 할당될 static 변수
 
+#if UNITY_WEBGL && !UNITY_EDITOR
+    [DllImport("__Internal")]
+    private static extern string GetBaseURL();
+#endif
+
     private void Awake()
     {
         if (null == instance)
@@ -95,14 +104,18 @@ public class GameManager : MonoBehaviourPunCallbacks
             Destroy(this.gameObject);
         }
 
-        if(urlType == Urltype.local)
-        {
-            baseURL = localURL;
-        }
-        else
-        {
-            baseURL = devURL;
-        }
+                /*if(urlType == Urltype.local)
+                {
+                    baseURL = localURL;
+                }
+                else
+                {
+                    baseURL = devURL;
+                }*/
+
+#if PLATFORM_STANDALONE_WIN || UNITY_EDITOR
+        GetBaseURL();
+#endif
     }
 
     // Start is called before the first frame update
@@ -216,5 +229,17 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         Application.Quit();
     }
+
+    public void SetBaseUrl(string url)
+    {
+        baseURL = url;
+    }
+
+#if PLATFORM_STANDALONE_WIN || UNITY_EDITOR
+    public void GetBaseURL()
+    {
+        baseURL = localURL;
+    }
+#endif
 
 }

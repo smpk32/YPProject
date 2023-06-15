@@ -2,7 +2,12 @@ mergeInto(LibraryManager.library,{
 
 	// 강당씬 동영상 경로
 	GetVideoRoot : function(){
-		return;
+		returnVideoUrl();
+	},
+
+	// baseUrl 리턴
+	GetBaseURL: function (index){
+		returnBaseUrl();
 	},
 
 	//군수 클릭후 url 버튼 클릭 이벤트
