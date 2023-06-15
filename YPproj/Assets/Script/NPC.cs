@@ -9,9 +9,11 @@ public class NPC : MonoBehaviour
 
     RaycastHit hit;
     Ray ray;
-
+    
     public TextMeshProUGUI dialogText;
-    string sampleText;
+
+    [TextArea]
+    public string sampleText ="";
 
     private IEnumerator coroutine;
 
@@ -26,7 +28,7 @@ public class NPC : MonoBehaviour
     void Start()
     {
       
-        sampleText = "안녕하세요 이곳은 양평군청입니다. \n 토지 관련 안내는 저를 클릭하세요 ";
+        //sampleText = "안녕하세요 이곳은 양평군청입니다. \n 토지 관련 안내는 저를 클릭하세요 ";
       
         StartCoroutine(Typing(sampleText));
 
