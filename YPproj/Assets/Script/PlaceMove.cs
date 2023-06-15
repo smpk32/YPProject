@@ -127,13 +127,9 @@ public class PlaceMove : MonoBehaviour
             /*Debug.Log("강당 외의 장소에서 강당으로 이동할 때");
             Debug.Log("Multi : Single  &  num : 3");*/
 
-            /*GameObject.Find("MainCanvas").transform.Find("MenuPanelGrp").transform.Find("PlaceMovePanel").transform.gameObject.SetActive(false);
-
-            GameObject.Find("MainCanvas").transform.Find("MenuPanelGrp").transform.Find("PresentationPanel").transform.gameObject.SetActive(true);
-            */
             
            GameManager.instance.multiState = "Multi";
-            GameObject.Find("MainCanvas").gameObject.transform.Find("LoadingImage").gameObject.SetActive(true);
+           GameObject.Find("MainCanvas").gameObject.transform.Find("LoadingImage").gameObject.SetActive(true);
 
             // 상단 탑캔버스 SetActive False처리
             if (mapList.Count != 0)
@@ -217,16 +213,7 @@ public class PlaceMove : MonoBehaviour
         {
             var dataSet = JsonConvert.DeserializeObject<List<EventListData>>(data);
 
-            /*DataTable eventListTable = new DataTable();
-            eventListTable.Columns.Add(new DataColumn("event_id", typeof(string)));
-            eventListTable.Columns.Add(new DataColumn("event_nm", typeof(string)));
-            eventListTable.Columns.Add(new DataColumn("event_image_atfl_id", typeof(string)));
-            eventListTable.Columns.Add(new DataColumn("event_dc", typeof(string)));
-            eventListTable.Columns.Add(new DataColumn("event_bgng_dt", typeof(string)));
-            eventListTable.Columns.Add(new DataColumn("event_end_dt", typeof(string)));
-            eventListTable.Columns.Add(new DataColumn("event_place", typeof(string)));
-            eventListTable.Columns.Add(new DataColumn("event_hmpg_url", typeof(string)));
-*/
+
             GameObject.Find("MenuPanelGrp").transform.Find("PlaceMovePanel").gameObject.SetActive(false);
             GameObject.Find("MenuPanelGrp").transform.Find("EventListPanel").gameObject.SetActive(true);
 
@@ -243,18 +230,6 @@ public class PlaceMove : MonoBehaviour
 
             for (int i = 0; i <dataSet.Count; i++)
             {
-                /*DataRow row = eventListTable.NewRow();
-
-                row["event_id"] = dataSet[i].event_id;
-                row["event_nm"] = dataSet[i].event_nm;
-                row["event_image_atfl_id"] = dataSet[i].event_image_atfl_id;
-                row["event_dc"] = dataSet[i].event_dc;
-                row["event_bgng_dt"] = dataSet[i].event_bgng_dt;
-                row["event_end_dt"] = dataSet[i].event_end_dt;
-                row["event_place"] = dataSet[i].event_place;
-                row["event_hmpg_url"] = dataSet[i].event_hmpg_url;
-
-                eventListTable.Rows.Add(row);*/
 
                 GameObject eventList = Instantiate(eventListObj);
 
@@ -293,14 +268,14 @@ public class PlaceMove : MonoBehaviour
             // yield return System.Text.Encoding.UTF8.GetString(www.downloadHandler.data);
             if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError) //불러오기 실패 시
             {
-                Debug.Log(www.error);
+              
                 yield return "error";
             }
             else
             {
                 if (www.isDone)
                 {
-                    Debug.Log(www.downloadHandler.data);
+                 
 
                     if (www.downloadHandler.data == null)
                     {
@@ -325,7 +300,7 @@ public class PlaceMove : MonoBehaviour
     {
         StartCoroutine(SelectinhbtntList("", (data) =>
         {
-            Debug.Log(data);
+         
             var dataSet = JsonConvert.DeserializeObject<List<InhbtntListData>>(data);
 
             GameObject.Find("MenuPanelGrp").transform.Find("PlaceMovePanel").gameObject.SetActive(false);
@@ -356,7 +331,6 @@ public class PlaceMove : MonoBehaviour
                     dataSet[i].stre_file_nm
                     );
 
-                Debug.Log(dataSet[i].inhbtnt_pran_id);
 
                 /*string id = dataSet[i].inhbtnt_pran_id;
                 InhbtntList.GetComponent<Button>().onClick.AddListener(()=> InhbtntList.GetComponent<InhbtntInfo>().ClickInhbBtn(id));*/
@@ -393,14 +367,14 @@ public class PlaceMove : MonoBehaviour
             // yield return System.Text.Encoding.UTF8.GetString(www.downloadHandler.data);
             if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError) //불러오기 실패 시
             {
-                Debug.Log(www.error);
+             
                 yield return "error";
             }
             else
             {
                 if (www.isDone)
                 {
-                    Debug.Log(www.downloadHandler.data);
+                  
 
                     if (www.downloadHandler.data == null)
                     {
