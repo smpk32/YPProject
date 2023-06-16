@@ -47,11 +47,12 @@ public class InhbtntInfo : MonoBehaviour
       
         GameManager.instance.inhbtntPranAtflId = inhbtntdtlData.inhbtnt_pran_atfl_id;
 
-        
+        //(¸ÖÆ¼)
         if (inhbtntdtlData.progress == "Y")
         {
             GameObject.Find("SpawnSpot").GetComponent<PlaceMove>().MapChange(3);
         }
+        //(½Ì±Û)
         else
         {
 

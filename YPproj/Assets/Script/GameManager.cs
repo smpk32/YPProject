@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
-    public string localURL = "http://192.168.1.113:8080";
+    public string localURL = "http://192.168.0.56:8080";
     //public string devURL = "http://203.228.54.47";
     public string baseURL = "";
 
@@ -50,9 +50,9 @@ public class GameManager : MonoBehaviourPunCallbacks
 
 
     /*현재 플레이어가 있는 장소
-     *  0 > 전시회 1
-     *  1 > 전시회 2
-     *  2 > 소통한마당
+     *  0 > 양평군청
+     *  1 > 전시관
+     *  2 > 소통한마당 (싱글)
      *  3 > 소통한마당(멀티)
     */
     public int placeState = 0;

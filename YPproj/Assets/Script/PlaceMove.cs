@@ -144,6 +144,14 @@ public class PlaceMove : MonoBehaviour
         }
         else if (GameManager.instance.multiState == "Single" && num != 3)      // 강당 외의 장소에서 강당 외의 장소로 이동할 때
         {
+            if (GameManager.instance.placeState == 2)
+            {
+                Camera.main.GetComponent<AudioSource>().mute = true;
+            }
+            else
+            {
+                Camera.main.GetComponent<AudioSource>().mute = false;
+            }
             /*Debug.Log("강당 외의 장소에서 강당 외의 장소로 이동할 때");
             Debug.Log("Multi : Single  &  num : !3");*/
             //GameManager.instance.playerPrefab = GameObject.Find("PlayerObj");
@@ -338,12 +346,17 @@ public class PlaceMove : MonoBehaviour
                 var progress = dataSet[i].progress;
                 if (progress =="Y" )
                 {
-                    InhbtntList.transform.Find("TitleText").GetComponent<TextMeshProUGUI>().text = dataSet[i].inhbtnt_pran_nm + "   (진행중)";
+                    InhbtntList.transform.Find("TitleText").GetComponent<TextMeshProUGUI>().text = dataSet[i].inhbtnt_pran_nm;
+                    InhbtntList.transform.Find("ProgressImg").GetComponent<Image>().color = new Color(0, 0.8f, 0);
+                    InhbtntList.transform.Find("ProgressImg").transform.Find("ProgressText").GetComponent<TextMeshProUGUI>().text = "진행중";
+
 
                 }
                 else
                 {
-                    InhbtntList.transform.Find("TitleText").GetComponent<TextMeshProUGUI>().text = dataSet[i].inhbtnt_pran_nm + "   (종료)";
+                    InhbtntList.transform.Find("TitleText").GetComponent<TextMeshProUGUI>().text = dataSet[i].inhbtnt_pran_nm;
+                    InhbtntList.transform.Find("ProgressImg").GetComponent<Image>().color = new Color(1, 0.73f, 0);
+                    InhbtntList.transform.Find("ProgressImg").transform.Find("ProgressText").GetComponent<TextMeshProUGUI>().text = "종료";
                 }
 
                 InhbtntList.transform.SetParent(Content);
