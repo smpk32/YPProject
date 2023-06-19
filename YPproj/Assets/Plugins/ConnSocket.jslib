@@ -36,7 +36,7 @@ mergeInto(LibraryManager.library,{
 
   ShowSeatPanel : function(panelId){
 		console.log(UTF8ToString(panelId));
-		InitSeatPanel(UTF8ToString(panelId));
+		initSeatPanel(UTF8ToString(panelId));
 	},
 
 })
