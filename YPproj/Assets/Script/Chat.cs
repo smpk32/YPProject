@@ -172,7 +172,7 @@ public class Chat : MonoBehaviour
         Debug.Log("close"); //디버그 콘솔에 "close"이라고 찍는다.
 
         // 재연결 시도
-        ConnectStart();
+        //ConnectStart();
         InitChat();
 
         //QuitUserInfo();
@@ -670,7 +670,7 @@ public class Chat : MonoBehaviour
     // 채팅창에 이미지 출력 함수
     IEnumerator SetChatImg(string url, GameObject imgChatObj)
     {
-        string fileUrl = "http://192.168.1.113:8080/imgDown?file_nm=" + url;
+        string fileUrl = GameManager.instance.baseURL+"/imgDown?file_nm=" + url;
 
         using (UnityWebRequest www = UnityWebRequestTexture.GetTexture(fileUrl))
         {

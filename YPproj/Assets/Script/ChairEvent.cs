@@ -114,7 +114,12 @@ public class ChairEvent : MonoBehaviourPun
 
         if (GameManager.instance.multiState == "Single")
         {
-            GameManager.instance.playerPrefab.transform.Find("Player").GetComponent<PlayerController>().Sit(true, gameObject.transform.position, gameObject.transform.rotation.eulerAngles, gameObject.name);
+
+            Vector3 chairPos = gameObject.transform.position;
+            chairPos.y = chairPos.y - GameManager.instance.playerPrefab.GetComponent<PlayerModelInfo>().modelSitHeight;
+
+
+            GameManager.instance.playerPrefab.transform.Find("Player").GetComponent<PlayerController>().Sit(true, chairPos, gameObject.transform.rotation.eulerAngles, gameObject.name);
 
         }
 

@@ -19,17 +19,17 @@ public class ChatImgEvent : MonoBehaviour
 
     public void ShowChatImg()
     {
-        Sprite sp = gameObject.transform.Find("Img").GetComponent<Image>().sprite;
+        //Sprite sp = gameObject.transform.Find("Img").GetComponent<Image>().sprite;
         
         // sprite 이미지를 texture로 변환
-        Texture2D newtexture = new Texture2D((int)sp.rect.width,(int)sp.rect.height);
+        /*Texture2D newtexture = new Texture2D((int)sp.rect.width,(int)sp.rect.height);
         Color[] newColors = sp.texture.GetPixels((int)sp.textureRect.x,(int)sp.textureRect.y,(int)sp.textureRect.width,(int)sp.textureRect.height);
         newtexture.SetPixels(newColors);
-        newtexture.Apply();
+        newtexture.Apply();*/
 
         GameObject frameDtlPanel = GameObject.Find("MainCanvas").transform.Find("FrameDtlPanel").gameObject;
 
-        frameDtlPanel.transform.Find("DtlRawImage").GetComponent<RawImage>().texture = newtexture;
+        frameDtlPanel.transform.Find("DtlImage").GetComponent<Image>().sprite = gameObject.transform.Find("Img").GetComponent<Image>().sprite; ;
 
 
         frameDtlPanel.SetActive(true);
