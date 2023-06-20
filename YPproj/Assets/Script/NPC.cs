@@ -83,7 +83,7 @@ public class NPC : MonoBehaviour
 
 #if UNITY_WEBGL && !UNITY_EDITOR
         OpenUseURL(index);
-#endif
+#elif UNITY_EDITOR
 
         string url = "";
         switch (index)
@@ -108,6 +108,6 @@ public class NPC : MonoBehaviour
         }
 
         Application.OpenURL(url);
+#endif
     }
-
 }
