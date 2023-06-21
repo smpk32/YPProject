@@ -41,8 +41,10 @@ public class EventInfo : MonoBehaviour
     public void ClickMoveButton()
     {
         GameManager.instance.eventId = eventDtlInfo.event_id;
+        GameManager.instance.eventFileId = eventDtlInfo.event_image_atfl_id;
+        GameManager.instance.eventNm = eventDtlInfo.event_nm;
+        GameManager.instance.eventDc = eventDtlInfo.event_dc;
         GameObject.Find("SpawnSpot").GetComponent<PlaceMove>().MapChange(1);
-
-        GameObject.Find("Map").transform.Find("GalleryGrp (1)").transform.Find("FrameGrp").GetComponent<FrameSet>().SetMainPoster(eventDtlInfo.event_image_atfl_id, eventDtlInfo.event_nm, eventDtlInfo.event_dc);
+        
     }
 }

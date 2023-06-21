@@ -158,6 +158,10 @@ public class FrameSet : MonoBehaviour
             //SetFrameImg();
             StartCoroutine(SelectEventDtlList());
 
+            SetMainPoster(GameManager.instance.eventFileId,GameManager.instance.eventNm,GameManager.instance.eventDc);
+
+
+
         }
         else
         {
@@ -318,33 +322,6 @@ public class FrameSet : MonoBehaviour
         
         loadingPanel.SetActive(false);
     }
-
-
-    // 페이징으로 액자 이미지 호출 함수
-    public void SetFrameImg()
-    {
-
-        loadingPanel.SetActive(true);
-        topBarCanvas.SetActive(false);
-        Invoke("ShowLoadingImg", 2.0f);
-        nowCnt = 0;
-
-        string urlHead = "http://192.168.1.113:8080/selectImg?file_nm=";
-
-        //RawImage[] list = gameObject.GetComponentsInChildren<RawImage>();
-
-        // 임시 정보 출력
-        string title = "군민과 함께하는 소통한마당";
-        string info = "'소통한마당'이란, 민선 8기 군정 계획을 공유하고 지역 현안에 대하여 주민과 소통·공감하는 자리입니다.";
-
-
-        int imgIdx = pageNum * pageMaxCnt;
-        for (int i = 0; i < pageMaxCnt; i++)
-        {
-            StartCoroutine(LoadImageTexture(rawImgList[i], urlHead + "sample" + (i+ imgIdx) + ".jpg", title, info));
-        }
-    }
-
 
 
     public IEnumerator LoadImageTexture(Image rawImg,string fileNm, string cntntsNm, string cntntsDc)
