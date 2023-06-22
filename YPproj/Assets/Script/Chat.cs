@@ -554,7 +554,7 @@ public class Chat : MonoBehaviour
         else if (type == "sendFile")
         {
 
-            string[] splitMsg = imgFilePath.Split('\\');
+            string[] splitMsg = imgFilePath.Split('/');
 
             Debug.Log("message : " + splitMsg[splitMsg.Length - 1]);
             Debug.Log("imgFilePath : " + imgFilePath);
