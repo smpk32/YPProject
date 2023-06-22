@@ -346,6 +346,7 @@ public class PlaceMove : MonoBehaviour
                 var progress = dataSet[i].progress;
                 if (progress =="Y" )
                 {
+
                     InhbtntList.transform.Find("TitleText").GetComponent<TextMeshProUGUI>().text = dataSet[i].inhbtnt_pran_nm;
                     InhbtntList.transform.Find("ProgressImg").GetComponent<Image>().color = new Color(0, 0.8f, 0);
                     InhbtntList.transform.Find("ProgressImg").transform.Find("ProgressText").GetComponent<TextMeshProUGUI>().text = "진행중";
@@ -359,7 +360,8 @@ public class PlaceMove : MonoBehaviour
                     InhbtntList.transform.Find("ProgressImg").transform.Find("ProgressText").GetComponent<TextMeshProUGUI>().text = "종료";
                 }
 
-                InhbtntList.transform.SetParent(Content);
+                //false 에서 부모스케일로 맞춰줌 그냥 넣을경우 월드 스케일로 들어간다~
+                InhbtntList.transform.SetParent(Content, false);
 
             }
 

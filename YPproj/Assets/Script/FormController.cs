@@ -68,9 +68,11 @@ public class FormController : MonoBehaviour
         //상단이미지 변경
         leftpanelImage.GetComponent<Image>().sprite = Resources.Load<Sprite>("CharacterImg\\" + toggle.name + "1");
         //하단이미지 변경
+
         if (toggle.name == "ManPlayer")
         {
-           
+            
+            GameManager.Instance.selectCharacter = "ManPlayer1";
 
             for (int i = 0; i < 3; i++)
             {
@@ -80,11 +82,13 @@ public class FormController : MonoBehaviour
         }
         else
         {
+             
+            GameManager.Instance.selectCharacter = "WomenPlayer1";
             for (int i = 0; i < 3; i++)
             {
                 CreateConImg(i, path, toggle);
             }
-      
+            
         }
 
         GameObject con = GameObject.Find("MainCanvas").transform.Find("PlayerSetPanel").transform.Find("Canvas").transform.Find("Mask").transform.Find("HorizontalScrollSnap").transform.Find("Content").transform.gameObject; 
