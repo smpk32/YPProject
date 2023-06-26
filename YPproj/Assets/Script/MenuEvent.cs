@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UI.Extensions;
 
 public class MenuEvent : MonoBehaviour
 {
@@ -90,13 +91,36 @@ public class MenuEvent : MonoBehaviour
             //panelList[i].gameObject.SetActive(false);
 
         }
-       
         GameObject.Find("MainCanvas").transform.Find("MenuPanelGrp").gameObject.SetActive(true);
         panelList.transform.GetChild(panelIdx).gameObject.SetActive(true);
+        if (panelIdx == 1)
+        {
+            SetGuideInit(panelList);
+        }
 
 
     }
+    //도움말 패널 이닛
+    void SetGuideInit(GameObject _panelList)
+    {
+        
+        GameObject canvas = _panelList.transform.GetChild(1).transform.Find("Canvas").transform.gameObject;
 
+        for (int i = 0; i < 5; i++)
+        {
+            canvas.transform.GetChild(0).transform.GetChild(i).transform.GetComponent<Toggle>().isOn = false;
+            canvas.transform.GetChild(1).transform.GetChild(i).gameObject.SetActive(false);
+            canvas.transform.GetChild(2).transform.GetChild(i).gameObject.SetActive(false);
+          
+        }
+        canvas.transform.GetChild(0).transform.GetChild(0).transform.GetComponent<Toggle>().isOn = true;
+       
+        canvas.transform.GetChild(1).transform.GetChild(0).gameObject.SetActive(true);
+        canvas.transform.GetChild(2).transform.GetChild(0).gameObject.SetActive(true);
+
+       
+
+    }
     public void HideMenuPanel()
     {
         GameManager.instance.SetState("normal");
