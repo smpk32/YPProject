@@ -240,6 +240,7 @@ public class FrameSet : MonoBehaviour
 
     void FloorBtnInit()
     {
+        pageNum = 10;
         for (int i = 0; i < floorBtnImgList.Length; i++)
         {
             floorBtnImgList[i].gameObject.SetActive(false);
@@ -260,10 +261,10 @@ public class FrameSet : MonoBehaviour
     {
         OpenFloorBtnList(false);
 
-        /*if (pageNum == floor)
+        if (pageNum == floor)
         {
             return;
-        }*/
+        }
         loadingPanel.SetActive(true);
 
         pageNum = floor;
@@ -295,6 +296,7 @@ public class FrameSet : MonoBehaviour
         int startCnt = (pageNum == 0) ? 0 : (pageMaxCnt * pageNum );
 
         nowCnt = 0;
+        ImgCnt = 0;
 
         for (int i = startCnt; i < startCnt+(pageMaxCnt); i++)
         {
@@ -302,7 +304,9 @@ public class FrameSet : MonoBehaviour
             {
                 rawImgList[nowCnt].GetComponent<FrameInfo>().frameDtlInfo = new FrameInfo.FrameDtlInfo(null, null);
                 rawImgList[nowCnt].preserveAspect = false;
+                rawImgList[nowCnt].sprite = defaultTexture;
                 nowCnt++;
+                ImgCnt++;
                 continue;
             }
 
@@ -320,15 +324,21 @@ public class FrameSet : MonoBehaviour
 
         }
         
-        loadingPanel.SetActive(false);
+        //loadingPanel.SetActive(false);
     }
 
 
     public IEnumerator LoadImageTexture(Image rawImg,string fileNm, string cntntsNm, string cntntsDc)
     {
-        UnityWebRequest www = UnityWebRequestTexture.GetTexture(GameManager.instance.baseURL+ "/display?filename=" + fileNm);
+        UnityWebRequest www = UnityWebRequestTexture.GetTexture(GameManager.instance.baseURL+ "/display?filename=" + fileNm,true);
         yield return www.SendWebRequest();
-        nowCnt++;
+        
+        if (!rawImg.name.Equals("PosterImage"))
+        {
+            ImgCnt++;
+        }
+
+
         if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError)
         {
             Debug.Log(www.error);
@@ -351,8 +361,12 @@ public class FrameSet : MonoBehaviour
 
             Texture2D texture;
             texture = ((DownloadHandlerTexture)www.downloadHandler).texture;
-            rawImg.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
-            rawImg.preserveAspect = true;
+            
+            if(texture != null) { 
+                rawImg.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
+                rawImg.preserveAspect = true;
+            }
+
             if (rawImg.GetComponent<FrameInfo>() != null)
             {
                 rawImg.GetComponent<FrameInfo>().frameDtlInfo = new FrameInfo.FrameDtlInfo(cntntsNm, cntntsDc);
@@ -361,13 +375,21 @@ public class FrameSet : MonoBehaviour
 
         }
 
+        if(ImgCnt == pageMaxCnt)
+        {
+            loadingPanel.SetActive(false);
+        }
+
 
 
     }
 
     public void SetMainPoster(string fileId, string eventNm, string eventDc)
     {
-        Image posterImg = GameObject.Find("Map").transform.Find("GalleryGrp (1)").transform.Find("Wall").transform.Find("Poster").transform.Find("Image").GetComponent<Image>();
+        Image posterImg = GameObject.Find("Map").transform.Find("GalleryGrp (1)").transform.Find("Wall").transform.Find("Poster").transform.Find("PosterImage").GetComponent<Image>();
+        posterImg.preserveAspect = true;
+
+        GameObject.Find("Map").transform.Find("GalleryGrp (1)").transform.Find("FrameGrp").transform.Find("FloorCanvas").transform.Find("TopBarMiddle").transform.Find("Text (TMP)").GetComponent<TextMeshProUGUI>().text = GameManager.instance.eventNm;
 
         StartCoroutine(LoadImageTexture(posterImg, fileId, eventNm, eventDc));
 

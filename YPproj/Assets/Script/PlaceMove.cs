@@ -428,8 +428,12 @@ public class PlaceMove : MonoBehaviour
 
             Texture2D texture;
             texture = ((DownloadHandlerTexture)www.downloadHandler).texture;
-            rawImg.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
-            rawImg.preserveAspect = true;
+            if(texture != null)
+            {
+                rawImg.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
+                rawImg.preserveAspect = true;
+
+            }
 
 
         }

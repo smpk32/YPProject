@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     //강당씬 id
     public string inhbtntPranAtflId = "";
 
-    // 선택된 전시회 제목
+    // 선택된 전시회 id
     public string eventId = "";
     // 선택된 전시회 포스터 파일 명
     public string eventFileId = "";
