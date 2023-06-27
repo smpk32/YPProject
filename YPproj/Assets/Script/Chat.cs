@@ -553,8 +553,15 @@ public class Chat : MonoBehaviour
         // 이미지 파일 전송
         else if (type == "sendFile")
         {
-
-            string[] splitMsg = imgFilePath.Split('/');
+            string[] splitMsg;
+            if (GameManager.instance.urlType == GameManager.Urltype.local)
+            {
+                splitMsg = imgFilePath.Split('\\');
+            }
+            else
+            {
+                splitMsg = imgFilePath.Split('/');
+            }
 
             Debug.Log("message : " + splitMsg[splitMsg.Length - 1]);
             Debug.Log("imgFilePath : " + imgFilePath);
