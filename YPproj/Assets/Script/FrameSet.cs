@@ -324,7 +324,7 @@ public class FrameSet : MonoBehaviour
 
         }
         
-        //loadingPanel.SetActive(false);
+        loadingPanel.SetActive(false);
     }
 
 
@@ -375,10 +375,10 @@ public class FrameSet : MonoBehaviour
 
         }
 
-        if(ImgCnt == pageMaxCnt)
+        /*if(ImgCnt == pageMaxCnt)
         {
             loadingPanel.SetActive(false);
-        }
+        }*/
 
 
 

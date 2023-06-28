@@ -15,29 +15,32 @@ public class VideoCtrl : MonoBehaviour
     public string videoUrl = "";
 
 
-#if UNITY_WEBGL && !UNITY_EDITOR
-    [DllImport("__Internal")]
-    private static extern string GetVideoRoot();
-#endif
 
     void Awake()
     {
-        GetVideoRoot();
+        //GetVideoRoot();
     }
 
 
-#if PLATFORM_STANDALONE_WIN || UNITY_EDITOR
     public void GetVideoRoot()
     {
         //바꿔야됨
         videoUrl = GameManager.instance.baseURL+ "/display?filename=";
+        LoadVideo();
 
     }
-#endif
+
 
     public void SetVideoUrl(string url)
     {
+        Debug.Log(url);
         videoUrl = url;
+        LoadVideo();
+    }
+
+    void OnEnable()
+    {
+        GetVideoRoot();
     }
 
 
@@ -64,6 +67,8 @@ public class VideoCtrl : MonoBehaviour
         videoRawImg.texture = videoRenderTexture;
         //버튼 클릭했을때 파일 네임 받아오기
         vp.url = videoUrl + GameManager.instance.inhbtntPranAtflId;
+
+        Debug.Log(videoUrl + GameManager.instance.inhbtntPranAtflId);
      
         vp.prepareCompleted += Prepared;
         vp.Prepare();

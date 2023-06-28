@@ -178,7 +178,7 @@ public class PlaceMove : MonoBehaviour
                 //mapList[num].transform.Find("FrameGrp").GetComponent<VideoCtrl>().LoadVideo(urlHead + "yangpyeongAD.mp4");
 
                 // 프로젝트 내부 영상 불러와 재생
-                mapList[num].transform.Find("FrameGrp").GetComponent<VideoCtrl>().LoadVideo();
+                //mapList[num].transform.Find("FrameGrp").GetComponent<VideoCtrl>().LoadVideo();
             }
             else if(mapList[num].name == "GalleryGrp (1)")
             {
