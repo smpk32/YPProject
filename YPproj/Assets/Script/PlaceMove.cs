@@ -115,6 +115,8 @@ public class PlaceMove : MonoBehaviour
         }
         else if(GameManager.instance.multiState == "Multi" && num != 3)              // 강당에서 다른 장소로 이동할 때
         {
+            
+
             GameObject.Find("MainCanvas").gameObject.transform.Find("LoadingImage").gameObject.SetActive(true);
             GameObject.Find("MainCanvas").GetComponent<Chat>().CloseSocket();
             /*Debug.Log("강당에서 다른 장소로 이동할 때");
@@ -144,14 +146,9 @@ public class PlaceMove : MonoBehaviour
         }
         else if (GameManager.instance.multiState == "Single" && num != 3)      // 강당 외의 장소에서 강당 외의 장소로 이동할 때
         {
-            if (GameManager.instance.placeState == 2)
-            {
-                Camera.main.GetComponent<AudioSource>().mute = true;
-            }
-            else
-            {
-                Camera.main.GetComponent<AudioSource>().mute = false;
-            }
+      
+          
+         
             /*Debug.Log("강당 외의 장소에서 강당 외의 장소로 이동할 때");
             Debug.Log("Multi : Single  &  num : !3");*/
             //GameManager.instance.playerPrefab = GameObject.Find("PlayerObj");
@@ -179,10 +176,23 @@ public class PlaceMove : MonoBehaviour
 
                 // 프로젝트 내부 영상 불러와 재생
                 //mapList[num].transform.Find("FrameGrp").GetComponent<VideoCtrl>().LoadVideo();
+                
+                GameObject.Find("MainCanvas").transform.Find("SoundToggle").transform.gameObject.SetActive(false);
+                Camera.main.GetComponent<AudioSource>().mute = true;
+
             }
             else if(mapList[num].name == "GalleryGrp (1)")
             {
+                GameObject.Find("MainCanvas").transform.Find("SoundToggle").transform.gameObject.SetActive(true);
+                GameObject.Find("MainCanvas").transform.Find("SoundToggle").GetComponent<Toggle>().isOn = false;
+                Camera.main.GetComponent<AudioSource>().mute = false;
                 mapList[num].transform.Find("FrameGrp").GetComponent<FrameSet>().EnterGallery();
+            }
+            else
+            {
+                GameObject.Find("MainCanvas").transform.Find("SoundToggle").transform.gameObject.SetActive(true);
+                GameObject.Find("MainCanvas").transform.Find("SoundToggle").GetComponent<Toggle>().isOn = false;
+                Camera.main.GetComponent<AudioSource>().mute = false;
             }
 
             SetPlayerPos(num);
