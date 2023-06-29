@@ -104,7 +104,7 @@ public class PlaceMove : MonoBehaviour
     public void MapChange(int num)
     {
         GameManager.instance.SetState("normal");
-        GameManager.instance.placeState = num;
+       
         
         if (GameManager.instance.multiState == "Multi" && num == 3)                  // 강당 외의 장소에서 강당으로 이동 후 placeState를 0으로 세팅해줘야 SpawnSpot위치가 맞게 설정됨
         {
@@ -123,12 +123,10 @@ public class PlaceMove : MonoBehaviour
             Debug.Log("Multi : Multi  &  num : !3");*/
             GameManager.instance.multiState = "Single";
             GameManager.instance.Disconnect();
+
         }
         else if(GameManager.instance.multiState == "Single" && num == 3)       // 강당 외의 장소에서 강당으로 이동할 때
         {
-            /*Debug.Log("강당 외의 장소에서 강당으로 이동할 때");
-            Debug.Log("Multi : Single  &  num : 3");*/
-
             
            GameManager.instance.multiState = "Multi";
            GameObject.Find("MainCanvas").gameObject.transform.Find("LoadingImage").gameObject.SetActive(true);
@@ -140,18 +138,12 @@ public class PlaceMove : MonoBehaviour
             }
 
             GameObject.Find("MainSceneManager").GetComponent<MainSceneManager>().Enter();
-            
-            
+      
 
         }
         else if (GameManager.instance.multiState == "Single" && num != 3)      // 강당 외의 장소에서 강당 외의 장소로 이동할 때
         {
       
-          
-         
-            /*Debug.Log("강당 외의 장소에서 강당 외의 장소로 이동할 때");
-            Debug.Log("Multi : Single  &  num : !3");*/
-            //GameManager.instance.playerPrefab = GameObject.Find("PlayerObj");
             GameManager.instance.playerPrefab.transform.parent = null;
             GameManager.instance.playerPrefab.transform.Find("Player").GetComponent<PlayerController>().Sit(false, new Vector3(0, 0, 0), new Vector3(0, 0, 0), null);
             
@@ -169,36 +161,23 @@ public class PlaceMove : MonoBehaviour
             if (mapList[num].name == "AuditoriumGrp")
             {
                 //string urlHead = "http://192.168.1.113:8060/resources/unity/StreamingAssets/";
-                //string urlHead = "http://192.168.1.113:8080/files/";
 
-                // 파일서버에서 영상 불러와 재생
-                //mapList[num].transform.Find("FrameGrp").GetComponent<VideoCtrl>().LoadVideo(urlHead + "yangpyeongAD.mp4");
-
-                // 프로젝트 내부 영상 불러와 재생
-                //mapList[num].transform.Find("FrameGrp").GetComponent<VideoCtrl>().LoadVideo();
-                
                 GameObject.Find("MainCanvas").transform.Find("SoundToggle").transform.gameObject.SetActive(false);
                 Camera.main.GetComponent<AudioSource>().mute = true;
 
             }
             else if(mapList[num].name == "GalleryGrp (1)")
             {
-                GameObject.Find("MainCanvas").transform.Find("SoundToggle").transform.gameObject.SetActive(true);
-                GameObject.Find("MainCanvas").transform.Find("SoundToggle").GetComponent<Toggle>().isOn = false;
-                Camera.main.GetComponent<AudioSource>().mute = false;
+                
                 mapList[num].transform.Find("FrameGrp").GetComponent<FrameSet>().EnterGallery();
             }
-            else
-            {
-                GameObject.Find("MainCanvas").transform.Find("SoundToggle").transform.gameObject.SetActive(true);
-                GameObject.Find("MainCanvas").transform.Find("SoundToggle").GetComponent<Toggle>().isOn = false;
-                Camera.main.GetComponent<AudioSource>().mute = false;
-            }
+            
 
             SetPlayerPos(num);
 
         }
 
+        GameManager.instance.placeState = num;
     }
 
     // 플레이어 생성, 장소 이동 시 플레이어 캐릭터, 카메라 세팅

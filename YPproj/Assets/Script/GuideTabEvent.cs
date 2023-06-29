@@ -13,14 +13,17 @@ public class GuideTabEvent : MonoBehaviour
     public GameObject pagination;
     //스크롤뷰 상위 마스크
     public GameObject mask;
+
+    public GameObject turnButton;
     public void ClickGuideTab(int idx)
     {
         for (int i =0; i<5; i++)
         {
-            pagination.transform.GetChild(idx).transform.gameObject.SetActive(false);
-            mask.transform.GetChild(idx).transform.gameObject.SetActive(false);
+            pagination.transform.GetChild(i).transform.gameObject.SetActive(false);
+            mask.transform.GetChild(i).transform.gameObject.SetActive(false);
+            turnButton.transform.GetChild(i).transform.gameObject.SetActive(false);
             //선택된 탭 글자색 변경
-            guideTabToggle.transform.GetChild(idx).GetComponent<Toggle>().transform.Find("Text").transform.GetComponent<TextMeshProUGUI>().color = new Color32(255,255,255,255);
+            guideTabToggle.transform.GetChild(i).GetComponent<Toggle>().transform.Find("Text").transform.GetComponent<TextMeshProUGUI>().color = new Color32(255,255,255,255);
         }
 
         if (guideTabToggle.transform.GetChild(idx).GetComponent<Toggle>().isOn)
@@ -28,8 +31,8 @@ public class GuideTabEvent : MonoBehaviour
             
             mask.transform.GetChild(idx).transform.gameObject.SetActive(true);
             pagination.transform.GetChild(idx).transform.gameObject.SetActive(true);
-            guideTabToggle.transform.GetChild(idx).GetComponent<Toggle>().transform.Find("Text").transform.GetComponent<TextMeshProUGUI>().color = new Color32(67,82,145,255);    
-            
+            guideTabToggle.transform.GetChild(idx).GetComponent<Toggle>().transform.Find("Text").transform.GetComponent<TextMeshProUGUI>().color = new Color32(67,82,145,255);
+            turnButton.transform.GetChild(idx).transform.gameObject.SetActive(true);
         }
 
 
