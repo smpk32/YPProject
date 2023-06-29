@@ -104,7 +104,7 @@ public class PlaceMove : MonoBehaviour
     public void MapChange(int num)
     {
         GameManager.instance.SetState("normal");
-       
+        int prevState = GameManager.instance.placeState;
         
         if (GameManager.instance.multiState == "Multi" && num == 3)                  // 강당 외의 장소에서 강당으로 이동 후 placeState를 0으로 세팅해줘야 SpawnSpot위치가 맞게 설정됨
         {
@@ -138,7 +138,8 @@ public class PlaceMove : MonoBehaviour
             }
 
             GameObject.Find("MainSceneManager").GetComponent<MainSceneManager>().Enter();
-      
+            
+            
 
         }
         else if (GameManager.instance.multiState == "Single" && num != 3)      // 강당 외의 장소에서 강당 외의 장소로 이동할 때
@@ -160,24 +161,42 @@ public class PlaceMove : MonoBehaviour
 
             if (mapList[num].name == "AuditoriumGrp")
             {
-                //string urlHead = "http://192.168.1.113:8060/resources/unity/StreamingAssets/";
-
+             
+                // 프로젝트 내부 영상 불러와 재생
+                //mapList[num].transform.Find("FrameGrp").GetComponent<VideoCtrl>().LoadVideo();
+                
                 GameObject.Find("MainCanvas").transform.Find("SoundToggle").transform.gameObject.SetActive(false);
                 Camera.main.GetComponent<AudioSource>().mute = true;
 
             }
             else if(mapList[num].name == "GalleryGrp (1)")
             {
-                
+                GameObject.Find("MainCanvas").transform.Find("SoundToggle").transform.gameObject.SetActive(true);
+                GameObject.Find("MainCanvas").transform.Find("SoundToggle").GetComponent<Toggle>().isOn = false;
+                Camera.main.GetComponent<AudioSource>().mute = false;
                 mapList[num].transform.Find("FrameGrp").GetComponent<FrameSet>().EnterGallery();
             }
-            
+            else
+            {
+                
+
+            }
+            if (prevState== 2 )
+            {
+                if (num == 0 || num == 1)
+                {
+                    GameObject.Find("MainCanvas").transform.Find("SoundToggle").transform.gameObject.SetActive(true);
+                    GameObject.Find("MainCanvas").transform.Find("SoundToggle").GetComponent<Toggle>().isOn = false;
+                    Camera.main.GetComponent<AudioSource>().mute = false;
+                }
+            }
 
             SetPlayerPos(num);
 
         }
-
+        Debug.Log("이전 stage = " +GameManager.instance.placeState);
         GameManager.instance.placeState = num;
+        Debug.Log("현재 stage = " + GameManager.instance.placeState);
     }
 
     // 플레이어 생성, 장소 이동 시 플레이어 캐릭터, 카메라 세팅

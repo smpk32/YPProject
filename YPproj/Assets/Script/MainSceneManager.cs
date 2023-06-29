@@ -13,7 +13,7 @@ public class MainSceneManager : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     void Start()
     {
-        if (GameManager.instance.placeState == 3)
+        if (GameManager.instance.placeState == 0 || GameManager.instance.placeState == 1)
         {
             GameObject.Find("MainCanvas").transform.Find("SoundToggle").transform.gameObject.SetActive(true);
             GameObject.Find("MainCanvas").transform.Find("SoundToggle").GetComponent<Toggle>().isOn = false;
