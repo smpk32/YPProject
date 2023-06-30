@@ -204,7 +204,7 @@ public class Chat : MonoBehaviour
         ChatData chatData = JsonUtility.FromJson<ChatData>(e.Data);
 
 
-        Debug.Log("unity : " + e.Data);
+        //Debug.Log("unity : " + e.Data);
         // 다른 유저가 메세지보냈을 때
         if (chatData.type == "msg")
         {
@@ -226,7 +226,7 @@ public class Chat : MonoBehaviour
         // 다른 유저가 이미지보냈을 때
         else if (chatData.type == "sendFile")
         {
-            Debug.Log("타입 : " + chatData.type + "  보낸사람 : " + chatData.sender + "  msg : " + chatData.filePath);
+            //Debug.Log("타입 : " + chatData.type + "  보낸사람 : " + chatData.sender + "  msg : " + chatData.filePath);
 
             // 보낸 사람명 채팅창에 출력
             GameObject chaNmTxtObj = Instantiate(chatNmObj);
@@ -249,7 +249,7 @@ public class Chat : MonoBehaviour
             }
             else
             {
-                Debug.Log(sessionId);
+                //Debug.Log(sessionId);
                 GameManager.instance.nickNm = chatData.sender;
                 GameManager.instance.playerPrefab.GetComponent<SetPlayerNm>().SetNickNmPhotonAll();
             }
@@ -283,14 +283,14 @@ public class Chat : MonoBehaviour
         {
             if(chatData.isMaster)
             {
-                Debug.Log("군수님이 보냄");
+                //Debug.Log("군수님이 보냄");
                 return;
             }
 
             if(GameManager.instance.isMaster)
             {
-                Debug.Log("유저 접속");
-                Debug.Log(chatData.sender);
+                //Debug.Log("유저 접속");
+                //Debug.Log(chatData.sender);
                 GameObject chatObj = Instantiate(userListObj);
                 chatObj.GetComponent<TextMeshProUGUI>().text = chatData.sender;
                 chatObj.transform.SetParent(userListContent.transform);
@@ -302,7 +302,7 @@ public class Chat : MonoBehaviour
         // 유저 음소거
         else if(chatData.type == "muteUser")
         {
-            Debug.Log(chatData.isMute);
+            //Debug.Log(chatData.isMute);
             if(chatData.receiver == GameManager.instance.nickNm)
             {
                 if (chatData.isMute)
@@ -329,8 +329,8 @@ public class Chat : MonoBehaviour
         {
             if (GameManager.instance.isMaster)
             {
-                Debug.Log("유저 나감");
-                Debug.Log(chatData.sender);
+                //Debug.Log("유저 나감");
+                //Debug.Log(chatData.sender);
                 userListContent = userListView.transform.Find("Scroll View").Find("Viewport").Find("Content").gameObject;
                 
                 TextMeshProUGUI[] childList = userListContent.GetComponentsInChildren<TextMeshProUGUI>();
@@ -381,7 +381,7 @@ public class Chat : MonoBehaviour
             chatObj.transform.localScale = new Vector3(1, 1, 1);
         
         }else if(chatData.type == "sendFile"){
-            Debug.Log("타입 : "+chatData.type + "  보낸사람 : " + chatData.sender + "  msg : " + chatData.filePath);
+            //Debug.Log("타입 : "+chatData.type + "  보낸사람 : " + chatData.sender + "  msg : " + chatData.filePath);
 
             // 보낸 사람명 채팅창에 출력
             GameObject chaNmTxtObj = Instantiate(chatNmObj);
@@ -411,7 +411,7 @@ public class Chat : MonoBehaviour
 
             if (chatData.isMaster)
             {
-                Debug.Log("군수님이 보냄");
+                //Debug.Log("군수님이 보냄");
                 return;
             }
 
@@ -433,14 +433,14 @@ public class Chat : MonoBehaviour
         {
             if(chatData.isMaster)
             {
-                Debug.Log("군수님이 보냄");
+                //Debug.Log("군수님이 보냄");
                 return;
             }
 
             if(GameManager.instance.isMaster)
             {
-                Debug.Log("유저 접속");
-                Debug.Log(chatData.sender);
+                //Debug.Log("유저 접속");
+                //Debug.Log(chatData.sender);
                 GameObject chatObj = Instantiate(userListObj);
                 chatObj.GetComponent<TextMeshProUGUI>().text = chatData.sender;
                 chatObj.transform.SetParent(userListContent.transform);
@@ -461,7 +461,7 @@ public class Chat : MonoBehaviour
         }
         else if(chatData.type == "muteUser")
         {
-            Debug.Log(chatData.isMute);
+            //Debug.Log(chatData.isMute);
             if(chatData.receiver == GameManager.instance.nickNm)
             {
                 if (chatData.isMute)
@@ -487,8 +487,8 @@ public class Chat : MonoBehaviour
         {
             if (GameManager.instance.isMaster)
             {
-                Debug.Log("유저 나감");
-                Debug.Log(chatData.sender);
+                //Debug.Log("유저 나감");
+                //Debug.Log(chatData.sender);
 
                 TextMeshProUGUI[] childList = userListContent.GetComponentsInChildren<TextMeshProUGUI>();
 
@@ -534,8 +534,6 @@ public class Chat : MonoBehaviour
                 return;
             }
 
-            Debug.Log("보낼 메세지 : " + msg);
-
             chatField.text = "";
             chatData.message = msg;
 
@@ -563,15 +561,15 @@ public class Chat : MonoBehaviour
                 splitMsg = imgFilePath.Split('/');
             }
 
-            Debug.Log("message : " + splitMsg[splitMsg.Length - 1]);
-            Debug.Log("imgFilePath : " + imgFilePath);
+            //Debug.Log("message : " + splitMsg[splitMsg.Length - 1]);
+            //Debug.Log("imgFilePath : " + imgFilePath);
             chatData.filePath = splitMsg[splitMsg.Length - 1];
 
         }
         // 관리자 접속
         else if (type == "master")
         {
-            Debug.Log("master!!");
+            //Debug.Log("master!!");
             chatData.sessionId = sessionId;
             if (GameManager.instance.playerPrefab == null)
             {
@@ -582,21 +580,21 @@ public class Chat : MonoBehaviour
         // 유저 접속
         else if (type == "createUsr")
         {
-            Debug.Log("createUsr!!");
+            //Debug.Log("createUsr!!");
             chatData.sessionId = sessionId;
             chatData.sender = GameManager.instance.originNickNm;
         }
         // 유저 정보 전달
         else if (type == "sendUsrInfo")
         {
-            Debug.Log("sendUsrInfo!!");
+            //Debug.Log("sendUsrInfo!!");
             chatData.sessionId = sessionId;
             //chatData.sender = GameManager.instance.nickNm;
         }
         // 유저 나갔을 때
         else if ( type == "quitUserInfo")
         {
-            Debug.Log("quitUserInfo!!");
+            //Debug.Log("quitUserInfo!!");
         }
 #if PLATFORM_STANDALONE_WIN || UNITY_EDITOR
         ws.Send(JsonUtility.ToJson(chatData));//서버에게 메세지 전달

@@ -194,9 +194,9 @@ public class PlaceMove : MonoBehaviour
             SetPlayerPos(num);
 
         }
-        Debug.Log("이전 stage = " +GameManager.instance.placeState);
+
         GameManager.instance.placeState = num;
-        Debug.Log("현재 stage = " + GameManager.instance.placeState);
+
     }
 
     // 플레이어 생성, 장소 이동 시 플레이어 캐릭터, 카메라 세팅

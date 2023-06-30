@@ -261,13 +261,18 @@ public class FrameSet : MonoBehaviour
     {
         OpenFloorBtnList(false);
 
+        System.GC.Collect();
+        Resources.UnloadUnusedAssets();
+
         if (pageNum == floor)
         {
             return;
         }
-        loadingPanel.SetActive(true);
+        //loadingPanel.SetActive(true);
 
         pageNum = floor;
+
+        
 
         floorTMP.text = (pageNum + 1).ToString() + "F";
 
@@ -281,7 +286,7 @@ public class FrameSet : MonoBehaviour
 
         if (imgPath == ImgPath.Server)
         {
-            SetServerImg();
+            StartCoroutine(SetServerImg());
             //StartCoroutine(SelectEventDtlList());
         }
         else
@@ -291,7 +296,7 @@ public class FrameSet : MonoBehaviour
 
     }
 
-    public void SetServerImg()
+    public IEnumerator SetServerImg()
     {
         int startCnt = (pageNum == 0) ? 0 : (pageMaxCnt * pageNum );
 
@@ -300,11 +305,11 @@ public class FrameSet : MonoBehaviour
 
         for (int i = startCnt; i < startCnt+(pageMaxCnt); i++)
         {
+            rawImgList[nowCnt].preserveAspect = false;
+            rawImgList[nowCnt].sprite = defaultTexture;
             if (i >= eventDtlListBaseTable.Rows.Count)
             {
                 rawImgList[nowCnt].GetComponent<FrameInfo>().frameDtlInfo = new FrameInfo.FrameDtlInfo(null, null);
-                rawImgList[nowCnt].preserveAspect = false;
-                rawImgList[nowCnt].sprite = defaultTexture;
                 nowCnt++;
                 ImgCnt++;
                 continue;
@@ -317,14 +322,14 @@ public class FrameSet : MonoBehaviour
             string atflId = row["atfl_id"].ToString();
             string cntntsNm = row["cntnts_nm"].ToString();
             string cntntsDc = row["cntnts_dc"].ToString();
-
+            yield return new WaitForSecondsRealtime(0.1f);
             StartCoroutine(LoadImageTexture(rawImgList[nowCnt], atflId, cntntsNm, cntntsDc));
 
             nowCnt++;
 
         }
         
-        loadingPanel.SetActive(false);
+        //loadingPanel.SetActive(false);
     }
 
 
@@ -375,10 +380,10 @@ public class FrameSet : MonoBehaviour
 
         }
 
-        /*if(ImgCnt == pageMaxCnt)
+        if(ImgCnt == pageMaxCnt)
         {
             loadingPanel.SetActive(false);
-        }*/
+        }
 
 
 
@@ -387,6 +392,7 @@ public class FrameSet : MonoBehaviour
     public void SetMainPoster(string fileId, string eventNm, string eventDc)
     {
         Image posterImg = GameObject.Find("Map").transform.Find("GalleryGrp (1)").transform.Find("Wall").transform.Find("Poster").transform.Find("PosterImage").GetComponent<Image>();
+        posterImg.sprite = defaultTexture;
         posterImg.preserveAspect = true;
 
         GameObject.Find("Map").transform.Find("GalleryGrp (1)").transform.Find("FrameGrp").transform.Find("FloorCanvas").transform.Find("TopBarMiddle").transform.Find("Text (TMP)").GetComponent<TextMeshProUGUI>().text = GameManager.instance.eventNm;
