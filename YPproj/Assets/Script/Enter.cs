@@ -12,6 +12,9 @@ public class Enter : MonoBehaviour
 #if UNITY_WEBGL && !UNITY_EDITOR
     [DllImport("__Internal")]
     private static extern bool BadWordCheck(string msg);
+
+    [DllImport("__Internal")]
+    private static extern void OpenFullScreen();
 #endif
     string Check;
     string nmText;
@@ -92,6 +95,10 @@ public class Enter : MonoBehaviour
         else
         {
             GameManager.instance.CreateSingleChacracter();
+
+#if UNITY_WEBGL && !UNITY_EDITOR
+            OpenFullScreen();
+#endif
             Debug.Log("캐릭터생성 성공");
         }
            
