@@ -25,31 +25,18 @@ public class SetPlayerNm : MonoBehaviourPunCallbacks
         GameObject nf = playerSetPanel.transform.Find("Canvas").transform.Find("Form").transform.Find("NickNmInputField").gameObject;
 
 
-        if (nf.GetComponent<TMP_InputField>().text == "")
+        // 처음 입장 후 입력값없을 때
+        if (nf.GetComponent<TMP_InputField>().text == "" && GameManager.instance.nickNm.Equals(""))
         {
             GameManager.instance.nickNm = "사용자";
             GameManager.instance.originNickNm = "사용자";
         }
-        else
+        // 입력값있을 때
+        else if(nf.GetComponent<TMP_InputField>().text != "")
         {
             GameManager.instance.nickNm = nf.GetComponent<TMP_InputField>().text;
             GameManager.instance.originNickNm = nf.GetComponent<TMP_InputField>().text;
-
         }
-        /*if (GameManager.instance.nickNm == "")
-        {
-            GameManager.instance.nickNm = nf.GetComponent<TMP_InputField>().text;
-            GameManager.instance.originNickNm = nf.GetComponent<TMP_InputField>().text;
-
-
-            // 유저가 ID 입력 안했을 경우 체크하기위해 한번 더 체크
-            if (GameManager.instance.nickNm == "")
-            {
-                
-                return;
-            }
-            playerSetPanel.SetActive(false);
-        }*/
 
         GameManager.instance.playerState = PlayerState.normal;
         
