@@ -322,7 +322,7 @@ public class FrameSet : MonoBehaviour
             string atflId = row["atfl_id"].ToString();
             string cntntsNm = row["cntnts_nm"].ToString();
             string cntntsDc = row["cntnts_dc"].ToString();
-            yield return new WaitForSecondsRealtime(0.1f);
+            yield return new WaitForSecondsRealtime(0.2f);
             StartCoroutine(LoadImageTexture(rawImgList[nowCnt], atflId, cntntsNm, cntntsDc));
 
             nowCnt++;
